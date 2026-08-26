@@ -1,0 +1,467 @@
+{
+  "schema": "sana.e14.n1-static-fixture-corpus.v1",
+  "profile_kind": "P3_N1_CONTROL_CLOSURE_V1",
+  "authority_effect": "NONE",
+  "fixture_identifiers": "NONAUTHORITATIVE_PLACEHOLDERS",
+  "limitation": "Test-only scenarios; no content roots, keys, signatures, live paths, authorization, or terminal authority.",
+  "defaults": {
+    "phase": "FINALIZATION",
+    "selector": "N1",
+    "consumer": "N1",
+    "schema_status": "SUPPORTED",
+    "artifact_kind": "N1_RUN_EVIDENCE_CANDIDATE",
+    "actor_role": "G9_FINALIZER",
+    "role_scope": "VALID",
+    "issuer_policy": "VALID",
+    "qualification": "VALID",
+    "manifest_equality": "MATCH",
+    "scanner_noninterpretation": "PASS",
+    "executable_store_closure": "PASS",
+    "ledger_qualification": "PASS",
+    "preparation_execution": "NONE",
+    "unqualified_hooks": "NONE",
+    "exclusive_start": "PROVEN",
+    "authorization": "VALID",
+    "nonce": "FRESH",
+    "predecessor": "MATCH",
+    "ledger": "AVAILABLE",
+    "ledger_cas": "SUCCEEDS",
+    "output_reservation": "EXCLUSIVE",
+    "output_initial": "EMPTY",
+    "output_identity": "MATCH",
+    "output_attachment": "EXCLUSIVE",
+    "container_identity": "MATCH",
+    "candidate": "PRESENT_UNIQUE_FRESH",
+    "candidate_authority_claim": "NONE",
+    "evidence": "COMPLETE",
+    "scanner_result": "ACCEPT",
+    "revocation": "CLEAR",
+    "finalizer_identity": "MATCH",
+    "requested_outcome": "PASS",
+    "fallback": "NONE"
+  },
+  "cases": [
+    {
+      "case_id": "N1-ROUTE-01",
+      "description": "Absent selector preserves strict legacy routing.",
+      "overrides": {
+        "phase": "ROUTING",
+        "selector": "ABSENT",
+        "consumer": "LEGACY"
+      },
+      "expected": {
+        "decision": "ROUTE_STRICT_LEGACY",
+        "detail_code": null
+      }
+    },
+    {
+      "case_id": "N1-ROUTE-02",
+      "description": "Legacy consumer must reject an N1 artifact.",
+      "overrides": {
+        "phase": "ROUTING",
+        "consumer": "LEGACY"
+      },
+      "expected": {
+        "decision": "NO_TERMINAL_STOP",
+        "detail_code": "N1_LEGACY_MAPPING_FORBIDDEN"
+      }
+    },
+    {
+      "case_id": "N1-ROUTE-03",
+      "description": "N1 consumer must reject a legacy artifact.",
+      "overrides": {
+        "phase": "ROUTING",
+        "selector": "LEGACY",
+        "artifact_kind": "LEGACY_G7_PASS"
+      },
+      "expected": {
+        "decision": "NO_TERMINAL_STOP",
+        "detail_code": "N1_PROFILE_KIND_MISMATCH"
+      }
+    },
+    {
+      "case_id": "N1-ROUTE-04",
+      "description": "Unknown N1 schema fails closed without fallback.",
+      "overrides": {
+        "phase": "ROUTING",
+        "schema_status": "UNKNOWN"
+      },
+      "expected": {
+        "decision": "NO_TERMINAL_STOP",
+        "detail_code": "N1_SCHEMA_UNSUPPORTED"
+      }
+    },
+    {
+      "case_id": "N1-QUAL-01",
+      "description": "Complete qualification predicates produce a nonauthorizing profile qualification.",
+      "overrides": {
+        "phase": "QUALIFICATION",
+        "actor_role": "QUALIFICATION_ISSUER"
+      },
+      "expected": {
+        "decision": "N1_PROFILE_QUALIFIED",
+        "detail_code": null
+      }
+    },
+    {
+      "case_id": "N1-QUAL-02",
+      "description": "A G8 role cannot issue profile qualification.",
+      "overrides": {
+        "phase": "QUALIFICATION",
+        "actor_role": "G8_AUTHORIZER",
+        "role_scope": "INVALID"
+      },
+      "expected": {
+        "decision": "N1_UNAVAILABLE",
+        "detail_code": "N1_ROLE_SCOPE_MISMATCH"
+      }
+    },
+    {
+      "case_id": "N1-QUAL-03",
+      "description": "An extra or missing final-view entry blocks qualification.",
+      "overrides": {
+        "phase": "QUALIFICATION",
+        "actor_role": "QUALIFICATION_ISSUER",
+        "manifest_equality": "MISMATCH"
+      },
+      "expected": {
+        "decision": "N1_UNAVAILABLE",
+        "detail_code": "N1_NORMATIVE_MANIFEST_MISMATCH"
+      }
+    },
+    {
+      "case_id": "N1-QUAL-04",
+      "description": "Unproven input noninterpretation blocks qualification.",
+      "overrides": {
+        "phase": "QUALIFICATION",
+        "actor_role": "QUALIFICATION_ISSUER",
+        "scanner_noninterpretation": "FAIL"
+      },
+      "expected": {
+        "decision": "N1_UNAVAILABLE",
+        "detail_code": "N1_INPUT_NONINTERPRETATION_UNPROVEN"
+      }
+    },
+    {
+      "case_id": "N1-QUAL-05",
+      "description": "Incomplete executable-store closure blocks qualification.",
+      "overrides": {
+        "phase": "QUALIFICATION",
+        "actor_role": "QUALIFICATION_ISSUER",
+        "executable_store_closure": "FAIL"
+      },
+      "expected": {
+        "decision": "N1_UNAVAILABLE",
+        "detail_code": "N1_EXECUTABLE_STORE_CLOSURE_UNPROVEN"
+      }
+    },
+    {
+      "case_id": "N1-QUAL-06",
+      "description": "An unqualified local CAS ledger blocks qualification.",
+      "overrides": {
+        "phase": "QUALIFICATION",
+        "actor_role": "QUALIFICATION_ISSUER",
+        "ledger_qualification": "FAIL"
+      },
+      "expected": {
+        "decision": "N1_UNAVAILABLE",
+        "detail_code": "N1_LEDGER_UNQUALIFIED"
+      }
+    },
+    {
+      "case_id": "N1-PREP-01",
+      "description": "Safe stopped preparation is nonauthorizing.",
+      "overrides": {
+        "phase": "PREPARATION",
+        "actor_role": "CONTROLLER"
+      },
+      "expected": {
+        "decision": "N1_CONTAINER_PREPARED",
+        "detail_code": null
+      }
+    },
+    {
+      "case_id": "N1-PREP-02",
+      "description": "Guest execution during create-only preparation blocks N1.",
+      "overrides": {
+        "phase": "PREPARATION",
+        "actor_role": "CONTROLLER",
+        "preparation_execution": "DETECTED"
+      },
+      "expected": {
+        "decision": "N1_UNAVAILABLE",
+        "detail_code": "N1_PREPARATION_EXECUTION_DETECTED"
+      }
+    },
+    {
+      "case_id": "N1-PREP-03",
+      "description": "An unqualified OCI hook during preparation blocks N1.",
+      "overrides": {
+        "phase": "PREPARATION",
+        "actor_role": "CONTROLLER",
+        "unqualified_hooks": "DETECTED"
+      },
+      "expected": {
+        "decision": "N1_UNAVAILABLE",
+        "detail_code": "N1_UNQUALIFIED_HOOK_EXECUTION"
+      }
+    },
+    {
+      "case_id": "N1-PREP-04",
+      "description": "Preparation without exclusive controller start capability is unavailable.",
+      "overrides": {
+        "phase": "PREPARATION",
+        "actor_role": "CONTROLLER",
+        "exclusive_start": "UNPROVEN"
+      },
+      "expected": {
+        "decision": "N1_UNAVAILABLE",
+        "detail_code": "N1_EXCLUSIVE_START_UNPROVEN"
+      }
+    },
+    {
+      "case_id": "N1-AUTH-01",
+      "description": "A fresh exact G8 authorization may authorize one start.",
+      "overrides": {
+        "phase": "AUTHORIZATION",
+        "actor_role": "G8_AUTHORIZER"
+      },
+      "expected": {
+        "decision": "G8_N1_RUN_AUTHORIZED",
+        "detail_code": null
+      }
+    },
+    {
+      "case_id": "N1-AUTH-02",
+      "description": "The qualification issuer cannot issue G8 start authority.",
+      "overrides": {
+        "phase": "AUTHORIZATION",
+        "actor_role": "QUALIFICATION_ISSUER",
+        "role_scope": "INVALID"
+      },
+      "expected": {
+        "decision": "NO_TERMINAL_STOP",
+        "detail_code": "N1_ROLE_SCOPE_MISMATCH"
+      }
+    },
+    {
+      "case_id": "N1-AUTH-03",
+      "description": "A replayed nonce stops before start and emits no terminal.",
+      "overrides": {
+        "phase": "AUTHORIZATION",
+        "actor_role": "G8_AUTHORIZER",
+        "nonce": "REPLAYED"
+      },
+      "expected": {
+        "decision": "NO_TERMINAL_STOP",
+        "detail_code": "N1_AUTH_NONCE_REPLAY"
+      }
+    },
+    {
+      "case_id": "N1-AUTH-04",
+      "description": "A predecessor mismatch stops before start.",
+      "overrides": {
+        "phase": "AUTHORIZATION",
+        "actor_role": "G8_AUTHORIZER",
+        "predecessor": "MISMATCH"
+      },
+      "expected": {
+        "decision": "NO_TERMINAL_STOP",
+        "detail_code": "N1_PREDECESSOR_MISMATCH"
+      }
+    },
+    {
+      "case_id": "N1-AUTH-05",
+      "description": "A nonexclusive output reservation prevents authorization.",
+      "overrides": {
+        "phase": "AUTHORIZATION",
+        "actor_role": "G8_AUTHORIZER",
+        "output_reservation": "NOT_EXCLUSIVE"
+      },
+      "expected": {
+        "decision": "NO_TERMINAL_STOP",
+        "detail_code": "N1_OUTPUT_RESERVATION_NOT_EXCLUSIVE"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-01",
+      "description": "Complete accepted evidence produces PASS only through G9.",
+      "overrides": {},
+      "expected": {
+        "decision": "N1_FINAL_PASS",
+        "detail_code": null
+      }
+    },
+    {
+      "case_id": "N1-FINAL-02",
+      "description": "A complete determinate scanner rejection produces DENY.",
+      "overrides": {
+        "scanner_result": "REJECT",
+        "requested_outcome": "DENY"
+      },
+      "expected": {
+        "decision": "N1_FINAL_DENY",
+        "detail_code": "N1_SCANNER_POLICY_REJECTION"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-03",
+      "description": "Infrastructure uncertainty requested as DENY is forced to BLOCK.",
+      "overrides": {
+        "evidence": "INCOMPLETE",
+        "requested_outcome": "DENY"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_EVIDENCE_TIMEOUT"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-04",
+      "description": "Output object substitution blocks stale or foreign output.",
+      "overrides": {
+        "output_identity": "MISMATCH"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_OUTPUT_IDENTITY_CHANGED"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-05",
+      "description": "Concurrent output attachment blocks finalization.",
+      "overrides": {
+        "output_attachment": "CONCURRENT"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_OUTPUT_CONCURRENT_ATTACHMENT"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-06",
+      "description": "A missing candidate cannot become PASS or DENY.",
+      "overrides": {
+        "candidate": "MISSING"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_CANDIDATE_MISSING"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-07",
+      "description": "A prior valid candidate replayed under a new run blocks.",
+      "overrides": {
+        "candidate": "REPLAYED"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_CANDIDATE_REPLAY"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-08",
+      "description": "Conflicting candidates block exactly-one-final semantics.",
+      "overrides": {
+        "candidate": "CONFLICTING"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_CANDIDATE_CONFLICT"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-09",
+      "description": "A guest authority claim is rejected even when other evidence matches.",
+      "overrides": {
+        "candidate_authority_claim": "GUEST_PASS"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_GUEST_AUTHORITY_CLAIM"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-10",
+      "description": "Qualification revocation during a run blocks at finalization.",
+      "overrides": {
+        "revocation": "REVOKED"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_QUALIFICATION_REVOKED"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-11",
+      "description": "Finalizer identity drift blocks terminal creation.",
+      "overrides": {
+        "finalizer_identity": "MISMATCH"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_FINALIZER_IDENTITY_MISMATCH"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-12",
+      "description": "A failed compare-and-set blocks rather than retrying.",
+      "overrides": {
+        "ledger_cas": "FAILS"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_FINAL_STATE_CAS_FAILED"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-13",
+      "description": "Ledger unavailability makes finalization indeterminate.",
+      "overrides": {
+        "ledger": "UNAVAILABLE"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_LEDGER_UNAVAILABLE"
+      }
+    },
+    {
+      "case_id": "N1-FINAL-14",
+      "description": "Actual container mismatch blocks candidate rebinding.",
+      "overrides": {
+        "container_identity": "MISMATCH"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_CONTAINER_ID_MISMATCH"
+      }
+    },
+    {
+      "case_id": "N1-ROLLBACK-01",
+      "description": "Revoked N1 work cannot fall back to legacy strict processing.",
+      "overrides": {
+        "phase": "ROLLBACK",
+        "revocation": "REVOKED",
+        "fallback": "STRICT_LEGACY"
+      },
+      "expected": {
+        "decision": "N1_INDETERMINATE_BLOCK",
+        "detail_code": "N1_FALLBACK_FORBIDDEN"
+      }
+    },
+    {
+      "case_id": "N1-ROLLBACK-02",
+      "description": "A disabled selector makes new N1 work unavailable without changing legacy.",
+      "overrides": {
+        "phase": "ROLLBACK",
+        "selector": "DISABLED",
+        "revocation": "REVOKED"
+      },
+      "expected": {
+        "decision": "N1_UNAVAILABLE",
+        "detail_code": "N1_QUALIFICATION_REVOKED"
+      }
+    }
+  ]
+}

@@ -16,6 +16,7 @@ Generated under user authorization for evidence production only. The installed
 | P5 design Chief disposition | **DEFER PENDING NAMED EVIDENCE** | A fresh real-subagent three-round debate accepted revised A+B as coherent P3 and rejected grader inference, but requires F2/F3, adversarial review, schema/consumer authority, projection, grader, epoch rollback, and cost evidence before approval. |
 | P5 bounded implementation/live gates | **PASS** | 67 tests and 18 adversarial traces pass; F2 detects both gold issues at specificity 1.0; F3 short/noisy remain zero-cycle and clean. |
 | P5 fresh evidence re-adjudication | **DEFER PENDING NAMED EVIDENCE** | Behavioral/reference gates pass, but real authority-route inventory, runtime enforcement, legacy round-trip, actual receipts/replay, live lineage canary, and end-to-end cost remain incomplete. |
+| E14 P3-N1 design and D0 fixtures | **DESIGN APPROVED; D0 PASS** | Chief approved the additive A2-only dedicated-image control-closure design. Lifecycle schema and 35 nonauthoritative static cases pass locally; no N1 runtime or authority exists. |
 
 ## Automated result
 
@@ -25,7 +26,7 @@ Command:
 python -m unittest discover -s tests -v
 ```
 
-Result: **67 tests passed, 0 failed**.
+Result: **92 tests passed, 0 failed**.
 
 Coverage includes:
 
@@ -60,6 +61,11 @@ Coverage includes:
   unjustified batching, projection loss, authority bypass, stale epochs, missing acknowledgements,
   receipt mismatch, and future historical interpretation.
 - P5 blind graders redact both protocol and materiality-contract IDs.
+- the P3-N1 lifecycle schema validates all seven artifact kinds and rejects fixture-carried authority,
+  guest authority claims, and guest execution during preparation;
+- 35 nonauthoritative N1 scenarios preserve strict routing, role separation, dual closure,
+  no-guest preparation, nonce/predecessor single use, immutable output identity, candidate
+  nonauthority, PASS/DENY/BLOCK separation, revocation, and no-fallback rollback.
 
 ## E6 harness result
 
@@ -141,4 +147,14 @@ decision plus net-assurance evidence. G8/G9/A2 remain blocked; no admission root
 denial terminal was created. See
 `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-g7-observation-gap-debate.md`.
 
-The current repository test result is **83 tests passed, 0 failed**.
+The P3 owner selected the narrow path. A second fresh-thread three-round debate closed all rounds as
+`modified`, and the Chief approved `P3_N1_CONTROL_CLOSURE_V1` for design only. The current large
+image is ineligible; a future N1 implementation requires a dedicated exact-manifest image, dual
+executable-store/input-noninterpretation closure, separated policy/qualification/G8/controller/G9
+roles, immutable output reservation, a qualified local CAS ledger, a nonauthoritative candidate,
+and external finalization. The D0 document/schema/static-fixture phase is complete. It created no
+N1 runtime component, qualification, authorization, admission root, or terminal. See
+`docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-debate.md` and
+`docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-spec.md`.
+
+The current repository test result is **92 tests passed, 0 failed**.

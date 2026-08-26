@@ -1,0 +1,852 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sana.invalid/schemas/e14-a2-n1-lifecycle-v1.schema.json",
+  "title": "E14 A2 P3-N1 lifecycle artifact",
+  "type": "object",
+  "required": [
+    "schema",
+    "artifact_kind",
+    "profile_kind",
+    "content_root",
+    "fixture_only",
+    "authority_effect",
+    "payload"
+  ],
+  "properties": {
+    "schema": {
+      "const": "sana.e14.n1.lifecycle-artifact.v1"
+    },
+    "artifact_kind": {
+      "enum": [
+        "N1_ISSUER_POLICY",
+        "N1_PROFILE_QUALIFIED",
+        "N1_OUTPUT_RESERVED",
+        "N1_CONTAINER_PREPARED",
+        "G8_N1_RUN_AUTHORIZED",
+        "N1_RUN_EVIDENCE_CANDIDATE",
+        "G9_N1_TERMINAL"
+      ]
+    },
+    "profile_kind": {
+      "const": "P3_N1_CONTROL_CLOSURE_V1"
+    },
+    "content_root": {
+      "$ref": "#/$defs/typedRoot"
+    },
+    "fixture_only": {
+      "type": "boolean"
+    },
+    "authority_effect": {
+      "enum": [
+        "NONE",
+        "START_ONCE",
+        "ADMISSION_TERMINAL"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "fixture_only": {
+            "const": true
+          }
+        },
+        "required": [
+          "fixture_only"
+        ]
+      },
+      "then": {
+        "properties": {
+          "authority_effect": {
+            "const": "NONE"
+          }
+        }
+      }
+    }
+  ],
+  "oneOf": [
+    {
+      "$ref": "#/$defs/issuerPolicyArtifact"
+    },
+    {
+      "$ref": "#/$defs/profileQualifiedArtifact"
+    },
+    {
+      "$ref": "#/$defs/outputReservedArtifact"
+    },
+    {
+      "$ref": "#/$defs/containerPreparedArtifact"
+    },
+    {
+      "$ref": "#/$defs/runAuthorizedArtifact"
+    },
+    {
+      "$ref": "#/$defs/runEvidenceArtifact"
+    },
+    {
+      "$ref": "#/$defs/terminalArtifact"
+    }
+  ],
+  "unevaluatedProperties": false,
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9A-F]{64}$"
+    },
+    "typedRoot": {
+      "type": "string",
+      "pattern": "^sha256-jcs-e14-n1-v1:[0-9a-f]{64}$"
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "rootMap": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/typedRoot"
+      },
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*$"
+      }
+    },
+    "shaMap": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/$defs/sha256"
+      },
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*$"
+      }
+    },
+    "roleMap": {
+      "type": "object",
+      "required": [
+        "policy_issuer",
+        "qualification_issuer",
+        "g8_authorizer",
+        "controller",
+        "g9_finalizer"
+      ],
+      "properties": {
+        "policy_issuer": {
+          "$ref": "#/$defs/identifier"
+        },
+        "qualification_issuer": {
+          "$ref": "#/$defs/identifier"
+        },
+        "g8_authorizer": {
+          "$ref": "#/$defs/identifier"
+        },
+        "controller": {
+          "$ref": "#/$defs/identifier"
+        },
+        "g9_finalizer": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "additionalProperties": false
+    },
+    "platformTuple": {
+      "type": "object",
+      "required": [
+        "host_os_build",
+        "virtualization_backend",
+        "docker_desktop_build",
+        "engine_build",
+        "containerd_build",
+        "runc_build",
+        "linux_kernel_build",
+        "architecture",
+        "cgroup_mode",
+        "security_options_root",
+        "seccomp_policy_sha256"
+      ],
+      "properties": {
+        "host_os_build": {
+          "$ref": "#/$defs/identifier"
+        },
+        "virtualization_backend": {
+          "$ref": "#/$defs/identifier"
+        },
+        "docker_desktop_build": {
+          "$ref": "#/$defs/identifier"
+        },
+        "engine_build": {
+          "$ref": "#/$defs/identifier"
+        },
+        "containerd_build": {
+          "$ref": "#/$defs/identifier"
+        },
+        "runc_build": {
+          "$ref": "#/$defs/identifier"
+        },
+        "linux_kernel_build": {
+          "$ref": "#/$defs/identifier"
+        },
+        "architecture": {
+          "enum": [
+            "amd64",
+            "arm64"
+          ]
+        },
+        "cgroup_mode": {
+          "$ref": "#/$defs/identifier"
+        },
+        "security_options_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "seccomp_policy_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    },
+    "validity": {
+      "type": "object",
+      "required": [
+        "issued_at",
+        "not_before",
+        "expires_at"
+      ],
+      "properties": {
+        "issued_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "not_before": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "#/$defs/timestamp"
+        }
+      },
+      "additionalProperties": false
+    },
+    "issuerPolicyPayload": {
+      "type": "object",
+      "required": [
+        "scope",
+        "roles",
+        "environment_predicates_root",
+        "evidence_predicates_root",
+        "maximum_qualification_validity_seconds",
+        "maximum_authorization_validity_seconds",
+        "revocation_authority",
+        "revocation_epoch",
+        "compatibility_profile"
+      ],
+      "properties": {
+        "scope": {
+          "const": "A2"
+        },
+        "roles": {
+          "$ref": "#/$defs/roleMap"
+        },
+        "environment_predicates_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "evidence_predicates_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "maximum_qualification_validity_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maximum_authorization_validity_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "revocation_authority": {
+          "$ref": "#/$defs/identifier"
+        },
+        "revocation_epoch": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "compatibility_profile": {
+          "const": "N1_STRICT_MUTUAL_REJECTION_V1"
+        }
+      },
+      "additionalProperties": false
+    },
+    "profileQualifiedPayload": {
+      "type": "object",
+      "required": [
+        "issuer_policy_root",
+        "qualification_id",
+        "issued_by",
+        "validity",
+        "revocation_epoch",
+        "dedicated_image_sha256",
+        "normative_final_view_manifest_root",
+        "interpreter_sha256",
+        "closure_roots",
+        "tool_roots",
+        "platform",
+        "negative_suite_root",
+        "consumer_conformance_root",
+        "authority_effect"
+      ],
+      "properties": {
+        "issuer_policy_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "qualification_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "issued_by": {
+          "$ref": "#/$defs/identifier"
+        },
+        "validity": {
+          "$ref": "#/$defs/validity"
+        },
+        "revocation_epoch": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "dedicated_image_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "normative_final_view_manifest_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "interpreter_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "closure_roots": {
+          "$ref": "#/$defs/rootMap"
+        },
+        "tool_roots": {
+          "$ref": "#/$defs/rootMap"
+        },
+        "platform": {
+          "$ref": "#/$defs/platformTuple"
+        },
+        "negative_suite_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "consumer_conformance_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "authority_effect": {
+          "const": "NONE"
+        }
+      },
+      "additionalProperties": false
+    },
+    "outputReservedPayload": {
+      "type": "object",
+      "required": [
+        "qualification_root",
+        "reservation_id",
+        "immutable_object_identity",
+        "empty_initial_inventory_root",
+        "lease_token_sha256",
+        "creation_event_root",
+        "attachment_history_root",
+        "exclusive_single_use",
+        "authority_effect"
+      ],
+      "properties": {
+        "qualification_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "reservation_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "immutable_object_identity": {
+          "$ref": "#/$defs/identifier"
+        },
+        "empty_initial_inventory_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "lease_token_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "creation_event_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "attachment_history_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "exclusive_single_use": {
+          "const": true
+        },
+        "authority_effect": {
+          "const": "NONE"
+        }
+      },
+      "additionalProperties": false
+    },
+    "containerPreparedPayload": {
+      "type": "object",
+      "required": [
+        "qualification_root",
+        "output_reservation_root",
+        "container_id",
+        "container_config_sha256",
+        "dedicated_image_sha256",
+        "launch_root",
+        "mount_view_root",
+        "environment_root",
+        "platform_root",
+        "guest_execution_during_prepare",
+        "unqualified_hook_execution",
+        "exclusive_start_controller",
+        "state",
+        "authority_effect"
+      ],
+      "properties": {
+        "qualification_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "output_reservation_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "container_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "container_config_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "dedicated_image_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "launch_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "mount_view_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "environment_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "platform_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "guest_execution_during_prepare": {
+          "const": false
+        },
+        "unqualified_hook_execution": {
+          "const": false
+        },
+        "exclusive_start_controller": {
+          "$ref": "#/$defs/identifier"
+        },
+        "state": {
+          "const": "STOPPED_NOT_AUTHORIZED"
+        },
+        "authority_effect": {
+          "const": "NONE"
+        }
+      },
+      "additionalProperties": false
+    },
+    "runAuthorizedPayload": {
+      "type": "object",
+      "required": [
+        "issuer_policy_root",
+        "qualification_root",
+        "output_reservation_root",
+        "prepared_container_root",
+        "authorization_id",
+        "issued_by",
+        "fresh_run_nonce_sha256",
+        "request_id",
+        "input_roots",
+        "g1_g6_roots",
+        "stopped_container_id",
+        "container_config_sha256",
+        "launch_root",
+        "mount_view_root",
+        "environment_root",
+        "output_object_identity",
+        "lease_token_sha256",
+        "controller_root",
+        "finalizer_root",
+        "platform_root",
+        "validity",
+        "run_sequence",
+        "predecessor_final_record_root",
+        "single_use",
+        "authority_effect"
+      ],
+      "properties": {
+        "issuer_policy_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "qualification_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "output_reservation_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "prepared_container_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "authorization_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "issued_by": {
+          "$ref": "#/$defs/identifier"
+        },
+        "fresh_run_nonce_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "request_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "input_roots": {
+          "$ref": "#/$defs/rootMap"
+        },
+        "g1_g6_roots": {
+          "$ref": "#/$defs/rootMap"
+        },
+        "stopped_container_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "container_config_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "launch_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "mount_view_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "environment_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "output_object_identity": {
+          "$ref": "#/$defs/identifier"
+        },
+        "lease_token_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "controller_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "finalizer_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "platform_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "validity": {
+          "$ref": "#/$defs/validity"
+        },
+        "run_sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "predecessor_final_record_root": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/typedRoot"
+            },
+            {
+              "const": "GENESIS"
+            }
+          ]
+        },
+        "single_use": {
+          "const": true
+        },
+        "authority_effect": {
+          "const": "START_ONCE"
+        }
+      },
+      "additionalProperties": false
+    },
+    "runEvidencePayload": {
+      "type": "object",
+      "required": [
+        "authorization_root",
+        "qualification_root",
+        "run_nonce_sha256",
+        "request_id",
+        "input_roots",
+        "actual_container_id",
+        "actual_launch_root",
+        "actual_mount_view_root",
+        "start_stop_exit_root",
+        "network_observation_root",
+        "process_observation_root",
+        "resource_observation_root",
+        "output_object_identity",
+        "attachment_history_root",
+        "initial_output_root",
+        "final_output_root",
+        "runner_evidence_root",
+        "controller_evidence_root",
+        "guest_authority_claim",
+        "authority_effect"
+      ],
+      "properties": {
+        "authorization_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "qualification_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "run_nonce_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "request_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "input_roots": {
+          "$ref": "#/$defs/rootMap"
+        },
+        "actual_container_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "actual_launch_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "actual_mount_view_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "start_stop_exit_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "network_observation_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "process_observation_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "resource_observation_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "output_object_identity": {
+          "$ref": "#/$defs/identifier"
+        },
+        "attachment_history_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "initial_output_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "final_output_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "runner_evidence_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "controller_evidence_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "guest_authority_claim": {
+          "const": false
+        },
+        "authority_effect": {
+          "const": "NONE"
+        }
+      },
+      "additionalProperties": false
+    },
+    "terminalPayload": {
+      "type": "object",
+      "required": [
+        "issuer_policy_root",
+        "qualification_root",
+        "authorization_root",
+        "candidate_root",
+        "finalizer_root",
+        "ledger_head_before",
+        "ledger_head_after",
+        "nonce_single_use_verified",
+        "predecessor_verified",
+        "qualification_current",
+        "revocation_clear",
+        "candidate_unique_fresh",
+        "container_identity_verified",
+        "output_identity_verified",
+        "evidence_complete",
+        "terminal_outcome",
+        "detail_code",
+        "authority_effect"
+      ],
+      "properties": {
+        "issuer_policy_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "qualification_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "authorization_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "candidate_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "finalizer_root": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "ledger_head_before": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/typedRoot"
+            },
+            {
+              "const": "GENESIS"
+            }
+          ]
+        },
+        "ledger_head_after": {
+          "$ref": "#/$defs/typedRoot"
+        },
+        "nonce_single_use_verified": {
+          "type": "boolean"
+        },
+        "predecessor_verified": {
+          "type": "boolean"
+        },
+        "qualification_current": {
+          "type": "boolean"
+        },
+        "revocation_clear": {
+          "type": "boolean"
+        },
+        "candidate_unique_fresh": {
+          "type": "boolean"
+        },
+        "container_identity_verified": {
+          "type": "boolean"
+        },
+        "output_identity_verified": {
+          "type": "boolean"
+        },
+        "evidence_complete": {
+          "type": "boolean"
+        },
+        "terminal_outcome": {
+          "enum": [
+            "N1_FINAL_PASS",
+            "N1_FINAL_DENY",
+            "N1_INDETERMINATE_BLOCK"
+          ]
+        },
+        "detail_code": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^N1_[A-Z0-9_]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authority_effect": {
+          "const": "ADMISSION_TERMINAL"
+        }
+      },
+      "additionalProperties": false
+    },
+    "issuerPolicyArtifact": {
+      "properties": {
+        "artifact_kind": {
+          "const": "N1_ISSUER_POLICY"
+        },
+        "authority_effect": {
+          "const": "NONE"
+        },
+        "payload": {
+          "$ref": "#/$defs/issuerPolicyPayload"
+        }
+      }
+    },
+    "profileQualifiedArtifact": {
+      "properties": {
+        "artifact_kind": {
+          "const": "N1_PROFILE_QUALIFIED"
+        },
+        "authority_effect": {
+          "const": "NONE"
+        },
+        "payload": {
+          "$ref": "#/$defs/profileQualifiedPayload"
+        }
+      }
+    },
+    "outputReservedArtifact": {
+      "properties": {
+        "artifact_kind": {
+          "const": "N1_OUTPUT_RESERVED"
+        },
+        "authority_effect": {
+          "const": "NONE"
+        },
+        "payload": {
+          "$ref": "#/$defs/outputReservedPayload"
+        }
+      }
+    },
+    "containerPreparedArtifact": {
+      "properties": {
+        "artifact_kind": {
+          "const": "N1_CONTAINER_PREPARED"
+        },
+        "authority_effect": {
+          "const": "NONE"
+        },
+        "payload": {
+          "$ref": "#/$defs/containerPreparedPayload"
+        }
+      }
+    },
+    "runAuthorizedArtifact": {
+      "properties": {
+        "artifact_kind": {
+          "const": "G8_N1_RUN_AUTHORIZED"
+        },
+        "authority_effect": {
+          "const": "START_ONCE"
+        },
+        "payload": {
+          "$ref": "#/$defs/runAuthorizedPayload"
+        }
+      }
+    },
+    "runEvidenceArtifact": {
+      "properties": {
+        "artifact_kind": {
+          "const": "N1_RUN_EVIDENCE_CANDIDATE"
+        },
+        "authority_effect": {
+          "const": "NONE"
+        },
+        "payload": {
+          "$ref": "#/$defs/runEvidencePayload"
+        }
+      }
+    },
+    "terminalArtifact": {
+      "properties": {
+        "artifact_kind": {
+          "const": "G9_N1_TERMINAL"
+        },
+        "authority_effect": {
+          "const": "ADMISSION_TERMINAL"
+        },
+        "payload": {
+          "$ref": "#/$defs/terminalPayload"
+        }
+      }
+    }
+  }
+}

@@ -34,6 +34,12 @@ fixed-three versus adaptive routed cycles. It is deliberately separate from the 
 - `eval/live-pilot/P5_EVIDENCE_REVIEW_PACKET.md` — frozen eleven-package PASS/PARTIAL/NOT PROVIDED matrix submitted to the fresh Chief.
 - `src/p5_protocol.py` and `schemas/adaptive-axes-v2.schema.json` — separate P5 reference semantics and canonical V2 schema; legacy behavior remains unchanged.
 - `fixtures/p5_adversarial_traces.json` — 18 P5 adversarial and positive-control traces.
+- `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-debate.md` — auditable three-round N1 decision record and Chief disposition.
+- `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-spec.md` — approved A2-only N1 lifecycle, closure, authority, outcome, and rollback contract.
+- `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-implementation-plan.md` — staged tool-first implementation and evidence plan; it grants no operational authority.
+- `schemas/e14-a2-n1-lifecycle-v1.schema.json` — strict seven-kind N1 lifecycle artifact schema.
+- `fixtures/e14_n1_static_cases_v1.json` — 35 nonauthoritative routing, closure, replay, output, finalization, and rollback scenarios.
+- `tests/test_e14_n1_static_fixtures.py` — test-only schema and static-fixture conformance oracle; not an N1 runtime component.
 - `fixtures/e6_synthetic_results.jsonl` — intentionally synthetic failing data used only to test the grader.
 - `eval/operator_comprehension.md` — blinded operator instrument.
 - `EVIDENCE_STATUS.md` — authoritative gate status and limitations.
@@ -45,7 +51,7 @@ cd C:\Users\Administrator\Documents\Codex\2026-08-25\zh\outputs\sana-v22-evidenc
 python -m unittest discover -s tests -v
 ```
 
-Expected: 67 tests, all passing.
+Expected: 92 tests, all passing.
 
 ## Run the E6 grader harness
 
