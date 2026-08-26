@@ -113,3 +113,19 @@ The authorized P5 evidence tranche subsequently passed its bounded F2/F3 and det
 The new fresh Chief still deferred installation/offer because production authority and cost evidence
 remain missing. See `eval/live-pilot/P5_IMPLEMENTATION_REPORT.md` and
 `eval/live-pilot/P5_EVIDENCE_REVIEW_PACKET.md`.
+
+## E14 acquisition and admission status
+
+The corrected A1 runner v3 completed against a new immutable root. G1 passed after recomputing all
+inventory hashes, npm SRI/SHA-1, PyPI wheel SHA-256/size, package identities, RFC/errata identities,
+runtime identity, response counts, and caps. The successful root is `e14/vendor-acquisition-v2`;
+the earlier `vendor-acquisition-v1` failure remains retained and `INCONCLUSIVE`. See
+`docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a1-g1-pass-review.md`.
+
+A fresh three-thread A2 architecture debate then closed all three rounds as `modified`, but the
+Chief disposition is `defer pending named evidence`. The final P3 requires evidence for the
+production physical archive scanner, source-level runtime dependency closure, and an externally
+measured process-start network/child isolation envelope with an independently measured terminal
+finalizer. No A2 runner or `e14/vendor-admission-v1` root has been created, and G2/B0/F0/R0 remain
+unauthorized. See
+`docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-admission-design-debate.md`.
