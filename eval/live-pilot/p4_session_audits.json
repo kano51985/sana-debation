@@ -1,0 +1,65 @@
+{
+  "cli_version": "0.149.1",
+  "runs": [
+    {
+      "case_id": "F3-short",
+      "protocol": "adaptive-axes-v1",
+      "parent_session_id": "01a038eb-5e68-7e81-8d51-9915ba4a0a57",
+      "child_thread_ids": {
+        "proposing_tl": "01a038eb-e01d-7933-80e8-6220b6f80798",
+        "peer_tl": "01a038eb-fb1b-74b1-b8b7-b4fd1145f12d",
+        "chief_architect": "01a038ec-13c0-74e2-9527-aaac237cb56f"
+      },
+      "elapsed_ms": 199127,
+      "tokens_used": 40155,
+      "spawn_agent_calls": 3,
+      "followup_task_calls": 4,
+      "wait_agent_calls": 5
+    },
+    {
+      "case_id": "F3-short",
+      "protocol": "fixed-three-v1",
+      "parent_session_id": "01a038ee-be0c-73d2-b4ef-e4615ab2d667",
+      "child_thread_ids": {
+        "proposing_tl": "01a038ef-3dbc-7a92-8cc7-d15b456a47bc",
+        "peer_tl": "01a038ef-5e2b-7a13-b3a2-ef05529edde8",
+        "chief_architect": "01a038ef-7a0b-7893-b814-5dc0366fe503"
+      },
+      "elapsed_ms": 296088,
+      "tokens_used": 81436,
+      "spawn_agent_calls": 3,
+      "followup_task_calls": 10,
+      "wait_agent_calls": 11
+    },
+    {
+      "case_id": "F3-noisy",
+      "protocol": "fixed-three-v1",
+      "parent_session_id": "01a038f3-bdb4-7ee0-9568-0780e9b29598",
+      "child_thread_ids": {
+        "proposing_tl": "01a038f4-52d2-7ba0-a9f1-632c24a757ed",
+        "peer_tl": "01a038f4-71bc-7c90-9167-707bf43a6da2",
+        "chief_architect": "01a038f4-8d8b-79c3-952e-55626146ac4c"
+      },
+      "elapsed_ms": 373257,
+      "tokens_used": 54822,
+      "spawn_agent_calls": 3,
+      "followup_task_calls": 10,
+      "wait_agent_calls": 11
+    },
+    {
+      "case_id": "F3-noisy",
+      "protocol": "adaptive-axes-v1",
+      "parent_session_id": "01a038f9-c7b5-76c1-a48f-734791d4c156",
+      "child_thread_ids": {
+        "proposing_tl": "01a038fa-4042-7240-8005-73792b2bb6fb",
+        "peer_tl": "01a038fa-5d3e-71d3-b314-6901d6e2fa18",
+        "chief_architect": "01a038fa-7237-7ee1-83be-3f79f8fa97d3"
+      },
+      "elapsed_ms": 172801,
+      "tokens_used": 49128,
+      "spawn_agent_calls": 3,
+      "followup_task_calls": 4,
+      "wait_agent_calls": 6
+    }
+  ]
+}

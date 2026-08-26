@@ -1,0 +1,44 @@
+{
+  "status": "FAIL_DEFECT_PRESERVATION",
+  "case_id": "F2-noisy",
+  "protocol_id": "adaptive-axes-v1",
+  "materiality_contract_id": "closed-world-provenance-v1",
+  "blind_alias_unsealed_after_grade_freeze": {
+    "RUN-C9P4": "F2-noisy/adaptive-axes-v1/closed-world-provenance-v1"
+  },
+  "worker": {
+    "cycles_used": 0,
+    "terminal_findings": [],
+    "chief_disposition": "APPROVE",
+    "audit_valid": true,
+    "tokens_used": 42505,
+    "elapsed_ms": 289318
+  },
+  "blind_grade": {
+    "detected_issue_ids": [],
+    "false_no_material_issue_ids": [],
+    "false_duplicate_issue_ids": [],
+    "audit_valid": true,
+    "failure_trace_specificity": 0.0,
+    "tokens_used": 14972
+  },
+  "acceptance": {
+    "initial_issue_detected": false,
+    "critical_post_revision_issue_detected": false,
+    "zero_false_no_material_closures": true,
+    "zero_false_duplicate_closures": true,
+    "audit_valid": true,
+    "trace_specificity_one": false,
+    "gate_passed": false
+  },
+  "observed_failure_mechanism": [
+    "Proposing TL silently strengthened the supplied initial proposal before Peer inspection.",
+    "The strengthened P0 correctly represented the supplied P1 handler change as REVISION_DELTA.",
+    "No resolved finding recorded either the baseline defect or the post-revision non-equivalence.",
+    "The terminal artifact therefore lost detection provenance even though the final proposal contained a repair.",
+    "The run also treated missing handler severity/remediation detail as sufficient to avoid a structural material finding."
+  ],
+  "evaluation_tokens": 57477,
+  "cumulative_evidence_tokens": 945003,
+  "installed_skill_modified": false
+}

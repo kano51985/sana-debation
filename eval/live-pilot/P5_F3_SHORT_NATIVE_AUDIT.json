@@ -1,0 +1,18 @@
+{
+  "run_id": "F3S-ADAPTIVE-P5-NATIVE1",
+  "mode": "real-subagents/core",
+  "proposing_tl": "/root/e6_p5_f3s_proposing",
+  "peer_tl": "/root/e6_p5_f3s_peer",
+  "chief_architect": "/root/e6_p5_f3s_chief",
+  "all_core_threads_fork_turns_none": true,
+  "peer_readiness_preceded_candidate_exposure": true,
+  "chief_readiness_preceded_terminal_exposure": true,
+  "chief_blind_terminal_scan_preceded_full_record": true,
+  "proposing_format_corrections": 0,
+  "role_retries": 0,
+  "optional_roles": [],
+  "cycles_used": 0,
+  "protocol_conformant": true,
+  "audit_valid": true,
+  "isolation_claim": "fresh-thread and separately-instructed only; no cognitive-independence claim"
+}

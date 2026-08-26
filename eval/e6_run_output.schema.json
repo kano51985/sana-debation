@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "E6 unlabeled live debate output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "run_id", "protocol_conformant", "audit_valid", "cycles_used", "terminal_findings", "chief_disposition", "limitations"],
+  "properties": {
+    "case_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "protocol_conformant": {"type": "boolean"},
+    "audit_valid": {"type": "boolean"},
+    "cycles_used": {"type": "integer", "minimum": 0, "maximum": 3},
+    "terminal_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["finding_ref", "status", "axis", "mechanism", "precondition", "event", "observable_failure", "falsifier", "first_observed_stage"],
+        "properties": {
+          "finding_ref": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "enum": ["OPEN", "RESOLVED", "DUPLICATE", "INDETERMINATE"]},
+          "axis": {"type": "string", "minLength": 1},
+          "mechanism": {"type": "string", "minLength": 1},
+          "precondition": {"type": "string", "minLength": 1},
+          "event": {"type": "string", "minLength": 1},
+          "observable_failure": {"type": "string", "minLength": 1},
+          "falsifier": {"type": "string", "minLength": 1},
+          "first_observed_stage": {"type": "string", "enum": ["P0", "REVISION", "TERMINAL_RECONCILIATION", "CHIEF_DECISION", "CHIEF_STAGE_1", "CHIEF_STAGE_2"]}
+        }
+      }
+    },
+    "chief_disposition": {"type": "string", "enum": ["APPROVE", "APPROVE_WITH_REQUIRED_CHANGES", "DEFER", "REJECT", "PROTOCOL_INVALID"]},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

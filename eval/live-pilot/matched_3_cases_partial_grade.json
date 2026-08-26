@@ -1,0 +1,97 @@
+{
+  "behavioral_gate": {
+    "adaptive_all_audits_valid": true,
+    "adaptive_not_worse_post_revision_detection": true,
+    "adaptive_not_worse_trace_specificity": true,
+    "adaptive_zero_critical_misses": true,
+    "adaptive_zero_false_closures": true,
+    "adaptive_zero_unsupported_material_findings": false,
+    "complete_matched_live_records": false
+  },
+  "errors": [
+    "missing result: ('F1-short', 'fixed-three-v1')",
+    "missing result: ('F1-noisy', 'fixed-three-v1')",
+    "missing result: ('F3-noisy', 'fixed-three-v1')",
+    "missing result: ('F4-short', 'fixed-three-v1')",
+    "missing result: ('F4-noisy', 'fixed-three-v1')",
+    "missing result: ('F5-short', 'fixed-three-v1')",
+    "missing result: ('F5-noisy', 'fixed-three-v1')",
+    "missing result: ('F6-short', 'fixed-three-v1')",
+    "missing result: ('F6-noisy', 'fixed-three-v1')",
+    "missing result: ('F1-short', 'adaptive-axes-v1')",
+    "missing result: ('F1-noisy', 'adaptive-axes-v1')",
+    "missing result: ('F3-noisy', 'adaptive-axes-v1')",
+    "missing result: ('F4-short', 'adaptive-axes-v1')",
+    "missing result: ('F4-noisy', 'adaptive-axes-v1')",
+    "missing result: ('F5-short', 'adaptive-axes-v1')",
+    "missing result: ('F5-noisy', 'adaptive-axes-v1')",
+    "missing result: ('F6-short', 'adaptive-axes-v1')",
+    "missing result: ('F6-noisy', 'adaptive-axes-v1')"
+  ],
+  "evidence_id": "E6",
+  "limitations": [
+    "A finite seeded suite does not prove general cognitive independence or universal non-inferiority.",
+    "Token, elapsed-time, and compaction data are reported only when the host exposes them.",
+    "Synthetic records validate the grader only and never satisfy E6."
+  ],
+  "protocol_metrics": {
+    "adaptive-axes-v1": {
+      "audit_invalid_cases": [],
+      "cases": 3,
+      "critical_detected": 2,
+      "critical_detection_rate": 1.0,
+      "critical_expected": 2,
+      "critical_misses": [],
+      "elapsed_ms_total": 1388080,
+      "false_duplicate": [],
+      "false_no_material": [],
+      "input_tokens_total": 0,
+      "output_tokens_total": 0,
+      "post_revision_detected": 2,
+      "post_revision_detection_rate": 1.0,
+      "post_revision_expected": 2,
+      "retries_total": 0,
+      "synthetic_records": 0,
+      "telemetry_unavailable": 6,
+      "trace_specificity_mean": 1.0,
+      "unsupported_material_findings": [
+        {"case_id": "F3-short", "finding_ref": "FINDING-1"},
+        {"case_id": "F3-short", "finding_ref": "FINDING-2"},
+        {"case_id": "F3-short", "finding_ref": "FINDING-3"}
+      ]
+    },
+    "fixed-three-v1": {
+      "audit_invalid_cases": [],
+      "cases": 3,
+      "critical_detected": 1,
+      "critical_detection_rate": 0.5,
+      "critical_expected": 2,
+      "critical_misses": [
+        {"case_id": "F2-noisy", "issue_id": "CRIT-F2-SECOND-ORDER"}
+      ],
+      "elapsed_ms_total": 1510623,
+      "false_duplicate": [],
+      "false_no_material": [],
+      "input_tokens_total": 0,
+      "output_tokens_total": 0,
+      "post_revision_detected": 1,
+      "post_revision_detection_rate": 0.5,
+      "post_revision_expected": 2,
+      "retries_total": 2,
+      "synthetic_records": 0,
+      "telemetry_unavailable": 6,
+      "trace_specificity_mean": 0.6666666666666666,
+      "unsupported_material_findings": [
+        {"case_id": "F3-short", "finding_ref": "FINDING-1"},
+        {"case_id": "F3-short", "finding_ref": "FINDING-2"},
+        {"case_id": "F3-short", "finding_ref": "FINDING-3"},
+        {"case_id": "F3-short", "finding_ref": "FINDING-4"},
+        {"case_id": "F3-short", "finding_ref": "FINDING-5"},
+        {"case_id": "F3-short", "finding_ref": "FINDING-6"},
+        {"case_id": "F3-short", "finding_ref": "FINDING-7"},
+        {"case_id": "F3-short", "finding_ref": "FINDING-8"}
+      ]
+    }
+  },
+  "status": "HARNESS_ONLY"
+}

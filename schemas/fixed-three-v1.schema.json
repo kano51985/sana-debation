@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sana.local/e7/fixed-three-v1.schema.json",
+  "title": "Sana fixed-three-v1 run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["run_id", "protocol_id", "schema_version", "rounds", "risk_register", "chief_decision"],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "protocol_id": {"const": "fixed-three-v1"},
+    "schema_version": {"const": 1},
+    "rounds": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {"$ref": "#/$defs/cycleRecord"}
+    },
+    "risk_register": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/riskRecord"}
+    },
+    "chief_decision": {"$ref": "#/$defs/chiefDecision"}
+  },
+  "$defs": {
+    "failureTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["precondition", "event", "observable_failure"],
+      "properties": {
+        "precondition": {"type": "string", "minLength": 1},
+        "event": {"type": "string", "minLength": 1},
+        "observable_failure": {"type": "string", "minLength": 1}
+      }
+    },
+    "proposerResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["challenge_id", "status", "basis"],
+      "properties": {
+        "challenge_id": {"type": "string", "minLength": 1},
+        "status": {"enum": ["accepted", "rejected with evidence", "unresolved"]},
+        "basis": {"type": "string", "minLength": 1}
+      }
+    },
+    "cycleRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cycle_id",
+        "axis_id",
+        "proposal_ref",
+        "mechanism",
+        "rebuttal",
+        "failure_trace",
+        "falsifier",
+        "proposer_responses",
+        "proposal_diff",
+        "risk_updates",
+        "peer_closing_assessment",
+        "verdict",
+        "evidence_ids",
+        "risk_ids"
+      ],
+      "properties": {
+        "cycle_id": {"type": "string", "minLength": 1},
+        "axis_id": {"type": "string", "minLength": 1},
+        "proposal_ref": {"type": "string", "minLength": 1},
+        "mechanism": {"type": "string", "minLength": 1},
+        "rebuttal": {"type": "string", "minLength": 1},
+        "failure_trace": {"$ref": "#/$defs/failureTrace"},
+        "falsifier": {"type": "string", "minLength": 1},
+        "proposer_responses": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/proposerResponse"}
+        },
+        "proposal_diff": {"type": "string", "minLength": 1},
+        "risk_updates": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "peer_closing_assessment": {"type": "string", "minLength": 1},
+        "verdict": {"enum": ["accepted", "modified", "rejected", "unresolved"]},
+        "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "risk_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "riskRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["risk_id", "failure_condition", "affected_invariant", "status"],
+      "properties": {
+        "risk_id": {"type": "string", "minLength": 1},
+        "failure_condition": {"type": "string", "minLength": 1},
+        "affected_invariant": {"type": "string", "minLength": 1},
+        "status": {"enum": ["open", "mitigated", "accepted by named product preference", "needs evidence"]}
+      }
+    },
+    "chiefDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["disposition", "basis", "trace_matrix", "next_action"],
+      "properties": {
+        "disposition": {"enum": ["approve", "approve with required changes", "reject and redesign", "defer pending named evidence"]},
+        "basis": {"type": "string", "minLength": 1},
+        "trace_matrix": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+        "next_action": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

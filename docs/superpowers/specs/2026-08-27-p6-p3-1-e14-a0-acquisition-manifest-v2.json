@@ -1,0 +1,194 @@
+{
+  "schema": "sana.e14.a0-acquisition-manifest.v1",
+  "status": "REVIEW_ONLY_NOT_AUTHORIZED",
+  "created_on": "2026-08-27",
+  "revision": 2,
+  "supersedes_manifest_sha256": "48AFFF7D04A6A3E665D63192BA97181FD80EB8A7981F514AC895FAD916D4CA9F",
+  "amendment_reasons": [
+    "Preserve authorization timestamps as strings with ConvertFrom-Json -DateKind String.",
+    "Wrap zero-difference Compare-Object results in array expressions before reading Count."
+  ],
+  "authority_effect": "NONE",
+  "controlling_proposal": {
+    "path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-08-25\\zh\\outputs\\sana-v22-evidence\\docs\\superpowers\\specs\\2026-08-27-p6-p3-1-e14-exact-fixture-construction-proposal.md",
+    "sha256": "43DB3ED4E57F71BA4CE58E3C0C4D22088E3F9A5905F74E369529B5D8409A74CD"
+  },
+  "output_root": "C:\\Users\\Administrator\\Documents\\Codex\\2026-08-25\\zh\\outputs\\sana-v22-evidence\\e14\\vendor-acquisition-v1",
+  "tool": {
+    "runner_path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-08-25\\zh\\outputs\\sana-v22-evidence\\docs\\superpowers\\specs\\2026-08-27-p6-p3-1-e14-a0-download-only-runner-v2.ps1",
+    "runner_sha256": "534E9709A3969E165DD3F34BF7035BB28F74DF44D9C94CA0B8C9C21F8F48F5F3",
+    "powershell_path": "C:\\Users\\Administrator\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+    "powershell_version": "7.6.4",
+    "powershell_sha256": "DB6DD81183FE57D22E03B911EC9A30A2FD7C40542E97743615355A6FB44F458F"
+  },
+  "authorization_receipt_contract": {
+    "schema": "sana.e14.a1-authorization-receipt.v1",
+    "decision": "APPROVE_A1_DOWNLOAD_ONLY",
+    "authority_effect": "DOWNLOAD_ONLY",
+    "required_bindings": [
+      "authorization_id",
+      "issued_at_utc",
+      "expires_at_utc",
+      "manifest_sha256",
+      "runner_sha256",
+      "output_root"
+    ],
+    "maximum_validity_hours": 24,
+    "note": "This receipt is a local safety interlock and audit binding, not proof of native or cryptographic authority."
+  },
+  "network": {
+    "enabled": true,
+    "method": "GET",
+    "scheme": "https",
+    "port": 443,
+    "automatic_redirects": false,
+    "authentication": "NONE",
+    "cookies": "NONE",
+    "proxy": "DISABLED",
+    "request_concurrency": 1,
+    "allowed_hosts": [
+      "registry.npmjs.org",
+      "pypi.org",
+      "files.pythonhosted.org",
+      "www.rfc-editor.org",
+      "errata.rfc-editor.org"
+    ]
+  },
+  "caps": {
+    "required_successful_payloads": 8,
+    "http_exchanges": 16,
+    "redirects_per_object": 2,
+    "response_bytes_per_object": 1048576,
+    "total_response_bytes": 8388608,
+    "output_files": 32,
+    "total_output_bytes": 16777216,
+    "processes": 1,
+    "concurrent_processes": 1,
+    "wall_seconds": 180,
+    "cpu_seconds": 120,
+    "peak_memory_bytes": 268435456,
+    "stdout_bytes": 131072,
+    "stderr_bytes": 131072
+  },
+  "objects": [
+    {
+      "id": "node-metadata",
+      "kind": "npm-registry-metadata",
+      "url": "https://registry.npmjs.org/canonicalize/4.0.0",
+      "package": "canonicalize",
+      "version": "4.0.0",
+      "expected_size": -1,
+      "expected_sha256": null
+    },
+    {
+      "id": "node-archive",
+      "kind": "npm-package-tarball",
+      "url": "https://registry.npmjs.org/canonicalize/-/canonicalize-4.0.0.tgz",
+      "package": "canonicalize",
+      "version": "4.0.0",
+      "expected_size": -1,
+      "expected_sha256": null,
+      "registry_digest_source": "node-metadata.dist.integrity and node-metadata.dist.shasum"
+    },
+    {
+      "id": "python-metadata",
+      "kind": "pypi-registry-metadata",
+      "url": "https://pypi.org/pypi/rfc8785/0.1.4/json",
+      "package": "rfc8785",
+      "version": "0.1.4",
+      "expected_size": -1,
+      "expected_sha256": null
+    },
+    {
+      "id": "python-wheel",
+      "kind": "python-wheel",
+      "url": "https://files.pythonhosted.org/packages/4d/78/119878110660b2ad709888c8a1614fce7e2fab39080ab960656dc8605bf6/rfc8785-0.1.4-py3-none-any.whl",
+      "package": "rfc8785",
+      "version": "0.1.4",
+      "filename": "rfc8785-0.1.4-py3-none-any.whl",
+      "expected_size": 9240,
+      "expected_sha256": "520D690B448ECF0703691C76E1A34A24DDCD4FC5BC41D589CB7C58EC651BCD48"
+    },
+    {
+      "id": "rfc8785-text",
+      "kind": "primary-standard-text",
+      "url": "https://www.rfc-editor.org/rfc/rfc8785.txt",
+      "standard": "RFC 8785",
+      "expected_size": -1,
+      "expected_sha256": null
+    },
+    {
+      "id": "rfc7493-text",
+      "kind": "primary-standard-text",
+      "url": "https://www.rfc-editor.org/rfc/rfc7493.txt",
+      "standard": "RFC 7493",
+      "expected_size": -1,
+      "expected_sha256": null
+    },
+    {
+      "id": "rfc8785-errata-7920",
+      "kind": "verified-erratum-html",
+      "url": "https://errata.rfc-editor.org/eid7920/",
+      "standard": "RFC 8785",
+      "errata_id": 7920,
+      "expected_status": "Verified",
+      "expected_size": -1,
+      "expected_sha256": null
+    },
+    {
+      "id": "rfc8785-errata-6292",
+      "kind": "verified-erratum-html",
+      "url": "https://errata.rfc-editor.org/eid6292/",
+      "standard": "RFC 8785",
+      "errata_id": 6292,
+      "expected_status": "Verified",
+      "expected_size": -1,
+      "expected_sha256": null
+    }
+  ],
+  "expected_output": {
+    "control_files": [
+      "control/acquisition-manifest.json",
+      "control/authorization-receipt.json",
+      "control/runner-identity.json"
+    ],
+    "per_object_files": [
+      "objects/<id>.body",
+      "objects/<id>.response.json"
+    ],
+    "terminal_file": "terminal-receipt.json",
+    "successful_regular_file_count": 20,
+    "successful_terminal_state": "ACQUISITION_COMPLETE_AWAITING_G1",
+    "next_stage": "UNAUTHORIZED_PENDING_G1"
+  },
+  "retention": {
+    "mode": "RETAIN_UNTIL_EXPLICIT_DISPOSAL_AUTHORIZATION",
+    "delete_on_failure": false,
+    "overwrite": false,
+    "resume_in_place": false
+  },
+  "prohibitions": [
+    "NO_AUTOMATIC_STAGE_PROGRESSION",
+    "NO_ARCHIVE_EXTRACTION",
+    "NO_PACKAGE_INSTALLATION",
+    "NO_PACKAGE_MANAGER",
+    "NO_MODULE_IMPORT",
+    "NO_PACKAGE_SCRIPT_OR_TEST_EXECUTION",
+    "NO_GIT_OR_REPOSITORY_CHECKOUT",
+    "NO_UPLOAD_OR_NON_GET_METHOD",
+    "NO_AUTHENTICATION_OR_COOKIES",
+    "NO_PROXY",
+    "NO_REDIRECT_OUTSIDE_ALLOWLIST",
+    "NO_OVERWRITE_DELETE_OR_RESUME",
+    "NO_SECRET_APPROVAL_SIGNING_OR_OPERATIONAL_AUTHORITY",
+    "NO_A2_F0_R0_EA0_EA1_E11_E13_OR_L2_ACTION"
+  ],
+  "terminal_declaration": {
+    "this_manifest_authorizes_execution": false,
+    "a1_requires_fresh_user_authorization_receipt": true,
+    "a1_may_produce_evidence_only": true,
+    "a2_remains_unauthorized": true,
+    "authority_effect": "NONE"
+  }
+}
+

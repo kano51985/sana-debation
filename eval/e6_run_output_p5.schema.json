@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "E6 P5 unlabeled live debate output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "run_id",
+    "protocol_id",
+    "materiality_contract_id",
+    "protocol_conformant",
+    "audit_valid",
+    "baseline",
+    "delta_candidates",
+    "cycles_used",
+    "cycle_accounting",
+    "terminal_findings",
+    "chief_disposition",
+    "limitations"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "minLength": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "protocol_id": {"type": "string", "const": "adaptive-axes-v2"},
+    "materiality_contract_id": {"type": "string", "const": "baseline-delta-ledger-v1"},
+    "protocol_conformant": {"type": "boolean"},
+    "audit_valid": {"type": "boolean"},
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline_ref", "literal_initial_proposal"],
+      "properties": {
+        "baseline_ref": {"type": "string", "const": "B0"},
+        "literal_initial_proposal": {"type": "string", "minLength": 1}
+      }
+    },
+    "delta_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_ref",
+          "baseline_ref",
+          "proposal_ref",
+          "decision_surface",
+          "change_kind",
+          "classification",
+          "precondition_provenance",
+          "supplied_behavior_change",
+          "rationale",
+          "peer_attestation",
+          "peer_attestation_basis",
+          "finding_ref"
+        ],
+        "properties": {
+          "candidate_ref": {"type": "string", "minLength": 1},
+          "baseline_ref": {"type": "string", "const": "B0"},
+          "proposal_ref": {"type": "string", "minLength": 1},
+          "decision_surface": {"type": "string", "minLength": 1},
+          "change_kind": {"enum": ["ADDITIVE", "REMOVED", "CHANGED"]},
+          "classification": {"enum": ["NON_DECISION_RELEVANT", "DECISION_RELEVANT", "UNCERTAIN"]},
+          "precondition_provenance": {"enum": ["SUPPLIED_FACT", "VERIFIED_EVIDENCE", "HYPOTHETICAL"]},
+          "supplied_behavior_change": {"type": "boolean"},
+          "rationale": {"type": "string", "minLength": 1},
+          "peer_attestation": {"enum": ["NON_RELEVANT", "RELEVANT", "UNRESOLVED"]},
+          "peer_attestation_basis": {"type": "string", "minLength": 1},
+          "finding_ref": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "cycles_used": {"type": "integer", "minimum": 0, "maximum": 3},
+    "cycle_accounting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interactions", "substantive_cycles", "routed_findings", "substantively_closed_findings", "zero_cycle_eligible"],
+      "properties": {
+        "interactions": {"type": "integer", "minimum": 0},
+        "substantive_cycles": {"type": "integer", "minimum": 0, "maximum": 3},
+        "routed_findings": {"type": "integer", "minimum": 0},
+        "substantively_closed_findings": {"type": "integer", "minimum": 0},
+        "zero_cycle_eligible": {"type": "boolean"}
+      }
+    },
+    "terminal_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_ref",
+          "candidate_ref",
+          "provenance_origin",
+          "baseline_ref",
+          "proposal_ref",
+          "status",
+          "axis",
+          "mechanism",
+          "precondition",
+          "event",
+          "observable_failure",
+          "falsifier",
+          "first_observed_stage",
+          "response_status",
+          "response_basis",
+          "peer_disposition",
+          "peer_verification_basis"
+        ],
+        "properties": {
+          "finding_ref": {"type": "string", "minLength": 1},
+          "candidate_ref": {"type": ["string", "null"]},
+          "provenance_origin": {"enum": ["BASELINE_DELTA", "PEER_DISCOVERY", "PROPONENT_DISCLOSURE", "SUPPLIED_ASSERTION", "SYSTEM_VALIDATION"]},
+          "baseline_ref": {"type": "string", "const": "B0"},
+          "proposal_ref": {"type": "string", "minLength": 1},
+          "status": {"enum": ["OPEN", "RESOLVED", "REBUTTED", "ACCEPTED_RISK", "INDETERMINATE"]},
+          "axis": {"type": "string", "minLength": 1},
+          "mechanism": {"type": "string", "minLength": 1},
+          "precondition": {"type": "string", "minLength": 1},
+          "event": {"type": "string", "minLength": 1},
+          "observable_failure": {"type": "string", "minLength": 1},
+          "falsifier": {"type": "string", "minLength": 1},
+          "first_observed_stage": {"enum": ["B0_TO_P0", "P0", "REVISION", "TERMINAL_RECONCILIATION", "CHIEF_STAGE_1", "CHIEF_STAGE_2"]},
+          "response_status": {"enum": ["accepted", "rejected with evidence", "unresolved"]},
+          "response_basis": {"type": "string", "minLength": 1},
+          "peer_disposition": {"enum": ["accepted", "modified", "rejected", "unresolved"]},
+          "peer_verification_basis": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "chief_disposition": {"enum": ["APPROVE", "APPROVE_WITH_REQUIRED_CHANGES", "DEFER", "REJECT", "PROTOCOL_INVALID"]},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

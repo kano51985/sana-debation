@@ -1,0 +1,22 @@
+{
+  "case_id": "F2-noisy",
+  "protocol": "adaptive-axes-v1",
+  "materiality_contract_id": "closed-world-provenance-v1",
+  "parent_session_id": "01a03906-9cdb-7ca1-bae0-5d9406a035bf",
+  "child_thread_ids": {
+    "proposing_tl": "01a03907-03ff-7a80-938e-dbfa2dba3825",
+    "peer_tl": "01a03907-1c56-7b31-8a37-fe77c1ebb918",
+    "chief_architect": "01a03907-2e70-7d93-b3c0-6fe55f0df67a"
+  },
+  "elapsed_ms": 289318,
+  "tokens_used": 42505,
+  "spawn_agent_calls": 3,
+  "followup_task_calls": 6,
+  "wait_agent_calls": 9,
+  "host_warnings": {
+    "model_list_refresh_timeouts_observed": 2,
+    "analytics_delivery_failures_observed": true,
+    "observed_role_failure_or_retry": false,
+    "terminal_process_exit_code": 0
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "E6 clean-case blind grade",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "blind_run_id",
+    "unsupported_material_finding_refs",
+    "supported_material_finding_refs",
+    "disposition_consistent_with_closed_world",
+    "audit_valid",
+    "grading_notes"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "minLength": 1},
+    "blind_run_id": {"type": "string", "minLength": 1},
+    "unsupported_material_finding_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "supported_material_finding_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "disposition_consistent_with_closed_world": {"type": "boolean"},
+    "audit_valid": {"type": "boolean"},
+    "grading_notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "sana.e14.a1-authorization-receipt.v1",
+  "authorization_id": "E14-A1-20260826T163725Z-v2-63db26acab234ced99d795dbb42002d1",
+  "decision": "APPROVE_A1_DOWNLOAD_ONLY",
+  "authority_effect": "DOWNLOAD_ONLY",
+  "issued_at_utc": "2026-08-26T16:37:25.8542569Z",
+  "expires_at_utc": "2026-08-26T17:37:25.8542569Z",
+  "manifest_sha256": "9A4CB9CE7C497C4296453DA0B150762CB7F46F4A05E696A5617D239E7BE07D15",
+  "runner_sha256": "534E9709A3969E165DD3F34BF7035BB28F74DF44D9C94CA0B8C9C21F8F48F5F3",
+  "output_root": "C:\\Users\\Administrator\\Documents\\Codex\\2026-08-25\\zh\\outputs\\sana-v22-evidence\\e14\\vendor-acquisition-v1",
+  "approval_basis": "Explicit user approval of the exact v2 manifest and runner hashes in the current Codex task.",
+  "supersedes_failed_receipts": [
+    "0C02B13B5BC7F7F9A98859E9F0CC7F81DE1E25FEE76E51A1A64C18B5B47A923E",
+    "668BE3ACA4276CAA70F8B7B97DEA7E630925588ACDAC0154A9F82A1BC9BFC1A2"
+  ],
+  "no_automatic_progression": true,
+  "next_stage": "UNAUTHORIZED_PENDING_G1"
+}

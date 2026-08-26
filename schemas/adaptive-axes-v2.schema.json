@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sana.local/e7/adaptive-axes-v2.schema.json",
+  "title": "Sana adaptive-axes-v2 provenance-preserving run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "protocol_id",
+    "schema_version",
+    "baseline",
+    "delta_candidates",
+    "terminal_findings",
+    "cycle_accounting",
+    "authority",
+    "chief_decision"
+  ],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "protocol_id": {"type": "string", "const": "adaptive-axes-v2"},
+    "schema_version": {"type": "integer", "const": 1},
+    "baseline": {"$ref": "#/$defs/baseline"},
+    "delta_candidates": {"type": "array", "items": {"$ref": "#/$defs/deltaCandidate"}},
+    "terminal_findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+    "cycle_accounting": {"$ref": "#/$defs/cycleAccounting"},
+    "authority": {"$ref": "#/$defs/authority"},
+    "chief_decision": {"$ref": "#/$defs/chiefDecision"}
+  },
+  "$defs": {
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["baseline_ref", "content_hash", "literal_content"],
+      "properties": {
+        "baseline_ref": {"type": "string", "const": "B0"},
+        "content_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "literal_content": {}
+      }
+    },
+    "deltaCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_id",
+        "baseline_ref",
+        "baseline_hash",
+        "proposal_ref",
+        "decision_surface",
+        "change_kind",
+        "before",
+        "after",
+        "classification",
+        "precondition_provenance",
+        "provenance_origin",
+        "rationale",
+        "supplied_behavior_change",
+        "peer_attestation",
+        "peer_attestation_basis",
+        "finding_id"
+      ],
+      "properties": {
+        "candidate_id": {"type": "string", "minLength": 1},
+        "baseline_ref": {"type": "string", "const": "B0"},
+        "baseline_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "proposal_ref": {"type": "string", "minLength": 1},
+        "decision_surface": {"type": "string", "minLength": 1},
+        "change_kind": {"enum": ["ADDITIVE", "REMOVED", "CHANGED"]},
+        "before": {},
+        "after": {},
+        "classification": {"enum": ["NON_DECISION_RELEVANT", "DECISION_RELEVANT", "UNCERTAIN"]},
+        "precondition_provenance": {"enum": ["SUPPLIED_FACT", "VERIFIED_EVIDENCE", "HYPOTHETICAL"]},
+        "provenance_origin": {"enum": ["BASELINE_DELTA", "PEER_DISCOVERY", "PROPONENT_DISCLOSURE", "SUPPLIED_ASSERTION", "SYSTEM_VALIDATION"]},
+        "rationale": {"type": "string", "minLength": 1},
+        "supplied_behavior_change": {"type": "boolean"},
+        "peer_attestation": {"enum": ["NON_RELEVANT", "RELEVANT", "UNRESOLVED"]},
+        "peer_attestation_basis": {"type": "string", "minLength": 1},
+        "finding_id": {"type": ["string", "null"]}
+      }
+    },
+    "failureTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["precondition", "event", "observable_failure"],
+      "properties": {
+        "precondition": {"type": "string", "minLength": 1},
+        "event": {"type": "string", "minLength": 1},
+        "observable_failure": {"type": "string", "minLength": 1}
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "finding_id",
+        "candidate_id",
+        "baseline_ref",
+        "baseline_hash",
+        "proposal_ref",
+        "provenance_origin",
+        "precondition_provenance",
+        "axis",
+        "mechanism",
+        "issue_statement",
+        "failure_trace",
+        "falsifier",
+        "status",
+        "response_status",
+        "response_basis",
+        "peer_disposition",
+        "peer_verification_basis"
+      ],
+      "properties": {
+        "finding_id": {"type": "string", "minLength": 1},
+        "candidate_id": {"type": ["string", "null"], "minLength": 1},
+        "baseline_ref": {"type": "string", "const": "B0"},
+        "baseline_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "proposal_ref": {"type": "string", "minLength": 1},
+        "provenance_origin": {"enum": ["BASELINE_DELTA", "PEER_DISCOVERY"]},
+        "precondition_provenance": {"enum": ["SUPPLIED_FACT", "VERIFIED_EVIDENCE"]},
+        "axis": {"type": "string", "minLength": 1},
+        "mechanism": {"type": "string", "minLength": 1},
+        "issue_statement": {"type": "string", "minLength": 1},
+        "failure_trace": {"$ref": "#/$defs/failureTrace"},
+        "falsifier": {"type": "string", "minLength": 1},
+        "status": {"enum": ["OPEN", "RESOLVED", "REBUTTED", "ACCEPTED_RISK", "INDETERMINATE"]},
+        "response_status": {"enum": ["accepted", "rejected with evidence", "unresolved"]},
+        "response_basis": {"type": "string", "minLength": 1},
+        "peer_disposition": {"enum": ["accepted", "modified", "rejected", "unresolved"]},
+        "peer_verification_basis": {"type": "string", "minLength": 1}
+      }
+    },
+    "cycleAccounting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interactions", "substantive_cycles", "routed_findings", "substantively_closed_findings", "zero_cycle_eligible"],
+      "properties": {
+        "interactions": {"type": "integer", "minimum": 0},
+        "substantive_cycles": {"type": "integer", "minimum": 0, "maximum": 3},
+        "routed_findings": {"type": "integer", "minimum": 0},
+        "substantively_closed_findings": {"type": "integer", "minimum": 0},
+        "zero_cycle_eligible": {"type": "boolean"}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["epoch", "status", "required_route_ids", "receipts"],
+      "properties": {
+        "epoch": {"type": "integer", "minimum": 0},
+        "status": {"enum": ["PENDING_AUTHORITY", "AUTHORIZED", "QUARANTINED"]},
+        "required_route_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "receipts": {"type": "array", "items": {"type": "object"}}
+      }
+    },
+    "chiefDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["disposition", "basis"],
+      "properties": {
+        "disposition": {"enum": ["approve", "approve with required changes", "reject and redesign", "defer pending named evidence"]},
+        "basis": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS_CLEAN_REGRESSION_ONLY",
+  "materiality_contract_id": "closed-world-provenance-v1",
+  "blind_aliases_unsealed_after_grade_freeze": {
+    "RUN-R4K2": "F3-short/adaptive-axes-v1",
+    "RUN-M7Q9": "F3-short/fixed-three-v1",
+    "RUN-T5B1": "F3-noisy/fixed-three-v1",
+    "RUN-Y8C6": "F3-noisy/adaptive-axes-v1"
+  },
+  "acceptance": {
+    "all_four_schema_valid": true,
+    "all_four_audit_valid": true,
+    "all_four_zero_unsupported_material_findings": true,
+    "all_four_dispositions_consistent_with_closed_world": true,
+    "both_adaptive_runs_zero_cycles": true,
+    "both_fixed_runs_three_cycles": true,
+    "all_four_terminal_findings_empty": true,
+    "all_four_chief_dispositions_approve": true
+  },
+  "worker_metrics": {
+    "adaptive-axes-v1": {
+      "runs": 2,
+      "cycles_total": 0,
+      "tokens_used_total": 89283,
+      "elapsed_ms_total": 371928
+    },
+    "fixed-three-v1": {
+      "runs": 2,
+      "cycles_total": 6,
+      "tokens_used_total": 136258,
+      "elapsed_ms_total": 669345
+    },
+    "adaptive_reduction_vs_fixed": {
+      "tokens_used": 46975,
+      "tokens_percent": 34.47549208,
+      "elapsed_ms": 297417,
+      "elapsed_percent": 44.43342496,
+      "cycles": 6
+    }
+  },
+  "evaluation_cost": {
+    "worker_tokens": 225541,
+    "blind_grader_tokens": 58941,
+    "p4_total_tokens": 284482,
+    "prior_evidence_tokens": 603044,
+    "cumulative_evidence_tokens": 887526
+  },
+  "next_required_gate": "Rerun a supplied-fact/post-revision defect case under P4, beginning with F2-noisy adaptive, to show the provenance rule does not suppress genuine material findings.",
+  "installed_skill_modified": false,
+  "claims_not_supported": [
+    "general cognitive independence",
+    "universal behavioral non-inferiority",
+    "production readiness",
+    "safe installed-skill default migration"
+  ]
+}

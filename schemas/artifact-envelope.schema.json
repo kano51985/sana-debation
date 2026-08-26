@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sana.local/e7/artifact-envelope.schema.json",
+  "title": "Sana E7 ArtifactEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "protocol_id",
+    "schema_version",
+    "artifact_type",
+    "sequence",
+    "proposal_ref",
+    "previous_artifact_hash",
+    "payload",
+    "artifact_hash"
+  ],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "protocol_id": {
+      "enum": ["fixed-three-v1", "adaptive-axes-v1"]
+    },
+    "schema_version": {"const": 1},
+    "artifact_type": {"type": "string", "minLength": 1},
+    "sequence": {"type": "integer", "minimum": 0},
+    "proposal_ref": {"type": ["string", "null"]},
+    "previous_artifact_hash": {
+      "oneOf": [
+        {"type": "null"},
+        {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      ]
+    },
+    "payload": {"type": "object"},
+    "artifact_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

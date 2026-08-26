@@ -1,0 +1,94 @@
+{
+  "resolver": [
+    {
+      "id": "resolver-unqualified-fixed",
+      "invocation": "use sana-debation for this architecture decision",
+      "structured_protocol": null,
+      "expected_status": "RESOLVED",
+      "expected_protocol": "fixed-three-v1"
+    },
+    {
+      "id": "resolver-literal-fixed",
+      "invocation": "run a three-round architecture debate",
+      "structured_protocol": null,
+      "expected_status": "RESOLVED",
+      "expected_protocol": "fixed-three-v1"
+    },
+    {
+      "id": "resolver-chinese-literal-fixed",
+      "invocation": "请运行三轮辩论",
+      "structured_protocol": null,
+      "expected_status": "RESOLVED",
+      "expected_protocol": "fixed-three-v1"
+    },
+    {
+      "id": "resolver-adaptive-opt-in",
+      "invocation": "use sana-debation",
+      "structured_protocol": "adaptive-axes-v1",
+      "expected_status": "RESOLVED",
+      "expected_protocol": "adaptive-axes-v1"
+    },
+    {
+      "id": "resolver-mixed-conflict",
+      "invocation": "run a three-round debate",
+      "structured_protocol": "adaptive-axes-v1",
+      "expected_status": "PROTOCOL_SELECTION_CONFLICT",
+      "expected_protocol": null
+    },
+    {
+      "id": "resolver-unknown",
+      "invocation": "use sana-debation",
+      "structured_protocol": "adaptive-latest",
+      "expected_status": "UNKNOWN_PROTOCOL",
+      "expected_protocol": null
+    }
+  ],
+  "state_machines": [
+    {
+      "id": "fixed-success",
+      "protocol_id": "fixed-three-v1",
+      "events": ["CORE_ACK", "P0", "CLOSE_ROUND_1", "CLOSE_ROUND_2", "CLOSE_ROUND_3", "CHIEF_DECIDE", "COMPLETE"],
+      "expected_state": "COMPLETE",
+      "expected_cycles": 0
+    },
+    {
+      "id": "adaptive-zero-cycle-success",
+      "protocol_id": "adaptive-axes-v1",
+      "events": ["CORE_ACK", "P0", "ATTACK_MAP", "START_TERMINAL", "TERMINAL_VALID", "CHIEF_SCAN", "CHIEF_DECIDE", "COMPLETE"],
+      "expected_state": "COMPLETE",
+      "expected_cycles": 0
+    },
+    {
+      "id": "adaptive-one-cycle-success",
+      "protocol_id": "adaptive-axes-v1",
+      "events": ["CORE_ACK", "P0", "ATTACK_MAP", "OPEN_CYCLE", "CLOSE_CYCLE", "START_TERMINAL", "TERMINAL_VALID", "CHIEF_SCAN", "CHIEF_DECIDE", "COMPLETE"],
+      "expected_state": "COMPLETE",
+      "expected_cycles": 1
+    },
+    {
+      "id": "adaptive-three-cycle-success",
+      "protocol_id": "adaptive-axes-v1",
+      "events": ["CORE_ACK", "P0", "ATTACK_MAP", "OPEN_CYCLE", "CLOSE_CYCLE", "OPEN_CYCLE", "CLOSE_CYCLE", "OPEN_CYCLE", "CLOSE_CYCLE", "START_TERMINAL", "TERMINAL_VALID", "CHIEF_SCAN", "CHIEF_DECIDE", "COMPLETE"],
+      "expected_state": "COMPLETE",
+      "expected_cycles": 3
+    },
+    {
+      "id": "adaptive-fourth-cycle-forbidden",
+      "protocol_id": "adaptive-axes-v1",
+      "events": ["CORE_ACK", "P0", "ATTACK_MAP", "OPEN_CYCLE", "CLOSE_CYCLE", "OPEN_CYCLE", "CLOSE_CYCLE", "OPEN_CYCLE", "CLOSE_CYCLE", "OPEN_CYCLE"],
+      "expected_error": "CYCLE_BUDGET_EXHAUSTED"
+    },
+    {
+      "id": "fixed-skipped-round-forbidden",
+      "protocol_id": "fixed-three-v1",
+      "events": ["CORE_ACK", "P0", "CLOSE_ROUND_2"],
+      "expected_error": "INVALID_TRANSITION"
+    },
+    {
+      "id": "adaptive-chief-before-terminal-forbidden",
+      "protocol_id": "adaptive-axes-v1",
+      "events": ["CORE_ACK", "P0", "ATTACK_MAP", "CHIEF_SCAN"],
+      "expected_error": "INVALID_TRANSITION"
+    }
+  ]
+}

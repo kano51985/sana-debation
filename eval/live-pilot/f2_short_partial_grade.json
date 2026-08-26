@@ -1,0 +1,83 @@
+{
+  "behavioral_gate": {
+    "adaptive_all_audits_valid": true,
+    "adaptive_not_worse_post_revision_detection": true,
+    "adaptive_not_worse_trace_specificity": true,
+    "adaptive_zero_critical_misses": true,
+    "adaptive_zero_false_closures": true,
+    "complete_matched_live_records": false
+  },
+  "errors": [
+    "missing result: ('F1-short', 'fixed-three-v1')",
+    "missing result: ('F1-noisy', 'fixed-three-v1')",
+    "missing result: ('F2-noisy', 'fixed-three-v1')",
+    "missing result: ('F3-short', 'fixed-three-v1')",
+    "missing result: ('F3-noisy', 'fixed-three-v1')",
+    "missing result: ('F4-short', 'fixed-three-v1')",
+    "missing result: ('F4-noisy', 'fixed-three-v1')",
+    "missing result: ('F5-short', 'fixed-three-v1')",
+    "missing result: ('F5-noisy', 'fixed-three-v1')",
+    "missing result: ('F6-short', 'fixed-three-v1')",
+    "missing result: ('F6-noisy', 'fixed-three-v1')",
+    "missing result: ('F1-short', 'adaptive-axes-v1')",
+    "missing result: ('F1-noisy', 'adaptive-axes-v1')",
+    "missing result: ('F2-noisy', 'adaptive-axes-v1')",
+    "missing result: ('F3-short', 'adaptive-axes-v1')",
+    "missing result: ('F3-noisy', 'adaptive-axes-v1')",
+    "missing result: ('F4-short', 'adaptive-axes-v1')",
+    "missing result: ('F4-noisy', 'adaptive-axes-v1')",
+    "missing result: ('F5-short', 'adaptive-axes-v1')",
+    "missing result: ('F5-noisy', 'adaptive-axes-v1')",
+    "missing result: ('F6-short', 'adaptive-axes-v1')",
+    "missing result: ('F6-noisy', 'adaptive-axes-v1')"
+  ],
+  "evidence_id": "E6",
+  "limitations": [
+    "A finite seeded suite does not prove general cognitive independence or universal non-inferiority.",
+    "Token, elapsed-time, and compaction data are reported only when the host exposes them.",
+    "Synthetic records validate the grader only and never satisfy E6."
+  ],
+  "protocol_metrics": {
+    "adaptive-axes-v1": {
+      "audit_invalid_cases": [],
+      "cases": 1,
+      "critical_detected": 1,
+      "critical_detection_rate": 1.0,
+      "critical_expected": 1,
+      "critical_misses": [],
+      "elapsed_ms_total": 622501,
+      "false_duplicate": [],
+      "false_no_material": [],
+      "input_tokens_total": 0,
+      "output_tokens_total": 0,
+      "post_revision_detected": 1,
+      "post_revision_detection_rate": 1.0,
+      "post_revision_expected": 1,
+      "retries_total": 0,
+      "synthetic_records": 0,
+      "telemetry_unavailable": 2,
+      "trace_specificity_mean": 1.0
+    },
+    "fixed-three-v1": {
+      "audit_invalid_cases": [],
+      "cases": 1,
+      "critical_detected": 1,
+      "critical_detection_rate": 1.0,
+      "critical_expected": 1,
+      "critical_misses": [],
+      "elapsed_ms_total": 532655,
+      "false_duplicate": [],
+      "false_no_material": [],
+      "input_tokens_total": 0,
+      "output_tokens_total": 0,
+      "post_revision_detected": 1,
+      "post_revision_detection_rate": 1.0,
+      "post_revision_expected": 1,
+      "retries_total": 0,
+      "synthetic_records": 0,
+      "telemetry_unavailable": 2,
+      "trace_specificity_mean": 1.0
+    }
+  },
+  "status": "HARNESS_ONLY"
+}

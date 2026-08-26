@@ -1,0 +1,25 @@
+{
+  "fixture_version": 1,
+  "protocol_id": "adaptive-axes-v2",
+  "materiality_contract_id": "baseline-delta-ledger-v1",
+  "cases": [
+    {"name": "supplied-change-classification-exclusion", "operation": "supplied_change_non_relevant", "expected_code": "SUPPLIED_CHANGE_MISCLASSIFIED"},
+    {"name": "missing-peer-attestation", "operation": "missing_attestation", "expected_code": "CLASSIFICATION_ATTESTATION_MISSING"},
+    {"name": "missing-candidate-finding-link", "operation": "missing_finding_link", "expected_code": "CANDIDATE_FINDING_LINK_MISSING"},
+    {"name": "relevant-zero-cycle", "operation": "relevant_zero_cycle", "expected_code": "ZERO_CYCLE_RECONCILIATION_INVALID"},
+    {"name": "generic-response", "operation": "generic_response", "expected_code": "RESPONSE_EVIDENCE_MISSING"},
+    {"name": "already-fixed-response", "operation": "already_fixed", "expected_code": "RESPONSE_EVIDENCE_MISSING"},
+    {"name": "copied-peer-close", "operation": "copied_close", "expected_code": "PEER_CLOSURE_COPIED"},
+    {"name": "unsupported-peer-close", "operation": "unsupported_close", "expected_code": "PEER_CLOSURE_UNSUPPORTED"},
+    {"name": "unjustified-batching", "operation": "unjustified_batch", "expected_code": "BATCH_CAUSALITY_UNJUSTIFIED"},
+    {"name": "hypothetical-peer-discovery", "operation": "hypothetical_peer_discovery", "expected_code": "PEER_DISCOVERY_PROVENANCE_INVALID"},
+    {"name": "projection-drops-finding", "operation": "projection_loss", "expected_code": "PROJECTION_NON_INJECTIVE"},
+    {"name": "unknown-authority-route", "operation": "unknown_route", "expected_code": "AUTHORITY_ROUTE_UNREGISTERED"},
+    {"name": "non-authority-bypass", "operation": "authority_bypass", "expected_code": "AUTHORITY_BYPASS_ATTEMPT"},
+    {"name": "stale-authority-epoch", "operation": "stale_epoch", "expected_code": "AUTHORITY_EPOCH_MISMATCH"},
+    {"name": "missing-consumer-ack", "operation": "missing_ack", "expected_code": "CONSUMER_ACK_MISSING"},
+    {"name": "mismatched-consumer-receipt", "operation": "bad_receipt", "expected_code": "CONSUMER_RECEIPT_MISMATCH"},
+    {"name": "future-epoch-history", "operation": "future_epoch", "expected_code": "HISTORICAL_INTERPRETATION_MISMATCH"},
+    {"name": "matching-authority-publication", "operation": "valid_authority", "expected_status": "AUTHORIZED"}
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "E6 blind grade",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["case_id", "blind_run_id", "detected_issue_ids", "false_no_material_issue_ids", "false_duplicate_issue_ids", "audit_valid", "failure_trace_specificity", "grading_notes"],
+  "properties": {
+    "case_id": {"type": "string", "minLength": 1},
+    "blind_run_id": {"type": "string", "minLength": 1},
+    "detected_issue_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "false_no_material_issue_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "false_duplicate_issue_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "audit_valid": {"type": "boolean"},
+    "failure_trace_specificity": {"type": "number", "minimum": 0, "maximum": 1},
+    "grading_notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

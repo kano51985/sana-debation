@@ -1,0 +1,28 @@
+{
+  "case_id": "F3-short",
+  "run_id": "F3S-ADAPTIVE-P5-NATIVE1",
+  "protocol_id": "adaptive-axes-v2",
+  "materiality_contract_id": "baseline-delta-ledger-v1",
+  "protocol_conformant": true,
+  "audit_valid": true,
+  "baseline": {
+    "baseline_ref": "B0",
+    "literal_initial_proposal": "Add a non-decisive audit label; no threshold, authorization, schema hash, or routing behavior changes."
+  },
+  "delta_candidates": [],
+  "cycles_used": 0,
+  "cycle_accounting": {
+    "interactions": 1,
+    "substantive_cycles": 0,
+    "routed_findings": 0,
+    "substantively_closed_findings": 0,
+    "zero_cycle_eligible": true
+  },
+  "terminal_findings": [],
+  "chief_disposition": "APPROVE",
+  "limitations": [
+    "Closed-world approval based only on the supplied literal terminal record.",
+    "Unspecified implementation details remain hypothetical and nonblocking.",
+    "Fresh separately instructed threads demonstrate observable execution isolation, not cognitive independence."
+  ]
+}

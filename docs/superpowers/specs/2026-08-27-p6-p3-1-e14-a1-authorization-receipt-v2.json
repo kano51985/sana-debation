@@ -1,0 +1,18 @@
+{
+  "schema": "sana.e14.a1-authorization-receipt.v1",
+  "authorization_id": "E14-A1-20260826T162956Z-retry2-43ecbac0831c439b884782c06d218015",
+  "decision": "APPROVE_A1_DOWNLOAD_ONLY",
+  "authority_effect": "DOWNLOAD_ONLY",
+  "issued_at_utc": "2026-08-26 16:29:56.1457913Z",
+  "expires_at_utc": "2026-08-26 17:29:56.1457913Z",
+  "manifest_sha256": "48AFFF7D04A6A3E665D63192BA97181FD80EB8A7981F514AC895FAD916D4CA9F",
+  "runner_sha256": "0232F074C4D328F49F5E1C765C0B97EE0DD1B0E89740EB26822DB8D69D1D500D",
+  "output_root": "C:\\Users\\Administrator\\Documents\\Codex\\2026-08-25\\zh\\outputs\\sana-v22-evidence\\e14\\vendor-acquisition-v1",
+  "approval_basis": "Explicit user confirmation in the current Codex task.",
+  "supersedes_authorization_id": "E14-A1-20260826T162327Z-a882879010a34a85b6e7434cdfc74d02",
+  "superseded_receipt_sha256": "0C02B13B5BC7F7F9A98859E9F0CC7F81DE1E25FEE76E51A1A64C18B5B47A923E",
+  "retry_basis": "The first attempt failed before HTTP client construction with A1_AUTHORIZATION_TIME_INVALID because ConvertFrom-Json coerced RFC3339 strings to local DateTime values.",
+  "no_network_result_to_retry": true,
+  "no_automatic_progression": true,
+  "next_stage": "UNAUTHORIZED_PENDING_G1"
+}

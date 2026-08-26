@@ -1,0 +1,10 @@
+{
+  "schema_valid": true,
+  "three_distinct_core_threads": true,
+  "all_core_threads_fork_turns_none": true,
+  "peer_readiness_preceded_candidate_exposure": true,
+  "chief_readiness_preceded_terminal_exposure": true,
+  "protocol_defined_chief_handoff_observed": true,
+  "terminal_artifact_came_from_chief_record": true,
+  "prompt_contract_unambiguous": false
+}

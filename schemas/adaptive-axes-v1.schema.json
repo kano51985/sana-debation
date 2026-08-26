@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sana.local/e7/adaptive-axes-v1.schema.json",
+  "title": "Sana adaptive-axes-v1 run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "protocol_id",
+    "schema_version",
+    "axis_inspections",
+    "cycles",
+    "terminal_axis_records",
+    "chief_terminal_scan",
+    "chief_decision"
+  ],
+  "properties": {
+    "run_id": {"type": "string", "minLength": 1},
+    "protocol_id": {"const": "adaptive-axes-v1"},
+    "schema_version": {"const": 1},
+    "axis_inspections": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {"$ref": "#/$defs/axisInspection"}
+    },
+    "cycles": {
+      "type": "array",
+      "maxItems": 3,
+      "items": {"$ref": "#/$defs/cycleRecord"}
+    },
+    "terminal_axis_records": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {"$ref": "#/$defs/terminalAxisRecord"}
+    },
+    "chief_terminal_scan": {"$ref": "#/$defs/chiefTerminalScan"},
+    "chief_decision": {"$ref": "#/$defs/chiefDecision"}
+  },
+  "$defs": {
+    "failureTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["precondition", "event", "observable_failure"],
+      "properties": {
+        "precondition": {"type": "string", "minLength": 1},
+        "event": {"type": "string", "minLength": 1},
+        "observable_failure": {"type": "string", "minLength": 1}
+      }
+    },
+    "axisInspection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["axis_id", "proposal_ref", "mechanism", "outcome", "concern_tested", "reopen_condition", "evidence_ids", "risk_ids"],
+      "properties": {
+        "axis_id": {"type": "string", "minLength": 1},
+        "proposal_ref": {"type": "string", "minLength": 1},
+        "mechanism": {"type": "string", "minLength": 1},
+        "outcome": {"enum": ["NO_MATERIAL_OBJECTION", "MATERIAL_CHALLENGE"]},
+        "concern_tested": {"type": "string", "minLength": 1},
+        "reopen_condition": {"type": "string", "minLength": 1},
+        "issue_id": {"type": ["string", "null"]},
+        "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "risk_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "proposerResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["challenge_id", "status", "basis"],
+      "properties": {
+        "challenge_id": {"type": "string", "minLength": 1},
+        "status": {"enum": ["accepted", "rejected with evidence", "unresolved"]},
+        "basis": {"type": "string", "minLength": 1}
+      }
+    },
+    "cycleRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cycle_id",
+        "axis_id",
+        "proposal_ref_before",
+        "proposal_ref_after",
+        "mechanism",
+        "rebuttal",
+        "failure_trace",
+        "falsifier",
+        "proposer_responses",
+        "proposal_diff",
+        "risk_updates",
+        "peer_closing_assessment",
+        "verdict",
+        "evidence_ids",
+        "risk_ids"
+      ],
+      "properties": {
+        "cycle_id": {"type": "string", "minLength": 1},
+        "axis_id": {"type": "string", "minLength": 1},
+        "proposal_ref_before": {"type": "string", "minLength": 1},
+        "proposal_ref_after": {"type": "string", "minLength": 1},
+        "mechanism": {"type": "string", "minLength": 1},
+        "rebuttal": {"type": "string", "minLength": 1},
+        "failure_trace": {"$ref": "#/$defs/failureTrace"},
+        "falsifier": {"type": "string", "minLength": 1},
+        "proposer_responses": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/proposerResponse"}},
+        "proposal_diff": {"type": "string", "minLength": 1},
+        "risk_updates": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "peer_closing_assessment": {"type": "string", "minLength": 1},
+        "verdict": {"enum": ["accepted", "modified", "rejected", "unresolved"]},
+        "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "risk_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "terminalAxisRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["axis_id", "terminal_proposal_ref", "reviewed_diff_ids", "semantic_dependency_ids", "impact", "outcome", "impact_basis", "evidence_ids", "risk_ids"],
+      "properties": {
+        "axis_id": {"type": "string", "minLength": 1},
+        "terminal_proposal_ref": {"type": "string", "minLength": 1},
+        "reviewed_diff_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "semantic_dependency_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "impact": {"enum": ["NONE", "DIRECT", "TRANSITIVE"]},
+        "outcome": {"enum": ["TERMINAL_EQUIVALENT", "TERMINAL_REINSPECTED_NO_MATERIAL", "TERMINAL_MATERIAL_CHALLENGE", "OPEN_BUDGET_EXHAUSTED"]},
+        "impact_basis": {"type": "string", "minLength": 1},
+        "finding_id": {"type": ["string", "null"]},
+        "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "risk_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "chiefTerminalScan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scan_id", "terminal_proposal_ref", "context_exposure", "axis_scans", "cross_axis_concerns"],
+      "properties": {
+        "scan_id": {"type": "string", "minLength": 1},
+        "terminal_proposal_ref": {"type": "string", "minLength": 1},
+        "context_exposure": {"const": "TERMINAL_ONLY"},
+        "axis_scans": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["axis_id", "current_mechanism", "outcome", "falsifier", "invariant_ids", "evidence_ids"],
+            "properties": {
+              "axis_id": {"type": "string", "minLength": 1},
+              "current_mechanism": {"type": "string", "minLength": 1},
+              "outcome": {"enum": ["NO_MATERIAL_FAILURE_FOUND", "MATERIAL_CONCERN"]},
+              "failure_trace": {"type": ["object", "null"]},
+              "falsifier": {"type": "string", "minLength": 1},
+              "invariant_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+              "evidence_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}
+            }
+          }
+        },
+        "cross_axis_concerns": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "chiefDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["disposition", "stage1_reconciliation", "basis", "trace_matrix", "next_action"],
+      "properties": {
+        "disposition": {"enum": ["approve", "approve with required changes", "reject and redesign", "defer pending named evidence"]},
+        "stage1_reconciliation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["concern_id", "status", "basis"],
+            "properties": {
+              "concern_id": {"type": "string", "minLength": 1},
+              "status": {"enum": ["CONFIRMED_OPEN", "RESOLVED_BY_RECORD", "SUPERSEDED_BY_STRONGER_ISSUE", "INVALIDATED_BY_EVIDENCE"]},
+              "basis": {"type": "string", "minLength": 1}
+            }
+          }
+        },
+        "basis": {"type": "string", "minLength": 1},
+        "trace_matrix": {"type": "array", "minItems": 1, "items": {"type": "object"}},
+        "next_action": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
