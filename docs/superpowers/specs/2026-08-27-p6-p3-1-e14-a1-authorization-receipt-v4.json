@@ -1,0 +1,19 @@
+{
+  "schema": "sana.e14.a1-authorization-receipt.v1",
+  "authorization_id": "E14-A1-20260826T165914Z-v3-7dbc16fe243b40ffa454aa572a7ba026",
+  "decision": "APPROVE_A1_DOWNLOAD_ONLY",
+  "authority_effect": "DOWNLOAD_ONLY",
+  "issued_at_utc": "2026-08-26T16:59:14.4575188Z",
+  "expires_at_utc": "2026-08-26T17:59:14.4575188Z",
+  "manifest_sha256": "7E5203E0A9BD50FF3421DFBB1D136BBA0B6C1DD39274A45ACEABB72E4B33C9DD",
+  "runner_sha256": "08A8935121735B0D1100FFDD05BB6910439495B97A590736BF7F01F6C67F582F",
+  "output_root": "C:\\Users\\Administrator\\Documents\\Codex\\2026-08-25\\zh\\outputs\\sana-v22-evidence\\e14\\vendor-acquisition-v2",
+  "approval_basis": "The user approved the bounded v3 design and explicitly delegated in-scope continuation without further confirmation in the current Codex task. This receipt was generated after artifact freeze to bind the exact bytes; it does not claim a separate post-hash user review.",
+  "supersedes_failed_receipts": [
+    "0C02B13B5BC7F7F9A98859E9F0CC7F81DE1E25FEE76E51A1A64C18B5B47A923E",
+    "668BE3ACA4276CAA70F8B7B97DEA7E630925588ACDAC0154A9F82A1BC9BFC1A2",
+    "91D8022994F64304E5720A5BFA7879A0E6871BDD9A41AF60192B7FAAB7D3BDAA"
+  ],
+  "no_automatic_progression": true,
+  "next_stage": "UNAUTHORIZED_PENDING_G1"
+}
