@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sana.invalid/schemas/e14-a2-read-only-prescan-v1.schema.json",
+  "title": "E14 A2 read-only pre-scan report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "a1_terminal_sha256",
+    "packages",
+    "authority_effect",
+    "admission_state",
+    "semantic_attestation",
+    "a1",
+    "bundle_root",
+    "next_gate"
+  ],
+  "properties": {
+    "schema": {"const": "sana.e14.a2-read-only-prescan.v1"},
+    "a1_terminal_sha256": {"$ref": "#/$defs/sha256"},
+    "packages": {
+      "type": "array",
+      "prefixItems": [
+        {"allOf": [{"$ref": "#/$defs/package"}, {"properties": {"kind": {"const": "npm"}}}]},
+        {"allOf": [{"$ref": "#/$defs/package"}, {"properties": {"kind": {"const": "wheel"}}}]}
+      ],
+      "items": false,
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "authority_effect": {"const": "NONE"},
+    "admission_state": {"const": "NOT_EXECUTED"},
+    "semantic_attestation": {"const": "REQUIRED"},
+    "a1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root", "terminal_sha256", "file_count", "total_bytes", "terminal_state"],
+      "properties": {
+        "root": {"type": "string", "minLength": 1},
+        "terminal_sha256": {"$ref": "#/$defs/sha256"},
+        "file_count": {"const": 20},
+        "total_bytes": {"type": "integer", "minimum": 1, "maximum": 16777216},
+        "terminal_state": {"const": "ACQUISITION_COMPLETE_AWAITING_G1"}
+      }
+    },
+    "bundle_root": {"$ref": "#/$defs/sha256"},
+    "next_gate": {"const": "G4_G5_EVIDENCE_ONLY"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9A-F]{64}$"},
+    "member": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "raw_path", "bytes", "sha256", "mode"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "raw_path": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 0, "maximum": 2097152},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "mode": {"type": "integer", "minimum": 0}
+      }
+    },
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "raw_sha256",
+        "physical_root",
+        "member_count",
+        "expanded_bytes",
+        "members",
+        "inventory_root",
+        "source_root",
+        "package",
+        "declared_dependency_set",
+        "runtime_dependency_closure"
+      ],
+      "properties": {
+        "kind": {"enum": ["npm", "wheel"]},
+        "raw_sha256": {"$ref": "#/$defs/sha256"},
+        "physical_root": {"$ref": "#/$defs/sha256"},
+        "member_count": {"type": "integer", "minimum": 1, "maximum": 512},
+        "expanded_bytes": {"type": "integer", "minimum": 0, "maximum": 33554432},
+        "members": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/member"},
+          "minItems": 1,
+          "maxItems": 512
+        },
+        "inventory_root": {"$ref": "#/$defs/sha256"},
+        "source_root": {"$ref": "#/$defs/sha256"},
+        "package": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "version", "license_decision", "license_sha256"],
+          "properties": {
+            "name": {"enum": ["canonicalize", "rfc8785"]},
+            "version": {"enum": ["4.0.0", "0.1.4"]},
+            "license_decision": {"const": "Apache-2.0"},
+            "license_basis": {"type": "string", "minLength": 1},
+            "license_sha256": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        "declared_dependency_set": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["registry_runtime"],
+          "properties": {
+            "registry_runtime": {"type": "array", "maxItems": 0},
+            "peer": {"type": "array", "maxItems": 0},
+            "optional": {"type": "array", "maxItems": 0},
+            "bundled": {"type": "array", "maxItems": 0},
+            "scripts_recorded_not_executed": {
+              "type": "object",
+              "additionalProperties": {"type": "string"}
+            },
+            "prohibited_hooks": {"type": "array", "maxItems": 0},
+            "extras_not_installed": {
+              "type": "array",
+              "items": {"type": "string"},
+              "uniqueItems": true
+            },
+            "extra_requirements_not_installed": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["requirement", "extra"],
+                "properties": {
+                  "requirement": {"type": "string"},
+                  "extra": {"type": "string"}
+                }
+              }
+            },
+            "entry_points": {"type": "array", "maxItems": 0},
+            "install_hooks": {"type": "array", "maxItems": 0}
+          }
+        },
+        "runtime_dependency_closure": {
+          "type": "object",
+          "required": [
+            "analyzer",
+            "runtime_boundary",
+            "external_allowlist",
+            "references",
+            "dynamic_loading",
+            "structural_coverage",
+            "semantic_completeness",
+            "semantic_attestation_required"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "analyzer": {"type": "string"},
+            "runtime_boundary": {"type": "string"},
+            "external_allowlist": {"type": "array", "items": {"type": "string"}},
+            "references": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["source", "kind", "target"],
+                "properties": {
+                  "source": {"type": "string", "minLength": 1},
+                  "kind": {"type": "string", "minLength": 1},
+                  "target": {"type": "string", "minLength": 1}
+                }
+              }
+            },
+            "dynamic_loading": {"type": "string"},
+            "structural_coverage": {"const": "COMPLETE_FOR_FROZEN_SOURCE_ROOT"},
+            "semantic_completeness": {"const": false},
+            "semantic_attestation_required": {"const": true}
+          }
+        }
+      }
+    }
+  }
+}

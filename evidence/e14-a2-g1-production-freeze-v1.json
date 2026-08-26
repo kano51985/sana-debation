@@ -1,0 +1,80 @@
+{
+  "schema": "sana.e14.a2-g1-production-freeze.v1",
+  "created_on": "2026-08-27",
+  "status": "PASS_FROZEN_FOR_G2_G3_EVIDENCE",
+  "authority_effect": "NONE",
+  "admission_execution_authorized": false,
+  "production_files": [
+    {
+      "path": "src/e14_admission.py",
+      "bytes": 41252,
+      "sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7",
+      "role": "production physical scanner, policy verifier, source analyzer, and read-only pre-scan"
+    },
+    {
+      "path": "schemas/e14-a2-read-only-prescan-v1.schema.json",
+      "bytes": 6415,
+      "sha256": "657A95C57A24AEB825C4784F27918F8498DE880BF2655855E7C36E089D6214E1",
+      "role": "closed read-only pre-scan report schema"
+    }
+  ],
+  "evidence_harness": {
+    "path": "tests/test_e14_admission.py",
+    "bytes": 7110,
+    "sha256": "1AE33AFE5849295EC68E005BFDEA32136572D24D47399D8D6AF88B6979800694"
+  },
+  "controlling_plan": {
+    "path": "docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-g0-g9-evidence-plan.md",
+    "bytes": 4217,
+    "sha256": "88E7EE8EC0028BD94385AFDD8F1CF9E83F3028B9E37E5AA2A955269DC648EB6D"
+  },
+  "archive_policy": {
+    "gzip": "single RFC1952 member, flags zero, raw deflate, exact EOF/CRC32/ISIZE/final trailer",
+    "tar": "physical 512-byte POSIX ustar, exact typeflag 0, empty prefix/link, octal only, zero padding and two-block terminator",
+    "zip": "single-disk Unix 2.0, flags zero, deflate only, exact 0644 regular members, no extras/comments/descriptors/ZIP64, contiguous local records",
+    "normalizing_archive_api_used": false
+  },
+  "root_algorithms": {
+    "physical_transcript": "SHA-256 over domain-length/domain/count and sorted canonical record bytes",
+    "inventory_and_source": "SHA-256 over domain-length/domain/count and sorted path-length/path/content-length/content-SHA256 tuples",
+    "bundle": "SHA-256 of sorted compact UTF-8 JSON over the pre-scan material excluding host path details"
+  },
+  "source_kinds": {
+    "node_runtime": [".js"],
+    "python_runtime": [".py"],
+    "inert_or_metadata": [".d.ts", ".json", ".md", "LICENSE", "METADATA", "RECORD", "WHEEL", "py.typed"],
+    "unknown_kinds": "REJECTED_BY_EXACT_INVENTORY"
+  },
+  "error_codes": [
+    "A1_SEAL_MISMATCH",
+    "RUNTIME_CLOSURE_INCOMPLETE",
+    "RUNTIME_DYNAMIC_LOAD_PROHIBITED",
+    "RUNTIME_REFERENCE_UNRESOLVED",
+    "VENDOR_ARCHIVE_CAP_EXCEEDED",
+    "VENDOR_ARCHIVE_HASH_MISMATCH",
+    "VENDOR_ARCHIVE_UNSAFE",
+    "VENDOR_DEPENDENCY_UNEXPECTED",
+    "VENDOR_INSTALL_HOOK_PRESENT",
+    "VENDOR_LICENSE_MISMATCH",
+    "VENDOR_METADATA_INVALID",
+    "VENDOR_PACKAGE_IDENTITY_MISMATCH",
+    "VENDOR_PATH_COLLISION",
+    "VENDOR_PATH_UNSAFE",
+    "VENDOR_RECORD_INVALID"
+  ],
+  "caps": {
+    "input_files": 32,
+    "input_bytes": 16777216,
+    "archive_members": 512,
+    "expanded_files": 512,
+    "expanded_bytes": 33554432,
+    "single_file_bytes": 2097152,
+    "path_depth": 12
+  },
+  "frozen_inputs": {
+    "a1_terminal_sha256": "33C3035DC90D7758A6D92BDE3D9CA629088AB94B1347881E929CEA21AED11879",
+    "npm_archive_sha256": "AE9A1851B4D3489FBA0D6A45A6B779296C5FE7F9DD626EB2C6D12045D47CBA87",
+    "python_wheel_sha256": "520D690B448ECF0703691C76E1A34A24DDCD4FC5BC41D589CB7C58EC651BCD48"
+  },
+  "next_stage": "G2_G3_G4_G5_EVIDENCE_ONLY"
+}

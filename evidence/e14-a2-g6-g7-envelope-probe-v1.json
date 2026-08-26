@@ -1,0 +1,391 @@
+{
+  "admission_executed": false,
+  "authority_effect": "NONE",
+  "controller": {
+    "path": "tools/run_e14_envelope_probe.py",
+    "sha256": "93BBA0C1B2158F23A56ED0C2BD225149F4AA0DAE25632ABDEA36D2E06EB51316"
+  },
+  "exit": {
+    "code": 0,
+    "error": "",
+    "oom_killed": false
+  },
+  "external_module_observation": {
+    "basis": "image/rootfs identity and exact command are external; loaded module origins are guest-reported",
+    "status": "PARTIAL"
+  },
+  "external_process_observation": [
+    "UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD",
+    "10004               90966               90935               48                  17:50               ?                   00:00:00            python -I -S -B /probe/e14_envelope_probe.py"
+  ],
+  "external_resource_observation": {
+    "BlockIO": "0B / 0B",
+    "CPUPerc": "0.00%",
+    "Container": "3aa44e536a5b9fd75b7758d10eb85747f0f0d63f800412e15b18458f3c21a97c",
+    "ID": "3aa44e536a5b",
+    "MemPerc": "2.67%",
+    "MemUsage": "13.7MiB / 512MiB",
+    "Name": "sana-e14-g7-dc95c43777c84a6fa246d199bb9054a3",
+    "NetIO": "0B / 0B",
+    "PIDs": "1"
+  },
+  "external_tcb": {
+    "docker_architecture": "x86_64",
+    "docker_cli_path": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe",
+    "docker_cli_sha256": "5C077F7E830DD07109DD062B99C0AD9154714A2A5BAF4EC3DCBD44FF9545972D",
+    "docker_operating_system": "Docker Desktop",
+    "docker_os_type": "linux",
+    "docker_security_options": [
+      "name=seccomp,profile=builtin",
+      "name=cgroupns"
+    ],
+    "docker_version": {
+      "Client": {
+        "ApiVersion": "1.55",
+        "Arch": "amd64",
+        "BuildTime": "Wed Aug  5 18:31:33 2026",
+        "Context": "desktop-linux",
+        "DefaultAPIVersion": "1.55",
+        "GitCommit": "a7dcaa6",
+        "GoVersion": "go1.26.5",
+        "Os": "windows",
+        "Version": "29.7.2"
+      },
+      "Server": {
+        "ApiVersion": "1.55",
+        "Arch": "amd64",
+        "BuildTime": "2026-08-05T18:28:36.000000000+00:00",
+        "Components": [
+          {
+            "Details": {
+              "ApiVersion": "1.55",
+              "Arch": "amd64",
+              "BuildTime": "Wed Aug  5 18:28:36 2026",
+              "Experimental": "false",
+              "GitCommit": "6a43e3d",
+              "GoVersion": "go1.26.5",
+              "KernelVersion": "6.18.33.2-microsoft-standard-WSL2",
+              "MinAPIVersion": "1.40",
+              "Module": "github.com/moby/moby/v2",
+              "ModuleVersion": "v2.0.0+unknown",
+              "Os": "linux"
+            },
+            "Name": "Engine",
+            "Version": "29.7.2"
+          },
+          {
+            "Details": {
+              "GitCommit": "e53c7c1516c3b2bff98eb76f1f4117477e6f4e66"
+            },
+            "Name": "containerd",
+            "Version": "v2.2.5"
+          },
+          {
+            "Details": {
+              "GitCommit": "v1.3.6-0-g491b69ba"
+            },
+            "Name": "runc",
+            "Version": "1.3.6"
+          },
+          {
+            "Details": {
+              "GitCommit": "de40ad0"
+            },
+            "Name": "docker-init",
+            "Version": "0.19.0"
+          }
+        ],
+        "GitCommit": "6a43e3d",
+        "GoVersion": "go1.26.5",
+        "KernelVersion": "6.18.33.2-microsoft-standard-WSL2",
+        "MinAPIVersion": "1.40",
+        "Os": "linux",
+        "Platform": {
+          "Name": "Docker Desktop 4.86.0 (236216)"
+        },
+        "Version": "29.7.2"
+      }
+    }
+  },
+  "future_admission_root_absent": true,
+  "g6_envelope": "PASS",
+  "g7_boot_network_child": "PARTIAL_BLOCKING_EXTERNAL_MODULE_OBSERVATION",
+  "image": {
+    "id": "sha256:c459db0b82f43b3b8fe0fb7b5d12d902c449764e9f1260c8483ce459514b9e89",
+    "repo_digest": "sana-calibration-s4-preflight@sha256:c459db0b82f43b3b8fe0fb7b5d12d902c449764e9f1260c8483ce459514b9e89",
+    "rootfs_layers": [
+      "sha256:411a86676185cb54d695a805b238194a64e9b77e0c723f3802fbb87d333ea0b3",
+      "sha256:ebad55931d5b35d9cf64ab801f5b6f4e96821c5fcd17f4109e5774b039114014",
+      "sha256:f19f6d6c86377e4b77a2a5b5d8f56e7ecb205193e6f6b68aa74f61e382427936",
+      "sha256:6fdca0968d0fffb99492a80150c0c18077f7452fe77b70e950c3aefaf85dfe54",
+      "sha256:59727aa700744089d51926c8b41f991153ac7b82bfcbb25c2f20cb72ac41d453",
+      "sha256:c44c7e5c3f24ff0a19786f14f24bce49cbbc7fde68da145182720f8cc465b219",
+      "sha256:52498b7f0f8e7679e159c94dd9228b11bff152ac270e566f1632b6ca6388ddd9",
+      "sha256:dd75bf7ef8a78bc80238eb4f4bec5caf2ad57f4b93c167a6f132c50a4f503633",
+      "sha256:3df6369d6c0bafc31bee17fe2af5d6c503fa405899a56c4932c30137e5704c93",
+      "sha256:fd28e2df1525b7cfead2e94ac6cae80f6666b4832d8acf256947146ce400d455",
+      "sha256:12c183cf623564198bfc40fa25d50c08d41d7bec66fe784e289e351c26502339",
+      "sha256:6dc8321d6da66e4fe580d3d6a460ae310450b335a0ef62b9a581a7de84aa08b3",
+      "sha256:07552a2e19d967299770a262d4e3a3685d813a8f447f247a91b88322d604df86",
+      "sha256:4294481dc026e6162a17d7af259979eb8b1c0bf68ac000f1ffc6e5012edb58b5",
+      "sha256:476cc7b4c2cafd40b33888ae866ed324544ea2f78e87d98f90aef7c71eca74db",
+      "sha256:a604c7697acdbad6e2eb16a04838a11cee4af298a7b925f216525526c386f82e",
+      "sha256:c2f481b24975d4d9d68dce34b1417cf3ab7c69b538cb423ea6816f0f96b51f12",
+      "sha256:0d247ab4d27e0102e0253e129ece3d0e5f4fd9530b01d59da0d11a1a2e143c18",
+      "sha256:84b0ac4342383cd8792b1b33291c012dabc48d643628c98393cac7f1d88b7989",
+      "sha256:9529821fae86179f4f826b3d6694d45ce716d86e014d0e4c300b82da4b2909e7",
+      "sha256:c7cf577f73752dcfed23b47a415caf49d521ec128b317a78b70f927b24ff0200",
+      "sha256:28c4eb5e717e798ecbdb81eaeaa6faf1466ca1e0c34df7f5e8f3ceb326f6d1aa",
+      "sha256:013d9b69c742a1f2c13e85ede2e188c3101060270fc693d45eb0c7ea6af32326",
+      "sha256:8835a1d33261b920d914dfad62fa6054d37647f4a81dd75658c5f8765aeb1949",
+      "sha256:961d4f8fbce1359e9fe1533234b8aa133e8f015038fdac6c206ed3292f8beb7b",
+      "sha256:0451a5731b10dcd657d21f2107d585e211d56771b6aa2543ace39bdfdd700e21",
+      "sha256:fcba2ee99775ede9e3f643a831b91d6764d82548b6b1e90c31b2233641f298d5",
+      "sha256:8480d28a11b43f194319171fbfba4a1c1d22a6713a5b498bb3c65bc8167fc398",
+      "sha256:48226bc018b7ead2ab08863990d987e72cbabace4c1f7a0e270d55670cbd6be9",
+      "sha256:0eab2ca222b4ff88a698f9391bfccd5049bfb09172e23d4b425ffaf80db17c61",
+      "sha256:8d011227f42633d55b88a5e43d61bf6f054dcee3ab04c4c3f545e139c65b6497",
+      "sha256:239000859c2b56c384bbf542b4643e58a4df54dbf2f6f56bd49d2d4190abc153",
+      "sha256:2cadabbbddd3b349c207d346679085164515cf979ae0f40cfae80671387d8a31",
+      "sha256:b9dce5a913dc218bcd2c2a53501426be7704de980478d533507bdfb88684d911",
+      "sha256:6a686bc03c16788d07852a5d65c098f965537a9c9c285ab159fe45f64d766140",
+      "sha256:443cccde3a30e029626f578e3c872d0b0f4f6c95aecef57939a71d4074ba3603",
+      "sha256:9d4ba8349da5617be0c51e15a8dde7bdb0a2791ba5569f7bdbe08ba3b179e878",
+      "sha256:1eda91988353e0439ab0579b56d8fae20fff63f885f636da91b2c4bd0ec7ca37",
+      "sha256:9eb11654dee2845231d7773647319d749c085b48fc35ccd1c7ff3b4378bb7d9f",
+      "sha256:a53575e5861aebb795d55232e12b7f15ec4263f39b2bd96db1f46d021fe9aa8e",
+      "sha256:f1fe8247aa53779e4f73f6ce063a1f619d6d0e6400a57189b09b9c43dec810bd",
+      "sha256:3693332691114c68379f70ec6d1e660449b3ce212738438bc8baa4960bea45d0",
+      "sha256:b6a365452bcf7b8ba83d3057c728e2fe33d6fe45b13f836d9e22b96ab6266080",
+      "sha256:393f957c1aea9c3a945a4feb5e80ede558f5fc79432382a64d2f829b92f5f4c5"
+    ]
+  },
+  "next_stage": "FRESH_CHIEF_REVIEW_REQUIRED",
+  "prelaunch": {
+    "cap_drop": [
+      "ALL"
+    ],
+    "cmd": [
+      "python",
+      "-I",
+      "-S",
+      "-B",
+      "/probe/e14_envelope_probe.py"
+    ],
+    "environment": [
+      "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+      "LANG=C.UTF-8",
+      "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "PYTHONPATH=",
+      "PYTHONUNBUFFERED=1",
+      "PYTHON_SHA256=5c8462af5790baf43a321a1559dbe0db06d1be4300fb85fb53c40060668e548a",
+      "PYTHON_VERSION=3.12.14"
+    ],
+    "image": "sha256:c459db0b82f43b3b8fe0fb7b5d12d902c449764e9f1260c8483ce459514b9e89",
+    "memory": 536870912,
+    "memory_swap": 536870912,
+    "mounts": [
+      {
+        "destination": "/input",
+        "rw": false,
+        "type": "bind"
+      },
+      {
+        "destination": "/output",
+        "rw": true,
+        "type": "bind"
+      },
+      {
+        "destination": "/probe/e14_envelope_probe.py",
+        "rw": false,
+        "type": "bind"
+      },
+      {
+        "destination": "/tool/e14_admission.py",
+        "rw": false,
+        "type": "bind"
+      }
+    ],
+    "nano_cpus": 1000000000,
+    "network_mode": "none",
+    "networks": [
+      "none"
+    ],
+    "pids_limit": 1,
+    "readonly_rootfs": true,
+    "security_opt": [
+      "no-new-privileges:true"
+    ],
+    "user": "10004:10004",
+    "working_dir": "/opt/sana"
+  },
+  "probe": {
+    "path": "tools/e14_envelope_probe.py",
+    "sha256": "9668E164AC13A984A5C60E84D55517FBF2B6CCD14A407E24D9F79336AB0A9983"
+  },
+  "probe_report": {
+    "admission_executed": false,
+    "ambient_rfc8785_spec": false,
+    "authority_effect": "NONE",
+    "cgroup": {
+      "cpu_max": "100000 100000",
+      "memory_max": "536870912",
+      "pids_max": "1"
+    },
+    "child_attempt": {
+      "denied": true,
+      "errno": 11,
+      "error": "BlockingIOError"
+    },
+    "dont_write_bytecode": true,
+    "external_connect_attempt": {
+      "denied": true,
+      "errno": 101,
+      "error": "OSError"
+    },
+    "gid": 10004,
+    "input_terminal_matches": true,
+    "input_terminal_sha256": "33C3035DC90D7758A6D92BDE3D9CA629088AB94B1347881E929CEA21AED11879",
+    "interfaces": [
+      "lo"
+    ],
+    "interpreter_path": "/usr/local/bin/python3.12",
+    "interpreter_sha256": "0E6475DFDA68A9B2D93501449FC47593CA169010E8F4881577B97463FD0C1263",
+    "isolated_flag": 1,
+    "module_origins": [
+      "/probe/e14_envelope_probe.py",
+      "/usr/local/lib/python3.12/__future__.py",
+      "/usr/local/lib/python3.12/_collections_abc.py",
+      "/usr/local/lib/python3.12/_weakrefset.py",
+      "/usr/local/lib/python3.12/abc.py",
+      "/usr/local/lib/python3.12/codecs.py",
+      "/usr/local/lib/python3.12/collections/__init__.py",
+      "/usr/local/lib/python3.12/collections/abc.py",
+      "/usr/local/lib/python3.12/contextlib.py",
+      "/usr/local/lib/python3.12/copyreg.py",
+      "/usr/local/lib/python3.12/encodings/__init__.py",
+      "/usr/local/lib/python3.12/encodings/aliases.py",
+      "/usr/local/lib/python3.12/encodings/ascii.py",
+      "/usr/local/lib/python3.12/encodings/idna.py",
+      "/usr/local/lib/python3.12/encodings/utf_8.py",
+      "/usr/local/lib/python3.12/enum.py",
+      "/usr/local/lib/python3.12/fnmatch.py",
+      "/usr/local/lib/python3.12/functools.py",
+      "/usr/local/lib/python3.12/genericpath.py",
+      "/usr/local/lib/python3.12/hashlib.py",
+      "/usr/local/lib/python3.12/importlib/__init__.py",
+      "/usr/local/lib/python3.12/importlib/_abc.py",
+      "/usr/local/lib/python3.12/importlib/_bootstrap.py",
+      "/usr/local/lib/python3.12/importlib/_bootstrap_external.py",
+      "/usr/local/lib/python3.12/importlib/util.py",
+      "/usr/local/lib/python3.12/io.py",
+      "/usr/local/lib/python3.12/ipaddress.py",
+      "/usr/local/lib/python3.12/json/__init__.py",
+      "/usr/local/lib/python3.12/json/decoder.py",
+      "/usr/local/lib/python3.12/json/encoder.py",
+      "/usr/local/lib/python3.12/json/scanner.py",
+      "/usr/local/lib/python3.12/keyword.py",
+      "/usr/local/lib/python3.12/lib-dynload/_blake2.cpython-312-x86_64-linux-gnu.so",
+      "/usr/local/lib/python3.12/lib-dynload/_hashlib.cpython-312-x86_64-linux-gnu.so",
+      "/usr/local/lib/python3.12/lib-dynload/_json.cpython-312-x86_64-linux-gnu.so",
+      "/usr/local/lib/python3.12/lib-dynload/_posixsubprocess.cpython-312-x86_64-linux-gnu.so",
+      "/usr/local/lib/python3.12/lib-dynload/_socket.cpython-312-x86_64-linux-gnu.so",
+      "/usr/local/lib/python3.12/lib-dynload/array.cpython-312-x86_64-linux-gnu.so",
+      "/usr/local/lib/python3.12/lib-dynload/fcntl.cpython-312-x86_64-linux-gnu.so",
+      "/usr/local/lib/python3.12/lib-dynload/math.cpython-312-x86_64-linux-gnu.so",
+      "/usr/local/lib/python3.12/lib-dynload/select.cpython-312-x86_64-linux-gnu.so",
+      "/usr/local/lib/python3.12/lib-dynload/unicodedata.cpython-312-x86_64-linux-gnu.so",
+      "/usr/local/lib/python3.12/locale.py",
+      "/usr/local/lib/python3.12/ntpath.py",
+      "/usr/local/lib/python3.12/operator.py",
+      "/usr/local/lib/python3.12/os.py",
+      "/usr/local/lib/python3.12/pathlib.py",
+      "/usr/local/lib/python3.12/posixpath.py",
+      "/usr/local/lib/python3.12/re/__init__.py",
+      "/usr/local/lib/python3.12/re/_casefix.py",
+      "/usr/local/lib/python3.12/re/_compiler.py",
+      "/usr/local/lib/python3.12/re/_constants.py",
+      "/usr/local/lib/python3.12/re/_parser.py",
+      "/usr/local/lib/python3.12/reprlib.py",
+      "/usr/local/lib/python3.12/selectors.py",
+      "/usr/local/lib/python3.12/signal.py",
+      "/usr/local/lib/python3.12/socket.py",
+      "/usr/local/lib/python3.12/stat.py",
+      "/usr/local/lib/python3.12/stringprep.py",
+      "/usr/local/lib/python3.12/subprocess.py",
+      "/usr/local/lib/python3.12/threading.py",
+      "/usr/local/lib/python3.12/types.py",
+      "/usr/local/lib/python3.12/typing.py",
+      "/usr/local/lib/python3.12/urllib/__init__.py",
+      "/usr/local/lib/python3.12/urllib/parse.py",
+      "/usr/local/lib/python3.12/warnings.py",
+      "/usr/local/lib/python3.12/zipimport.py",
+      "built-in"
+    ],
+    "mount_write_tests": {
+      "input": {
+        "denied": true,
+        "errno": 30,
+        "error": "OSError"
+      },
+      "rootfs": {
+        "denied": true,
+        "errno": 30,
+        "error": "OSError"
+      },
+      "tool": {
+        "denied": true,
+        "errno": 30,
+        "error": "OSError"
+      }
+    },
+    "network_after": {
+      "lo": {
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      }
+    },
+    "network_before": {
+      "lo": {
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      }
+    },
+    "no_site_flag": 1,
+    "pid": 1,
+    "ppid": 0,
+    "proc_status": {
+      "CapEff": "0000000000000000",
+      "NSpid": "1",
+      "NoNewPrivs": "1",
+      "Seccomp": "2",
+      "Threads": "1"
+    },
+    "python_version": "3.12.14 (main, Aug 25 2026, 01:17:55) [GCC 14.2.0]",
+    "scanner_matches": true,
+    "scanner_sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7",
+    "schema": "sana.e14.a3-boot-net-probe.v1",
+    "sys_path": [
+      "/usr/local/lib/python312.zip",
+      "/usr/local/lib/python3.12",
+      "/usr/local/lib/python3.12/lib-dynload"
+    ],
+    "uid": 10004
+  },
+  "running_state": {
+    "networks": [
+      "none"
+    ],
+    "pid": 90966,
+    "running": true
+  },
+  "scanner": {
+    "path": "src/e14_admission.py",
+    "sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7"
+  },
+  "schema": "sana.e14.a2-g6-g7-envelope-evidence.v1",
+  "status": "INCONCLUSIVE_PENDING_EXTERNAL_MODULE_OBSERVATION",
+  "stdout_sha256": "CDAC54A4ADAF86A3A618A150109607E594A80A4D197BFCA2B8B4CF949AD55AA6",
+  "temporary_probe_output_removed": true
+}

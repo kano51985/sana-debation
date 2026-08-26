@@ -129,3 +129,16 @@ measured process-start network/child isolation envelope with an independently me
 finalizer. No A2 runner or `e14/vendor-admission-v1` root has been created, and G2/B0/F0/R0 remain
 unauthorized. See
 `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-admission-design-debate.md`.
+
+The authorized G0-G7 evidence tranche has now frozen the production read-only scanner/schema,
+passed 15 A1-PHYS and source/path tests, computed deterministic G3 roots, recorded the dependency,
+hook, license, and source-closure decisions, and measured a Docker envelope. The envelope proves
+G6 plus process-start network/child/resource/mount controls, but G7 remains
+`PARTIAL_BLOCKING_EXTERNAL_MODULE_OBSERVATION` because loaded Python module origins are
+guest-reported rather than externally observed. A fresh three-thread debate rejected identity-only
+substitution and Chief deferred pending an accountable P3-owner `reaffirm`/`narrow`/`replace`
+decision plus net-assurance evidence. G8/G9/A2 remain blocked; no admission root or completion-like
+denial terminal was created. See
+`docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-g7-observation-gap-debate.md`.
+
+The current repository test result is **83 tests passed, 0 failed**.

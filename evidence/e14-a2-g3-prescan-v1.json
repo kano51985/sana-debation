@@ -1,0 +1,296 @@
+{
+  "a1": {
+    "file_count": 20,
+    "root": "C:\\Users\\Administrator\\Documents\\Codex\\2026-08-25\\zh\\outputs\\sana-v22-evidence\\e14\\vendor-acquisition-v2",
+    "terminal_sha256": "33C3035DC90D7758A6D92BDE3D9CA629088AB94B1347881E929CEA21AED11879",
+    "terminal_state": "ACQUISITION_COMPLETE_AWAITING_G1",
+    "total_bytes": 111225
+  },
+  "a1_terminal_sha256": "33C3035DC90D7758A6D92BDE3D9CA629088AB94B1347881E929CEA21AED11879",
+  "admission_state": "NOT_EXECUTED",
+  "authority_effect": "NONE",
+  "bundle_root": "73B5CC047F09F39FE2F1A8E50EF398A65104F973F3CE7AC0CF1484990553F716",
+  "next_gate": "G4_G5_EVIDENCE_ONLY",
+  "packages": [
+    {
+      "declared_dependency_set": {
+        "bundled": [],
+        "optional": [],
+        "peer": [],
+        "prohibited_hooks": [],
+        "registry_runtime": [],
+        "scripts_recorded_not_executed": {
+          "coverage": "c8 npm test",
+          "coveragehtml": "c8 report -r html",
+          "lint": "eslint .",
+          "lint:fix": "eslint --fix .",
+          "precoveragehtml": "npm run coverage",
+          "test": "node --test test/*.js"
+        }
+      },
+      "expanded_bytes": 16897,
+      "inventory_root": "60A0964E6868DF9B17A40331E249B83D51695FE05EA23A2291F469EC1B02105D",
+      "kind": "npm",
+      "member_count": 6,
+      "members": [
+        {
+          "bytes": 11357,
+          "mode": 420,
+          "path": "LICENSE",
+          "raw_path": "package/LICENSE",
+          "sha256": "C71D239DF91726FC519C6EB72D318EC65820627232B2F796219E87DCF35D0AB4"
+        },
+        {
+          "bytes": 1773,
+          "mode": 420,
+          "path": "README.md",
+          "raw_path": "package/README.md",
+          "sha256": "BF7BB912972B2787B393D3618A965D742B26185200FABCE330DF9DE02D607844"
+        },
+        {
+          "bytes": 395,
+          "mode": 493,
+          "path": "bin/canonicalize.js",
+          "raw_path": "package/bin/canonicalize.js",
+          "sha256": "CF81826EEE228EF4D56F14F2272E635F38BC262DD4D0FAA0E2B1065A0AE388F0"
+        },
+        {
+          "bytes": 90,
+          "mode": 420,
+          "path": "lib/canonicalize.d.ts",
+          "raw_path": "package/lib/canonicalize.d.ts",
+          "sha256": "5EBA409E1FE34C86E46AF829F1F236645B654E405E3377277B2BAEB5E5352124"
+        },
+        {
+          "bytes": 1917,
+          "mode": 420,
+          "path": "lib/canonicalize.js",
+          "raw_path": "package/lib/canonicalize.js",
+          "sha256": "4A909B5C7574EE55C37E372D47B54A37F9E36E217FC20B4D6451F5DC78CB87C1"
+        },
+        {
+          "bytes": 1365,
+          "mode": 420,
+          "path": "package.json",
+          "raw_path": "package/package.json",
+          "sha256": "B4FE69CD7668C761BC1F0A6C41FCD3D4E53BC3C2D280B5D789FE5E6A6C6505D0"
+        }
+      ],
+      "package": {
+        "license_decision": "Apache-2.0",
+        "license_sha256": "C71D239DF91726FC519C6EB72D318EC65820627232B2F796219E87DCF35D0AB4",
+        "name": "canonicalize",
+        "version": "4.0.0"
+      },
+      "physical_root": "28B46DD0D8D181B28085ACEFE78A8F04AFC81891669C74CBE1E4A7C75B75691D",
+      "raw_sha256": "AE9A1851B4D3489FBA0D6A45A6B779296C5FE7F9DD626EB2C6D12045D47CBA87",
+      "runtime_dependency_closure": {
+        "analyzer": "node-conservative-static-v1",
+        "dynamic_loading": "ABSENT_BY_CONSERVATIVE_SCAN",
+        "external_allowlist": [],
+        "references": [
+          {
+            "kind": "static-import",
+            "source": "bin/canonicalize.js",
+            "target": "lib/canonicalize.js"
+          },
+          {
+            "kind": "bin.canonicalize",
+            "source": "package.json",
+            "target": "bin/canonicalize.js"
+          },
+          {
+            "kind": "exports.import",
+            "source": "package.json",
+            "target": "lib/canonicalize.js"
+          },
+          {
+            "kind": "exports.types",
+            "source": "package.json",
+            "target": "lib/canonicalize.d.ts"
+          },
+          {
+            "kind": "main",
+            "source": "package.json",
+            "target": "lib/canonicalize.js"
+          },
+          {
+            "kind": "types",
+            "source": "package.json",
+            "target": "lib/canonicalize.d.ts"
+          }
+        ],
+        "runtime_boundary": "Node.js >=18 plus built-in globals; no bare module references",
+        "semantic_attestation_required": true,
+        "semantic_completeness": false,
+        "structural_coverage": "COMPLETE_FOR_FROZEN_SOURCE_ROOT"
+      },
+      "source_root": "26BA914DF24AFB64001E804A759DD014EBC173DAB032932F4B06A47CABEBC82B"
+    },
+    {
+      "declared_dependency_set": {
+        "entry_points": [],
+        "extra_requirements_not_installed": [
+          {
+            "extra": "dev",
+            "requirement": "build "
+          },
+          {
+            "extra": "dev",
+            "requirement": "rfc8785[doc,test,lint] "
+          },
+          {
+            "extra": "doc",
+            "requirement": "pdoc "
+          },
+          {
+            "extra": "lint",
+            "requirement": "interrogate "
+          },
+          {
+            "extra": "lint",
+            "requirement": "mypy >= 1.0 "
+          },
+          {
+            "extra": "lint",
+            "requirement": "ruff ~= 0.3 "
+          },
+          {
+            "extra": "test",
+            "requirement": "coverage "
+          },
+          {
+            "extra": "test",
+            "requirement": "pytest "
+          },
+          {
+            "extra": "test",
+            "requirement": "pytest-cov "
+          }
+        ],
+        "extras_not_installed": [
+          "dev",
+          "doc",
+          "lint",
+          "test"
+        ],
+        "install_hooks": [],
+        "registry_runtime": []
+      },
+      "expanded_bytes": 21894,
+      "inventory_root": "D3E74663D2D3C30D5F0DD6DE3EC01B75F5AA404E21FD51FFCF74E00A10AA0D84",
+      "kind": "wheel",
+      "member_count": 7,
+      "members": [
+        {
+          "bytes": 10174,
+          "mode": 33188,
+          "path": "rfc8785-0.1.4.dist-info/LICENSE",
+          "raw_path": "rfc8785-0.1.4.dist-info/LICENSE",
+          "sha256": "0D542E0C8804E39AA7F37EB00DA5A762149DC682D7829451287E11B938E94594"
+        },
+        {
+          "bytes": 3379,
+          "mode": 33188,
+          "path": "rfc8785-0.1.4.dist-info/METADATA",
+          "raw_path": "rfc8785-0.1.4.dist-info/METADATA",
+          "sha256": "9DFBF420C8C18077DD7697EC12FE2838B5901683573AE128DF2D3403330F7AA9"
+        },
+        {
+          "bytes": 513,
+          "mode": 33188,
+          "path": "rfc8785-0.1.4.dist-info/RECORD",
+          "raw_path": "rfc8785-0.1.4.dist-info/RECORD",
+          "sha256": "A6A9131BE557AA3E3764604DF469EB92D457289548885C7085E58943E7CE8E87"
+        },
+        {
+          "bytes": 81,
+          "mode": 33188,
+          "path": "rfc8785-0.1.4.dist-info/WHEEL",
+          "raw_path": "rfc8785-0.1.4.dist-info/WHEEL",
+          "sha256": "1196C6921EC87B83E865F450F08D19B8FF5592537F4EF719E83484E546ABE33E"
+        },
+        {
+          "bytes": 496,
+          "mode": 33188,
+          "path": "rfc8785/__init__.py",
+          "raw_path": "rfc8785/__init__.py",
+          "sha256": "FA44927AFD547CAF7547247078BCF28863D1E69CAF116D258C532B3F20FFD154"
+        },
+        {
+          "bytes": 7251,
+          "mode": 33188,
+          "path": "rfc8785/_impl.py",
+          "raw_path": "rfc8785/_impl.py",
+          "sha256": "C25BC3A046528482D53BEE3487B837F31DD9C05F33E8F13288C7AAB320932CEC"
+        },
+        {
+          "bytes": 0,
+          "mode": 33188,
+          "path": "rfc8785/py.typed",
+          "raw_path": "rfc8785/py.typed",
+          "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ],
+      "package": {
+        "license_basis": "exact LICENSE hash plus Apache classifier; registry SPDX field absent",
+        "license_decision": "Apache-2.0",
+        "license_sha256": "0D542E0C8804E39AA7F37EB00DA5A762149DC682D7829451287E11B938E94594",
+        "name": "rfc8785",
+        "version": "0.1.4"
+      },
+      "physical_root": "AA278F58B7EBD4F38E73F161F0778A3DC33D286CAE2657413D3F7BF6FEDA9893",
+      "raw_sha256": "520D690B448ECF0703691C76E1A34A24DDCD4FC5BC41D589CB7C58EC651BCD48",
+      "runtime_dependency_closure": {
+        "analyzer": "python-ast-v1",
+        "dynamic_loading": "ABSENT_BY_AST_SCAN",
+        "external_allowlist": [
+          "__future__",
+          "io",
+          "math",
+          "re",
+          "typing"
+        ],
+        "references": [
+          {
+            "kind": "relative-import",
+            "source": "rfc8785/__init__.py",
+            "target": "rfc8785/_impl.py"
+          },
+          {
+            "kind": "stdlib-from",
+            "source": "rfc8785/_impl.py",
+            "target": "__future__"
+          },
+          {
+            "kind": "stdlib-import",
+            "source": "rfc8785/_impl.py",
+            "target": "math"
+          },
+          {
+            "kind": "stdlib-import",
+            "source": "rfc8785/_impl.py",
+            "target": "re"
+          },
+          {
+            "kind": "stdlib-import",
+            "source": "rfc8785/_impl.py",
+            "target": "typing"
+          },
+          {
+            "kind": "stdlib-from",
+            "source": "rfc8785/_impl.py",
+            "target": "io"
+          }
+        ],
+        "runtime_boundary": "image-bound CPython 3.12.x interpreter plus exact standard-library allowlist",
+        "semantic_attestation_required": true,
+        "semantic_completeness": false,
+        "structural_coverage": "COMPLETE_FOR_FROZEN_SOURCE_ROOT"
+      },
+      "source_root": "25F89B2E280A08167908D123BB7A09A33BD1036BF63587A7E1474C74D7138D4A"
+    }
+  ],
+  "schema": "sana.e14.a2-read-only-prescan.v1",
+  "semantic_attestation": "REQUIRED"
+}
