@@ -1,0 +1,99 @@
+{
+  "artifacts": [
+    {
+      "artifact_kind": "N1_ISSUER_POLICY",
+      "canonical_bytes": 1786,
+      "depth": 4,
+      "indented_bytes": 1909,
+      "max_members_in_object": 9,
+      "members": 19,
+      "nodes": 20
+    },
+    {
+      "artifact_kind": "N1_PROFILE_QUALIFIED",
+      "canonical_bytes": 67399,
+      "depth": 4,
+      "indented_bytes": 69687,
+      "max_members_in_object": 128,
+      "members": 289,
+      "nodes": 290
+    },
+    {
+      "artifact_kind": "N1_OUTPUT_RESERVED",
+      "canonical_bytes": 1205,
+      "depth": 3,
+      "indented_bytes": 1283,
+      "max_members_in_object": 9,
+      "members": 14,
+      "nodes": 15
+    },
+    {
+      "artifact_kind": "N1_CONTAINER_PREPARED",
+      "canonical_bytes": 1573,
+      "depth": 3,
+      "indented_bytes": 1681,
+      "max_members_in_object": 14,
+      "members": 19,
+      "nodes": 20
+    },
+    {
+      "artifact_kind": "G8_N1_RUN_AUTHORIZED",
+      "canonical_bytes": 67108,
+      "depth": 4,
+      "indented_bytes": 69369,
+      "max_members_in_object": 128,
+      "members": 289,
+      "nodes": 290
+    },
+    {
+      "artifact_kind": "N1_RUN_EVIDENCE_CANDIDATE",
+      "canonical_bytes": 34537,
+      "depth": 4,
+      "indented_bytes": 35710,
+      "max_members_in_object": 128,
+      "members": 153,
+      "nodes": 154
+    },
+    {
+      "artifact_kind": "G9_N1_TERMINAL",
+      "canonical_bytes": 1423,
+      "depth": 3,
+      "indented_bytes": 1555,
+      "max_members_in_object": 18,
+      "members": 23,
+      "nodes": 24
+    }
+  ],
+  "authority_effect": "NONE",
+  "caps": {
+    "depth": 12,
+    "members": 2048,
+    "members_per_object": 128,
+    "nodes": 4096,
+    "raw_bytes": 262144
+  },
+  "checks": {
+    "depth_has_2x_headroom": true,
+    "fixed_and_dynamic_objects_fit_member_cap": true,
+    "members_have_2x_headroom": true,
+    "nodes_have_2x_headroom": true,
+    "raw_bytes_exceed_largest_indented": true,
+    "raw_bytes_have_2x_canonical_headroom": true
+  },
+  "counting_profile": "P3_N1_V2_COUNTS_V1",
+  "generator": "tools/e14_n1_precode_audit.py",
+  "limitation": "Schema-derived shapes prove fit for the current draft, not real workload demand.",
+  "maxima": {
+    "canonical_bytes": 67399,
+    "depth": 4,
+    "indented_bytes": 69687,
+    "max_members_in_object": 128,
+    "members": 289,
+    "nodes": 290
+  },
+  "schema": "sana.e14.n1-precode-cap-audit.v1",
+  "schema_path": "schemas/e14-a2-n1-lifecycle-v2.schema.json",
+  "schema_sha256": "FB1034063534C3461203A02D83A7203BF13B34E35067E985C3BF663BC5DFB711",
+  "status": "PASS",
+  "tool_sha256": "F592E8C148B60775AE932EE5AAD3976C07CCAE0774AC18A936E9B5C5C4EE35F6"
+}

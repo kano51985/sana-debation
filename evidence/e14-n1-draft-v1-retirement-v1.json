@@ -1,0 +1,50 @@
+{
+  "authority_effect": "NONE",
+  "classification": "UNISSUED_DRAFT_CORRECTION",
+  "decision": "RETIRED_WITHOUT_MIGRATION",
+  "historical_source_commit": "50a78ab608f99f49d1869237e4179f5db82b78ff",
+  "inventory": [
+    {
+      "action": "index updated to corrected v2 schema",
+      "gate_snapshot_sha256": "30047841D899241E202EF458D47DCA31F8D5EBD23E1B820DC483265654728D8F",
+      "historical_path": "README.md",
+      "historical_sha256": "6C8D3FB79375A7B8BA220301D6F8DBD97E80ECB3DFA44055B63A597FBA78F8E0",
+      "replacement_path": "README.md"
+    },
+    {
+      "action": "normative commitment and parser contract corrected to v2",
+      "gate_snapshot_sha256": "6E37D4FEFCE9900D93F347C34D49D6F683773B1321E6F97473F9651C403DE031",
+      "historical_path": "docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-spec.md",
+      "historical_sha256": "D57AAA70B77E440FA01C1B575ABCCDD5E94979685A7F9348FFE73CAE9633DDFA",
+      "replacement_path": "docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-spec.md"
+    },
+    {
+      "action": "old schema removed and corrected v2 schema added",
+      "gate_snapshot_sha256": "FB1034063534C3461203A02D83A7203BF13B34E35067E985C3BF663BC5DFB711",
+      "historical_path": "schemas/e14-a2-n1-lifecycle-v1.schema.json",
+      "historical_sha256": "4B7D8D526C993BB5384598AEA7CB5FA6DCBDFE94196035419F327600401435BF",
+      "replacement_path": "schemas/e14-a2-n1-lifecycle-v2.schema.json"
+    },
+    {
+      "action": "static schema examples and removed-field rejection updated to v2",
+      "gate_snapshot_sha256": "AE85C0DACA6A5873714B35D14E09F0ECB4210DD68C0FFED99168E73D9A45B0FF",
+      "historical_path": "tests/test_e14_n1_static_fixtures.py",
+      "historical_sha256": "05439BA27419A832699770520B52A472A2E45DEDF2CAE71A59F990C459FF8D31",
+      "replacement_path": "tests/test_e14_n1_static_fixtures.py"
+    }
+  ],
+  "issued_or_live_v1_root_inventory": [],
+  "notes": [
+    "The historical commit contained exactly four files with active v1 envelope references.",
+    "No typed v1 root instance existed outside the draft specification, schema, or schema tests.",
+    "Historical v1 strings remain only in this manifest and the auditable correction-debate record.",
+    "No v1 input is accepted, translated, stripped, normalized, or re-rooted by lifecycle-v2."
+  ],
+  "reproduction": {
+    "active_reference_scan": "rg -n --hidden --glob !.git/** --glob !evidence/e14-n1-draft-v1-retirement-v1.json --glob !docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-n1-i0-hash-envelope-correction-debate.md lifecycle-v1|lifecycle-artifact.v1|sha256-jcs-e14-n1-v1|N1_LIFECYCLE_ARTIFACT_V1 .",
+    "historical_reference_scan": "git grep -n -E lifecycle-v1|lifecycle-artifact\\.v1|sha256-jcs-e14-n1-v1|N1_LIFECYCLE_ARTIFACT_V1 50a78ab608f99f49d1869237e4179f5db82b78ff",
+    "historical_root_scan": "git grep -n sha256-jcs-e14-n1-v1:[0-9a-fA-F] 50a78ab608f99f49d1869237e4179f5db82b78ff"
+  },
+  "schema": "sana.e14.n1-draft-retirement.v1",
+  "status": "PASS"
+}

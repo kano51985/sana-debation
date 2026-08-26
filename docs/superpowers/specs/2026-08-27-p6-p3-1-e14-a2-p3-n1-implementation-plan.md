@@ -32,7 +32,15 @@ Exit conditions:
 
 Completion of D0 authorizes no later stage.
 
-## Future stage I0 — pure artifact and routing library
+The original unissued lifecycle draft was corrected before I0 because its root did not bind the
+schema, profile, or top-level fixture classification. Lifecycle-v2 removes the ambiguous wrapper
+fields, binds all four semantic commitment members, and retires v1 without migration. The
+correction debate, cap report, and retirement manifest are mandatory I0 pre-code evidence.
+
+## Stage I0 — pure artifact and routing library
+
+Status: source-only I0 implementation complete. Pre-code gates and local verification pass. No live
+artifact, root, authority, persistence, network, process, or operational route is authorized.
 
 Proposed files:
 
@@ -41,13 +49,16 @@ src/e14_n1_artifacts.py
 tests/test_e14_n1_artifacts.py
 ```
 
-Implement strict parsing, duplicate-key rejection, JCS bytes, typed root calculation, artifact-kind
-dispatch, role matrix, validity/revocation checks, and mutual legacy/N1 rejection. The library must
-be pure and side-effect free: no Docker, filesystem mutation, network, keys, ledger, or process
-launch.
+Implement a single-pass bounded raw-byte parser, duplicate-key rejection, the restricted
+RFC-8785-equivalent `N1-V2-CANON` encoder, typed-root verification, nominal artifact-kind dispatch,
+exact route/media checks, and explicit-time/revocation use evaluation. The library must be pure and
+side-effect free: no Docker, filesystem reads or mutation, network, environment, clock, keys,
+ledger, cache, registry, or process launch.
 
-Required tests include canonical byte/root vectors, unknown fields, wrong profile/kind, fixture-only
-operational rejection, role confusion, future-root references, and no fallback.
+Required tests include independently computed canonical byte/root vectors, Unicode and escape
+equivalence, unknown fields, wrong schema/profile/kind/media, duplicate keys, invalid UTF-8,
+surrogates, forbidden number forms and arrays, every cap boundary, deterministic failures, removed
+fixture fields, mutual v1 rejection, validity/revocation inputs, purity traps, and no fallback.
 
 ## Future stage I1 — scanner dataflow qualification
 

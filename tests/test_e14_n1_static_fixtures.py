@@ -10,24 +10,22 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCHEMA_PATH = ROOT / "schemas" / "e14-a2-n1-lifecycle-v1.schema.json"
+SCHEMA_PATH = ROOT / "schemas" / "e14-a2-n1-lifecycle-v2.schema.json"
 FIXTURE_PATH = ROOT / "fixtures" / "e14_n1_static_cases_v1.json"
 
-TYPED_ROOT = "sha256-jcs-e14-n1-v1:" + "a" * 64
-SECOND_ROOT = "sha256-jcs-e14-n1-v1:" + "b" * 64
+TYPED_ROOT = "sha256-jcs-e14-n1-v2:" + "a" * 64
+SECOND_ROOT = "sha256-jcs-e14-n1-v2:" + "b" * 64
 SHA256 = "A" * 64
 NOW = "2026-08-27T00:00:00Z"
 LATER = "2026-08-27T01:00:00Z"
 
 
-def envelope(kind: str, effect: str, payload: dict) -> dict:
+def envelope(kind: str, payload: dict) -> dict:
     return {
-        "schema": "sana.e14.n1.lifecycle-artifact.v1",
+        "schema": "sana.e14.n1.lifecycle-artifact.v2",
         "artifact_kind": kind,
         "profile_kind": "P3_N1_CONTROL_CLOSURE_V1",
         "content_root": TYPED_ROOT,
-        "fixture_only": False,
-        "authority_effect": effect,
         "payload": payload,
     }
 
@@ -56,7 +54,6 @@ def valid_schema_examples() -> list[dict]:
     roots = {"required": TYPED_ROOT}
     policy = envelope(
         "N1_ISSUER_POLICY",
-        "NONE",
         {
             "scope": "A2",
             "roles": {
@@ -77,7 +74,6 @@ def valid_schema_examples() -> list[dict]:
     )
     qualified = envelope(
         "N1_PROFILE_QUALIFIED",
-        "NONE",
         {
             "issuer_policy_root": TYPED_ROOT,
             "qualification_id": "fixture.qualification.1",
@@ -97,7 +93,6 @@ def valid_schema_examples() -> list[dict]:
     )
     reserved = envelope(
         "N1_OUTPUT_RESERVED",
-        "NONE",
         {
             "qualification_root": TYPED_ROOT,
             "reservation_id": "fixture.reservation.1",
@@ -112,7 +107,6 @@ def valid_schema_examples() -> list[dict]:
     )
     prepared = envelope(
         "N1_CONTAINER_PREPARED",
-        "NONE",
         {
             "qualification_root": TYPED_ROOT,
             "output_reservation_root": TYPED_ROOT,
@@ -132,7 +126,6 @@ def valid_schema_examples() -> list[dict]:
     )
     authorized = envelope(
         "G8_N1_RUN_AUTHORIZED",
-        "START_ONCE",
         {
             "issuer_policy_root": TYPED_ROOT,
             "qualification_root": TYPED_ROOT,
@@ -163,7 +156,6 @@ def valid_schema_examples() -> list[dict]:
     )
     candidate = envelope(
         "N1_RUN_EVIDENCE_CANDIDATE",
-        "NONE",
         {
             "authorization_root": TYPED_ROOT,
             "qualification_root": TYPED_ROOT,
@@ -189,7 +181,6 @@ def valid_schema_examples() -> list[dict]:
     )
     terminal = envelope(
         "G9_N1_TERMINAL",
-        "ADMISSION_TERMINAL",
         {
             "issuer_policy_root": TYPED_ROOT,
             "qualification_root": TYPED_ROOT,
@@ -362,13 +353,13 @@ class N1LifecycleSchemaTests(unittest.TestCase):
                 errors = sorted(self.validator.iter_errors(example), key=lambda error: list(error.path))
                 self.assertEqual(errors, [], [error.message for error in errors])
 
-    def test_fixture_only_artifact_cannot_carry_start_or_terminal_authority(self) -> None:
+    def test_removed_draft_fields_are_rejected_for_every_kind(self) -> None:
         for example in valid_schema_examples():
-            if example["authority_effect"] == "NONE":
-                continue
-            fixture = copy.deepcopy(example)
-            fixture["fixture_only"] = True
-            self.assertFalse(self.validator.is_valid(fixture))
+            for field, value in (("fixture_only", False), ("authority_effect", "NONE")):
+                draft = copy.deepcopy(example)
+                draft[field] = value
+                with self.subTest(kind=example["artifact_kind"], field=field):
+                    self.assertFalse(self.validator.is_valid(draft))
 
     def test_guest_authority_and_prepare_execution_are_schema_rejected(self) -> None:
         examples = {item["artifact_kind"]: item for item in valid_schema_examples()}

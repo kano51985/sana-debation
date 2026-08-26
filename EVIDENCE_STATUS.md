@@ -16,7 +16,8 @@ Generated under user authorization for evidence production only. The installed
 | P5 design Chief disposition | **DEFER PENDING NAMED EVIDENCE** | A fresh real-subagent three-round debate accepted revised A+B as coherent P3 and rejected grader inference, but requires F2/F3, adversarial review, schema/consumer authority, projection, grader, epoch rollback, and cost evidence before approval. |
 | P5 bounded implementation/live gates | **PASS** | 67 tests and 18 adversarial traces pass; F2 detects both gold issues at specificity 1.0; F3 short/noisy remain zero-cycle and clean. |
 | P5 fresh evidence re-adjudication | **DEFER PENDING NAMED EVIDENCE** | Behavioral/reference gates pass, but real authority-route inventory, runtime enforcement, legacy round-trip, actual receipts/replay, live lineage canary, and end-to-end cost remain incomplete. |
-| E14 P3-N1 design and D0 fixtures | **DESIGN APPROVED; D0 PASS** | Chief approved the additive A2-only dedicated-image control-closure design. Lifecycle schema and 35 nonauthoritative static cases pass locally; no N1 runtime or authority exists. |
+| E14 P3-N1 design and D0 fixtures | **DESIGN APPROVED; D0 PASS; V1 DRAFT RETIRED** | Chief approved the additive A2-only dedicated-image control-closure design. A fresh correction review replaced the unissued under-bound v1 envelope with v2; 35 nonauthoritative static cases pass locally. |
+| E14 P3-N1 I0 pure verifier | **PASS (SOURCE ONLY)** | Lifecycle-v2 binds schema/kind/profile/payload. The bounded byte parser, restricted canonical encoder, nominal verifier, and explicit use evaluation pass 27 focused tests. Schema-derived maxima retain at least 2x headroom. No live N1 root or authority exists. |
 
 ## Automated result
 
@@ -26,7 +27,7 @@ Command:
 python -m unittest discover -s tests -v
 ```
 
-Result: **92 tests passed, 0 failed**.
+Result: **119 tests passed, 0 failed**.
 
 Coverage includes:
 
@@ -66,6 +67,13 @@ Coverage includes:
 - 35 nonauthoritative N1 scenarios preserve strict routing, role separation, dual closure,
   no-guest preparation, nonce/predecessor single use, immutable output identity, candidate
   nonauthority, PASS/DENY/BLOCK separation, revocation, and no-fallback rollback.
+- lifecycle-v2 uses nominal route/media types, rejects the retired draft without conversion,
+  parses bounded raw bytes without a general JSON DOM parser, binds schema/kind/profile/payload,
+  matches an independent restricted-canonical oracle, and evaluates only explicit time/revocation;
+- parser boundary tests cover raw bytes, depth, object and total members, decoded key length,
+  Unicode scalar/UTF-8 limits, duplicate decoded keys, invalid UTF-8/surrogates, forbidden arrays
+  and number forms, deterministic offsets/pointers, immutable verified payloads, and ambient-I/O
+  traps.
 
 ## E6 harness result
 

@@ -2,7 +2,7 @@
 
 Date: 2026-08-27
 
-Status: design approved; document and static-fixture phase only.
+Status: v2 design approved with pre-code gates; no operational authority.
 
 Profile: `P3_N1_CONTROL_CLOSURE_V1`
 
@@ -27,30 +27,147 @@ qualification, G8 authorization, G9 terminal, or admission root is created by th
    TCB. It makes no claim against malicious approved TCB.
 6. Guest module lists and guest PASS claims are diagnostic only.
 
-## 2. Canonical envelope and hash domain
+## 2. Lifecycle-v2 envelope and hash domain
 
 Every future N1 artifact uses strict UTF-8 JSON, no BOM, no duplicate keys, no comments, and no
-trailing data. The payload is canonicalized with RFC 8785 JCS.
+trailing data. The exact operational envelope contains five members and no others:
 
-```text
-payload_bytes = RFC8785-JCS(payload)
-digest        = SHA-256(
-                  UTF8("sana.e14.n1.lifecycle-artifact.v1\n")
-                  || UTF8(artifact_kind)
-                  || 0x00
-                  || payload_bytes
-                )
-content_root  = "sha256-jcs-e14-n1-v1:" || lowercase_hex(digest)
+```json
+{
+  "schema": "sana.e14.n1.lifecycle-artifact.v2",
+  "artifact_kind": "<allowed N1 kind>",
+  "profile_kind": "P3_N1_CONTROL_CLOSURE_V1",
+  "content_root": "sha256-jcs-e14-n1-v2:<64 lowercase hex>",
+  "payload": {}
+}
 ```
 
-The root is outside the payload. The payload cannot contain its own root or a later artifact root.
-Every reference is an exact typed root, never a path, filename, logical ID, summary, or reconstructed
-equivalent. The candidate schema is
-`schemas/e14-a2-n1-lifecycle-v1.schema.json`.
+`fixture_only` and top-level `authority_effect` are forbidden. Kind-specific `authority_effect`
+inside `payload` is the only content effect field and does not itself grant authority.
 
-Static artifact examples may use `fixture_only=true` only for nonauthorizing kinds. The schema
-rejects fixture-only G8 or terminal authority. The behavioral corpus is a separate scenario format,
-not a lifecycle artifact. Operational consumers must reject every `fixture_only=true` object.
+The exact four-member commitment and typed root are:
+
+```text
+commitment = {
+  "schema":        "sana.e14.n1.lifecycle-artifact.v2",
+  "artifact_kind": artifact_kind,
+  "profile_kind":  "P3_N1_CONTROL_CLOSURE_V1",
+  "payload":       payload
+}
+
+commitment_bytes = N1-V2-CANON(commitment)
+digest = SHA-256(
+           UTF8("sana.e14.n1.lifecycle-artifact.v2\n")
+           || commitment_bytes
+         )
+content_root = "sha256-jcs-e14-n1-v2:" || lowercase_hex(digest)
+```
+
+The root is outside the commitment and payload. The commitment is constructed from exactly the four
+named parsed values; implementations must not copy the envelope and generically delete the root.
+Every reference is an exact typed root, never a path, filename, logical ID, summary, or reconstructed
+equivalent. The normative schema is `schemas/e14-a2-n1-lifecycle-v2.schema.json`. Draft v1 is
+unissued, retired, and never accepted, translated, stripped, or re-rooted.
+
+### 2.1 Restricted canonical input profile
+
+`N1-V2-CANON` is not a general JCS implementation. It accepts a strict subset whose output is
+byte-for-byte identical to RFC 8785 for every accepted value:
+
+- decoded object names are ASCII and at most 160 characters;
+- string values preserve valid Unicode without normalization and are limited to 1,024 Unicode
+  scalars and 4,096 UTF-8 bytes;
+- lone surrogates are rejected and valid surrogate pairs are accepted;
+- number tokens are minimal safe integers matching `0|-?[1-9][0-9]{0,15}` in the inclusive range
+  `-9007199254740991..9007199254740991`;
+- decimal points, exponents, `-0`, and out-of-range integers are rejected; and
+- arrays are forbidden because lifecycle-v2 has no array-valued field.
+
+Any future non-ASCII key or noninteger numeric support requires a new schema, domain, and typed-root
+version. It cannot be introduced by relaxing v2.
+
+### 2.2 Bounded raw parsing
+
+The v2 safety limits are 262,144 raw bytes, depth 12, 4,096 total value nodes, 2,048 total object
+members, and 128 members in one object. The root object has depth 1; each value including an object,
+string, number, boolean, or null counts as one node; property names are not nodes; every syntactic
+pair counts as a member, including a duplicate before rejection. Limits are enforced left-to-right
+during tokenization. A `[` fails immediately.
+
+Raw offsets are zero-based octet positions. Key limits are measured after unescaping in ASCII
+characters. String limits are measured after unescaping in Unicode scalars and UTF-8 bytes. The
+pre-code headroom report must prove every schema-valid artifact fits and that parser safety limits
+have at least two times the schema-derived maximum.
+
+### 2.3 Nominal routes and pure APIs
+
+Lifecycle verification requires exact selector
+`N1_LIFECYCLE_ARTIFACT_V2` and media type
+`application/vnd.sana.e14.n1-lifecycle-artifact-v2+json`. Scenario fixtures use a separate selector,
+media type, schema, API, and result type. No generic normalizer, wrapper, field stripper, default, or
+v1 upconverter is permitted.
+
+`verify_content(raw_bytes, explicit_route)` returns content-only
+`VerifiedLifecycleArtifactV2` or a typed failure. `evaluate_use(verified, now_utc, revocation)`
+receives explicit immutable time and revocation inputs. Neither API reads a clock, filesystem,
+network, environment, cache, registry, or mutable global, and neither grants authority.
+
+The processing order is route/media, raw-size check, bounded strict parsing, exact envelope,
+kind-specific payload, commitment encoding, and root comparison. Route failures precede parsing;
+raw failures return the earliest byte offset; semantic failures return a stable JSON Pointer where
+available.
+
+The behavioral corpus is a separate nonartifact format. It contains no lifecycle root and cannot
+be converted to an operational artifact by any public I0 API.
+
+### 2.4 Frozen verification failures
+
+I0 exposes only these content-verification failure codes:
+
+```text
+N1_ROUTE_SELECTOR_MISSING
+N1_ROUTE_SELECTOR_UNSUPPORTED
+N1_ROUTE_MEDIA_TYPE_MISMATCH
+N1_RAW_TOO_LARGE
+N1_JSON_BOM
+N1_JSON_INVALID_UTF8
+N1_JSON_SYNTAX
+N1_JSON_TRAILING_DATA
+N1_JSON_ARRAY_FORBIDDEN
+N1_JSON_DUPLICATE_KEY
+N1_JSON_DEPTH_LIMIT
+N1_JSON_NODE_LIMIT
+N1_JSON_MEMBER_LIMIT
+N1_JSON_OBJECT_MEMBER_LIMIT
+N1_JSON_KEY_NON_ASCII
+N1_JSON_KEY_TOO_LONG
+N1_JSON_STRING_SCALAR_LIMIT
+N1_JSON_STRING_UTF8_LIMIT
+N1_JSON_SURROGATE_INVALID
+N1_JSON_NUMBER_FORBIDDEN
+N1_JSON_INTEGER_RANGE
+N1_ENVELOPE_FIELD_SET
+N1_SCHEMA_UNSUPPORTED
+N1_PROFILE_KIND_MISMATCH
+N1_ARTIFACT_KIND_UNSUPPORTED
+N1_PAYLOAD_INVALID
+N1_CONTENT_ROOT_FORMAT
+N1_CONTENT_ROOT_MISMATCH
+```
+
+Precedence is: missing/unsupported selector, media mismatch, raw-size, BOM, the first raw parser
+failure encountered left-to-right, exact envelope field set, schema, profile, artifact kind,
+kind-specific payload, root format, then root equality. Parser failures carry the zero-based octet
+offset of the first decisive byte. Semantic failures carry the first deterministic JSON Pointer;
+the root object uses the empty pointer. Limit failures also carry the frozen limit and the first
+observed value that exceeds it. Failure details are diagnostics only and are not stable protocol
+inputs.
+
+`evaluate_use` returns exactly `N1_USE_VALID`, `N1_USE_NOT_YET_VALID`, `N1_USE_EXPIRED`,
+`N1_USE_REVOKED`, or `N1_USE_INVALID_INTERVAL`. It checks explicit root revocation, policy epoch,
+interval consistency, not-before, and half-open expiry in that order after validating the supplied
+canonical UTC time. These are content-use diagnostics only; even `N1_USE_VALID` grants no role,
+signature, start, finalization, or admission authority.
 
 ## 3. Authority separation
 
