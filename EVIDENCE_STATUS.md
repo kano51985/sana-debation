@@ -20,7 +20,7 @@ with this repository.
 | E14 P3-N1 design and D0 fixtures | **DESIGN APPROVED; D0 PASS; V1 DRAFT RETIRED** | Chief approved the additive A2-only dedicated-image control-closure design. A fresh correction review replaced the unissued under-bound v1 envelope with v2; 35 nonauthoritative static cases pass locally. |
 | E14 P3-N1 I0 pure verifier | **PASS (SOURCE ONLY)** | Lifecycle-v2 binds schema/kind/profile/payload. The bounded byte parser, restricted canonical encoder, nominal verifier, and explicit use evaluation pass 27 focused tests. Schema-derived maxima retain at least 2x headroom. No live N1 root or authority exists. |
 | E14 P3-N1 I1 scanner dataflow | **FAIL — I1_FAIL_STOP** | Scanner hash still matches G1 and scanner source has no execution/network/process/write sink, but the existing analyzers accepted 9/14 required-negative alias, reflection, callback, native/process, and output-reentry cases. Scanner was not modified; I2 is not authorized. |
-| E14 C1a ER-A3-MIN contract | **PASS (CONTRACT ONLY); SOURCE INSTANCE ABSENT** | Closed package schema and pure validator pass 16 focused tests, including A1/H1 alias collision, source-shape, legal-domain, schema/reader parity, no-default, nonauthority, immutability, and purity checks. No A1/H1 meanings, source truth, source authority, compatibility result, recommendation, or next-stage authorization was created. |
+| E14 C1a ER-A3-MIN lifecycle/v2 | **V1 RETIRED_UNISSUED; V2 DESIGN CONTRACT PASS; SOURCE INSTANCE ABSENT** | The 16 immutable v1 tests plus 15 v2 tests pass. V1 bytes/digests are locked for audit reproduction only. V2 defines one sealed product-preference profile, exact C1a byte provenance, fail-closed routing, shared schema/reader negative parity, fixture exclusion, and zero registered instances. It recovers no historical meaning and grants no authority, compatibility result, recommendation, freeze, admission, or next stage. |
 
 ## Automated result
 
@@ -30,7 +30,7 @@ Command:
 python -m unittest discover -s tests -v
 ```
 
-Result: **164 tests passed, 0 failed**.
+Result: **179 tests passed, 0 failed**.
 
 Coverage includes:
 
@@ -84,6 +84,13 @@ Coverage includes:
   native-deserializer, or filesystem-write sink;
 - I1 also preserves a fail-closed negative result: only 5/14 source-closure attacks were rejected,
   so analyzer completeness is not established and the evidence cannot advance to I2.
+- ER-A3-MIN v1 design/schema/validator/test bytes remain digest-locked and resolve only for
+  non-admitting audit reproduction; normal v1 use rejects `RETIRED_UNISSUED`.
+- ER-A3-MIN v2 parses one complete profile before returning one sealed variant, rejects defaults,
+  coercion, duplicate/unknown/partial/mixed-version inputs, and matches JSON Schema across the same
+  24-case raw corpus.
+- the v2 conformance fixture is explicitly non-normative and unreachable from the registered-source
+  resolver; both v1 and v2 registered source-instance inventories remain empty.
 
 ## E6 harness result
 
@@ -175,10 +182,12 @@ N1 runtime component, qualification, authorization, admission root, or terminal.
 `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-debate.md` and
 `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-spec.md`.
 
-The ER-A3-MIN contract tranche adds a closed future package schema and a pure validator that checks
-declared A1/H1 source shape and schema/reader parity. It creates no evidence instance and does not
-resolve the existing source gap. Its terminal state is
-`ER_A3_MIN_CONTRACT_READY_SOURCE_INSTANCE_ABSENT`; Candidate A recommendation and A-freeze remain
-blocked.
+The original ER-A3-MIN v1 contract remains byte-identical but is now `RETIRED_UNISSUED` and
+`AUDIT_REPRODUCTION_ONLY`; no normal resolver can issue, admit, migrate, or infer from it. Its v2
+historical successor defines a new atomic `PRODUCT_DESIGN_PREFERENCE` from exact pre-existing C1a
+byte ranges, validates the whole record before returning a sealed result, and makes no historical
+alias, authority, truth, or compatibility claim. Conformance uses only a
+`CONFORMANCE_FIXTURE_NON_NORMATIVE` corpus. The registered source-instance inventory remains empty,
+and Candidate A recommendation, A-freeze, G0, and operations remain blocked.
 
-The current repository test result is **164 tests passed, 0 failed**.
+The current repository test result is **179 tests passed, 0 failed**.

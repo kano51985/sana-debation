@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sana.invalid/schemas/e14-c1a-er-a3-min-v2.schema.json",
+  "title": "E14 C1a ER-A3-MIN v2 non-authorizing atomic product-preference profile",
+  "$comment": "DESIGN_CONTRACT_AVAILABLE; PRODUCT_DESIGN_PREFERENCE; authority effect NONE; compatibility UNASSESSED; no registered source instance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile_id",
+    "profile_version",
+    "acquisition_topology",
+    "http_attempt_profile"
+  ],
+  "properties": {
+    "profile_id": {
+      "const": "C1A_CANDIDATE_A_PREFERENCE_PROFILE"
+    },
+    "profile_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "acquisition_topology": {
+      "type": "string",
+      "const": "LOCAL_NODE_BY_VALUE_PLUS_SINGLE_REMOTE_OPAQUE_BODY"
+    },
+    "http_attempt_profile": {
+      "type": "string",
+      "const": "ONE_DNS_ONE_TCP_ONE_TLS_ONE_GET_IDENTITY_NO_RETRY"
+    }
+  }
+}

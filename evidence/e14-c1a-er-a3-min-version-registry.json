@@ -1,0 +1,99 @@
+{
+  "schema": "sana.e14.c1a.er-a3-min-contract-lifecycle.v1",
+  "classification": "NON_AUTHORIZING_LIFECYCLE_NOTICE",
+  "authority_effect": "NONE",
+  "compatibility": "UNASSESSED",
+  "next_stage_authorized": false,
+  "v1": {
+    "lifecycle_status": "RETIRED_UNISSUED",
+    "bytes": "IMMUTABLE",
+    "resolution": "AUDIT_REPRODUCTION_ONLY",
+    "issuance": "REJECT",
+    "admission": "REJECT",
+    "migration": "NONE",
+    "semantic_inference": "NONE",
+    "artifacts": [
+      {
+        "role": "CONTRACT_DESIGN",
+        "path": "docs/superpowers/specs/2026-08-27-e14-c1a-er-a3-min-contract-design.md",
+        "sha256": "BA04D24A7E9F7306DBEA95BD14701552F2BC5B039B1A9CD3A665D98BCEFF02A0"
+      },
+      {
+        "role": "JSON_SCHEMA",
+        "path": "schemas/e14-c1a-er-a3-min-v1.schema.json",
+        "sha256": "BDFBF43657D7502D714CABEC0DAAB70F62B156394469A4D5A4F933578DB3AF4F"
+      },
+      {
+        "role": "PURE_VALIDATOR",
+        "path": "src/e14_c1a_er_a3_min.py",
+        "sha256": "5966D19855D544BFECDACC3BD4AC6E56DF273BDFD2417B0EC0F3FE1AC7CF2D0A"
+      },
+      {
+        "role": "BASELINE_TESTS",
+        "path": "tests/test_e14_c1a_er_a3_min.py",
+        "sha256": "1B3CF3D87D73AE6453A1B37B46AB04FB63270D5CA4EAAC3DFC2FC1B2C9523278"
+      }
+    ],
+    "issued_source_instance_inventory": []
+  },
+  "v2": {
+    "lifecycle_status": "DESIGN_CONTRACT_AVAILABLE",
+    "lineage_relation_to_v1": "HISTORICAL_SUCCESSOR_ONLY",
+    "correction_of_v1": false,
+    "reinterpretation_of_v1": false,
+    "conversion_from_v1": "NONE",
+    "normal_resolution": "DESIGN_CONTRACT_DEFINITIONS_ONLY",
+    "registered_source_instance_inventory": [],
+    "preference_class": "PRODUCT_DESIGN_PREFERENCE",
+    "profile_id": "C1A_CANDIDATE_A_PREFERENCE_PROFILE",
+    "profile_version": 1,
+    "schema_path": "schemas/e14-c1a-er-a3-min-v2.schema.json",
+    "reader_path": "src/e14_c1a_er_a3_min_v2.py",
+    "design_path": "docs/superpowers/specs/2026-08-27-e14-c1a-er-a3-min-v2-successor-design.md",
+    "design_basis": {
+      "path": "docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-n1-c1a-acquisition-architecture-spec.md",
+      "bytes": 32777,
+      "sha256": "7089AD951DA97A4B5419F80DD2728C130ED1C4020E3196241FB7348FCF5A88DB",
+      "span_digest_profile": "EXACT_RAW_BYTE_RANGE_SHA256_V1",
+      "spans": [
+        {
+          "role": "ACQUISITION_TOPOLOGY",
+          "start_line": 66,
+          "end_line": 73,
+          "byte_start": 4200,
+          "byte_end_exclusive": 4714,
+          "sha256": "90825AFD9C5FBDC104760F8394731F11CEAB7A3AEA49381D6152728C56730D19"
+        },
+        {
+          "role": "CUSTODY_AND_USE_BOUNDARY",
+          "start_line": 75,
+          "end_line": 89,
+          "byte_start": 4715,
+          "byte_end_exclusive": 5328,
+          "sha256": "6B61984B873CD03BC10C06EB80E1A46E144628648AD69B039012AC386FE38E81"
+        },
+        {
+          "role": "J1_SERIALIZATION_BOUNDARY",
+          "start_line": 172,
+          "end_line": 186,
+          "byte_start": 10040,
+          "byte_end_exclusive": 10865,
+          "sha256": "CDD9CF0D73772335BB70BD1ECEB64C62162BCD501F23A7F4F777A8F337E748E2"
+        },
+        {
+          "role": "HTTP_ATTEMPT_PROFILE",
+          "start_line": 349,
+          "end_line": 384,
+          "byte_start": 17081,
+          "byte_end_exclusive": 19054,
+          "sha256": "AEE54A4F558C4997D063FD39ED4C0A17408DFDC860010BC59237A3A064AB16F1"
+        }
+      ]
+    }
+  },
+  "rollback": {
+    "v1_lifecycle_after_v2_removal": "RETIRED_UNISSUED",
+    "current_successor_after_v2_removal": "NONE",
+    "reactivate_v1": false
+  }
+}
