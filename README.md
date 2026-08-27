@@ -50,6 +50,10 @@ fixed-three versus adaptive routed cycles. It is deliberately separate from the 
 - `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-n1-i1-scanner-dataflow-report.md` — I1 result and remediation boundary.
 - `fixtures/e14_n1_static_cases_v1.json` — 35 nonauthoritative routing, closure, replay, output, finalization, and rollback scenarios.
 - `tests/test_e14_n1_static_fixtures.py` — test-only schema and static-fixture conformance oracle; not an N1 runtime component.
+- `docs/superpowers/specs/2026-08-27-e14-c1a-er-a3-min-contract-design.md` — contract-only design for resolving A1/H1 source and reader semantics without inventing them.
+- `schemas/e14-c1a-er-a3-min-v1.schema.json` — closed future semantic-source package shape; no evidence instance is included.
+- `src/e14_c1a_er_a3_min.py` — pure package-shape and declared schema/reader parity verifier with no source resolution or authority effect.
+- `tests/test_e14_c1a_er_a3_min.py` — 16 alias, source, legal-domain, parity, failure, immutability, and purity tests.
 - `fixtures/e6_synthetic_results.jsonl` — intentionally synthetic failing data used only to test the grader.
 - `eval/operator_comprehension.md` — blinded operator instrument.
 - `EVIDENCE_STATUS.md` — authoritative gate status and limitations.
@@ -61,7 +65,7 @@ cd C:\Users\Administrator\Documents\Codex\2026-08-25\zh\outputs\sana-v22-evidenc
 python -m unittest discover -s tests -v
 ```
 
-Expected: 148 tests, all passing.
+Expected: 164 tests, all passing.
 
 ## Run the E6 grader harness
 

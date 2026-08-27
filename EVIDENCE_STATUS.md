@@ -20,6 +20,7 @@ with this repository.
 | E14 P3-N1 design and D0 fixtures | **DESIGN APPROVED; D0 PASS; V1 DRAFT RETIRED** | Chief approved the additive A2-only dedicated-image control-closure design. A fresh correction review replaced the unissued under-bound v1 envelope with v2; 35 nonauthoritative static cases pass locally. |
 | E14 P3-N1 I0 pure verifier | **PASS (SOURCE ONLY)** | Lifecycle-v2 binds schema/kind/profile/payload. The bounded byte parser, restricted canonical encoder, nominal verifier, and explicit use evaluation pass 27 focused tests. Schema-derived maxima retain at least 2x headroom. No live N1 root or authority exists. |
 | E14 P3-N1 I1 scanner dataflow | **FAIL — I1_FAIL_STOP** | Scanner hash still matches G1 and scanner source has no execution/network/process/write sink, but the existing analyzers accepted 9/14 required-negative alias, reflection, callback, native/process, and output-reentry cases. Scanner was not modified; I2 is not authorized. |
+| E14 C1a ER-A3-MIN contract | **PASS (CONTRACT ONLY); SOURCE INSTANCE ABSENT** | Closed package schema and pure validator pass 16 focused tests, including A1/H1 alias collision, source-shape, legal-domain, schema/reader parity, no-default, nonauthority, immutability, and purity checks. No A1/H1 meanings, source truth, source authority, compatibility result, recommendation, or next-stage authorization was created. |
 
 ## Automated result
 
@@ -29,7 +30,7 @@ Command:
 python -m unittest discover -s tests -v
 ```
 
-Result: **148 tests passed, 0 failed**.
+Result: **164 tests passed, 0 failed**.
 
 Coverage includes:
 
@@ -174,4 +175,10 @@ N1 runtime component, qualification, authorization, admission root, or terminal.
 `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-debate.md` and
 `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-spec.md`.
 
-The current repository test result is **148 tests passed, 0 failed**.
+The ER-A3-MIN contract tranche adds a closed future package schema and a pure validator that checks
+declared A1/H1 source shape and schema/reader parity. It creates no evidence instance and does not
+resolve the existing source gap. Its terminal state is
+`ER_A3_MIN_CONTRACT_READY_SOURCE_INSTANCE_ABSENT`; Candidate A recommendation and A-freeze remain
+blocked.
+
+The current repository test result is **164 tests passed, 0 failed**.

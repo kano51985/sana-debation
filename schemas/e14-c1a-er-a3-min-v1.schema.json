@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sana.invalid/schemas/e14-c1a-er-a3-min-v1.schema.json",
+  "title": "E14 C1a ER-A3-MIN semantic source package v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "profile",
+    "candidate",
+    "source_spec",
+    "anchors",
+    "canonical_profile",
+    "compatibility",
+    "authority_effect",
+    "next_stage_authorized",
+    "limitations"
+  ],
+  "properties": {
+    "schema": {"const": "sana.e14.c1a.er-a3-min.v1"},
+    "profile": {"const": "C1A_ER_A3_MIN_READ_ONLY_V1"},
+    "candidate": {"const": "A"},
+    "source_spec": {"$ref": "#/$defs/sourceSpec"},
+    "anchors": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/anchor"}
+    },
+    "canonical_profile": {"$ref": "#/$defs/canonicalProfile"},
+    "compatibility": {"const": "UNASSESSED"},
+    "authority_effect": {"const": "NONE"},
+    "next_stage_authorized": {"const": false},
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "items": {"type": "string", "minLength": 1, "maxLength": 1024}
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9A-F]{64}$"
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*(?:\\.v[1-9][0-9]*)?$",
+      "maxLength": 128
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+    },
+    "relativePath": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$",
+      "maxLength": 512
+    },
+    "sourceSpan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "start_line", "end_line"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "start_line": {"type": "integer", "minimum": 1, "maximum": 1000000},
+        "end_line": {"type": "integer", "minimum": 1, "maximum": 1000000}
+      }
+    },
+    "accountableSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "authority_status",
+        "authority_scope",
+        "spans",
+        "limitations"
+      ],
+      "properties": {
+        "source_id": {"$ref": "#/$defs/identifier"},
+        "authority_status": {"const": "ACCOUNTABLE_SOURCE_IDENTIFIED"},
+        "authority_scope": {"type": "string", "minLength": 1, "maxLength": 1024},
+        "spans": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {"$ref": "#/$defs/sourceSpan"}
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {"type": "string", "minLength": 1, "maxLength": 1024}
+        }
+      }
+    },
+    "sourceSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "declared_version", "status", "authority_effect"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "declared_version": {"$ref": "#/$defs/version"},
+        "status": {"const": "SPECIFICATION_ONLY"},
+        "authority_effect": {"const": "NONE"}
+      }
+    },
+    "legalDomain": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "values"],
+          "properties": {
+            "kind": {"const": "STRING_ENUM"},
+            "values": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 128,
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1, "maxLength": 256}
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "minimum", "maximum"],
+          "properties": {
+            "kind": {"const": "INTEGER_RANGE"},
+            "minimum": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            },
+            "maximum": {
+              "type": "integer",
+              "minimum": -9007199254740991,
+              "maximum": 9007199254740991
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind"],
+          "properties": {
+            "kind": {"const": "BOOLEAN"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "schema_id", "schema_version", "schema_sha256"],
+          "properties": {
+            "kind": {"const": "OBJECT_SCHEMA_REF"},
+            "schema_id": {"$ref": "#/$defs/identifier"},
+            "schema_version": {"$ref": "#/$defs/version"},
+            "schema_sha256": {"$ref": "#/$defs/sha256"}
+          }
+        }
+      ]
+    },
+    "fieldSchema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "wire_name",
+        "json_type",
+        "required",
+        "default_behavior",
+        "legal_domain"
+      ],
+      "properties": {
+        "schema_version": {"$ref": "#/$defs/version"},
+        "wire_name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "json_type": {"enum": ["STRING", "INTEGER", "BOOLEAN", "OBJECT"]},
+        "required": {"type": "boolean"},
+        "default_behavior": {"const": "NO_DEFAULT"},
+        "legal_domain": {"$ref": "#/$defs/legalDomain"}
+      }
+    },
+    "readerContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reader_id",
+        "reader_version",
+        "consumes_schema_version",
+        "wire_name",
+        "json_type",
+        "required",
+        "default_behavior",
+        "legal_domain",
+        "unknown_input_behavior",
+        "interpretation"
+      ],
+      "properties": {
+        "reader_id": {"$ref": "#/$defs/identifier"},
+        "reader_version": {"$ref": "#/$defs/version"},
+        "consumes_schema_version": {"$ref": "#/$defs/version"},
+        "wire_name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,63}$"
+        },
+        "json_type": {"enum": ["STRING", "INTEGER", "BOOLEAN", "OBJECT"]},
+        "required": {"type": "boolean"},
+        "default_behavior": {"const": "NO_DEFAULT"},
+        "legal_domain": {"$ref": "#/$defs/legalDomain"},
+        "unknown_input_behavior": {"const": "REJECT"},
+        "interpretation": {"type": "string", "minLength": 1, "maxLength": 2048}
+      }
+    },
+    "anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alias",
+        "canonical_field_id",
+        "semantic_class",
+        "meaning",
+        "fact_preference_boundary",
+        "accountable_source",
+        "field_schema",
+        "reader_contract"
+      ],
+      "properties": {
+        "alias": {"enum": ["A1", "H1"]},
+        "canonical_field_id": {"$ref": "#/$defs/identifier"},
+        "semantic_class": {
+          "enum": ["VERIFIED_FACT", "PRESCRIPTIVE_PREFERENCE", "MIXED"]
+        },
+        "meaning": {"type": "string", "minLength": 1, "maxLength": 2048},
+        "fact_preference_boundary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "accountable_source": {"$ref": "#/$defs/accountableSource"},
+        "field_schema": {"$ref": "#/$defs/fieldSchema"},
+        "reader_contract": {"$ref": "#/$defs/readerContract"}
+      }
+    },
+    "canonicalProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alias", "profile_id", "scope", "source_spans"],
+      "properties": {
+        "alias": {"const": "J1"},
+        "profile_id": {"const": "RFC8785_JCS_IJSON_V1"},
+        "scope": {"const": "SERIALIZATION_ONLY"},
+        "source_spans": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {"$ref": "#/$defs/sourceSpan"}
+        }
+      }
+    }
+  }
+}
