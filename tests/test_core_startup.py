@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from core_startup import (  # noqa: E402
-    CORE_ROLES,
+    SERIAL_PREPARE_ORDER,
     CoreStartupTransaction,
     StartupViolation,
     validate_continuation_packet,
@@ -43,7 +43,7 @@ class CoreStartupTests(unittest.TestCase):
 
     def test_commit_requires_all_three_readiness_receipts(self) -> None:
         startup = transaction()
-        startup.record_ready("proposing_tl", "thread-proposer")
+        startup.record_ready("chief_architect", "thread-chief")
         startup.record_ready("peer_tl", "thread-peer")
         with self.assertRaises(StartupViolation) as raised:
             startup.commit()
@@ -51,15 +51,35 @@ class CoreStartupTests(unittest.TestCase):
 
         self.assertEqual(
             "PREPARED",
-            startup.record_ready("chief_architect", "thread-chief"),
+            startup.record_ready("proposing_tl", "thread-proposer"),
         )
         self.assertEqual("RUNNING", startup.commit())
 
+    def test_serial_prepare_is_chief_first_and_waits_for_each_receipt(self) -> None:
+        startup = transaction()
+        self.assertEqual(
+            ("chief_architect", "peer_tl", "proposing_tl"),
+            SERIAL_PREPARE_ORDER,
+        )
+        self.assertEqual("chief_architect", startup.next_prepare_role())
+
+        with self.assertRaises(StartupViolation) as raised:
+            startup.record_ready("peer_tl", "thread-peer")
+        self.assertEqual("PREPARE_ORDER_VIOLATION", raised.exception.code)
+
+        startup.record_ready("chief_architect", "thread-chief")
+        self.assertEqual("peer_tl", startup.next_prepare_role())
+        startup.record_ready("peer_tl", "thread-peer")
+        self.assertEqual("proposing_tl", startup.next_prepare_role())
+        startup.record_ready("proposing_tl", "thread-proposer")
+        self.assertIsNone(startup.next_prepare_role())
+        self.assertEqual("PREPARED", startup.state)
+
     def test_thread_limit_at_each_creation_point_never_reaches_commit(self) -> None:
-        for failure_index, failing_role in enumerate(CORE_ROLES):
+        for failure_index, failing_role in enumerate(SERIAL_PREPARE_ORDER):
             with self.subTest(failing_role=failing_role):
                 startup = transaction()
-                for role in CORE_ROLES[:failure_index]:
+                for role in SERIAL_PREPARE_ORDER[:failure_index]:
                     startup.record_ready(role, f"thread-{role}")
                 startup.record_capacity_failure(failing_role)
 
@@ -79,15 +99,15 @@ class CoreStartupTests(unittest.TestCase):
 
     def test_early_substantive_exposure_aborts_and_is_not_admissible(self) -> None:
         startup = transaction()
-        startup.record_ready("proposing_tl", "thread-proposer")
+        startup.record_ready("chief_architect", "thread-chief")
         self.assertEqual(
             "ABORTED_PARTIAL_EXPOSURE",
-            startup.record_substantive_exposure("proposing_tl"),
+            startup.record_substantive_exposure("chief_architect"),
         )
         packet = startup.continuation_packet()
         self.validator.validate(packet)
         validate_continuation_packet(packet)
-        self.assertEqual(["proposing_tl"], packet["substantive_exposure_roles"])
+        self.assertEqual(["chief_architect"], packet["substantive_exposure_roles"])
         self.assertFalse(packet["substantive_artifacts_admissible"])
 
     def test_failed_startup_is_terminal_without_capacity_change(self) -> None:
@@ -132,7 +152,20 @@ class SkillPackageTests(unittest.TestCase):
         self.assertIn("WAITING_FOR_CORE_CAPACITY", skill)
         self.assertIn("ABORTED_PARTIAL_EXPOSURE", skill)
 
+    def test_skill_uses_chief_first_serial_prepare_without_lifetime_claim(self) -> None:
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        protocol = (ROOT / "references" / "debate-protocol.md").read_text(
+            encoding="utf-8"
+        )
+        for document in (skill, protocol):
+            with self.subTest(document=document[:24]):
+                self.assertIn(
+                    "Chief Architect → Peer TL → Proposing TL",
+                    document,
+                )
+                self.assertIn("wait for its readiness receipt", document)
+        self.assertNotIn("host's lifetime quota", skill)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
-

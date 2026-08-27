@@ -26,7 +26,7 @@ Record:
 - allowed and withheld inputs;
 - prompt mechanism: custom/developer profile or fresh-thread explicit contract;
 - context labels such as `P0_NOT_PROVIDED` or `P0_EXPOSURE_REQUIRED`;
-- thread-budget kind: active, lifetime/static, or unknown;
+- thread-budget kind: active or unknown; use `lifetime/static` only when the host exposes it;
 - startup protocol and state: `core-two-phase-v1` plus `PREPARING`, `PREPARED`, `RUNNING`,
   `WAITING_FOR_CORE_CAPACITY`, or `ABORTED_PARTIAL_EXPOSURE`;
 - reserved Proposing TL, Peer TL, and Chief thread identifiers/status;
@@ -35,11 +35,12 @@ Record:
 - skipped, failed, retried, blocking, or late optional work.
 
 Default optional budget is one Alternative Architect plus one evidence/domain specialist. Reserve
-all three core identities before optional dispatch or substantive exposure. When lifetime quota is
-unknown, create all three with readiness-only contracts and wait for every receipt before activating
-Proposing TL. If optional capacity is absent, emit `OPTIONAL_THREAD_BUDGET_UNAVAILABLE` and continue
-core-only. Do not redispatch after a thread-limit rejection without an observed quota increase. Late
-artifacts are audited but excluded after the merge checkpoint unless a predeclared
+all three core identities before optional dispatch or substantive exposure. Without atomic all-core
+reservation, prepare them serially in this scheduling order:
+**Chief Architect → Peer TL → Proposing TL**. If optional capacity is absent, emit
+`OPTIONAL_THREAD_BUDGET_UNAVAILABLE` and
+continue core-only. Do not redispatch after a thread-limit rejection without an observed capacity
+increase. Late artifacts are audited but excluded after the merge checkpoint unless a predeclared
 invariant-blocking evidence wait remains within its maximum.
 
 ## Core startup transaction
@@ -62,9 +63,17 @@ readiness receipt identifies the role and created thread and confirms that no de
 evidence ledger, candidate, rebuttal, verdict, or preference was provided. Manager intent, an active
 slot count, or a successful first/second spawn is not a receipt for the missing role.
 
+When atomic all-core reservation is unavailable, create Chief Architect first and
+wait for its readiness receipt; after that readiness-only turn finishes, do the same for Peer TL
+and finally Proposing TL. This
+serial PREPARE schedule reduces simultaneous active-turn demand without
+weakening the rule that all three fresh receipts are required before COMMIT. A generic thread-limit
+error records host refusal at that point; it does not establish a lifetime/static quota unless the
+host reports one explicitly.
+
 `WAITING_FOR_CORE_CAPACITY` is a non-running capacity state, not `CORE_ROLE_FAILED` and not a debate
 result. The manager stops dispatch, reports the missing role and observed quota error, and performs
-no blind retry. A later attempt requires an observed capacity/quota change and a new run with three
+no blind retry. A later attempt requires an observed capacity change and a new run with three
 fresh roles. Partially prepared threads are never promoted or reused.
 
 Any substantive exposure before all three readiness receipts is a protocol breach. Mark
@@ -154,7 +163,7 @@ Begin the final response with:
 
 - mode: `real-subagents` plus routing mode;
 - every required and optional thread identifier/name and status;
-- lifetime/static quota preflight and core thread reservations;
+- observable capacity preflight and core thread reservations;
 - prompt mechanism and observable context-exposure labels;
 - candidate classification when present;
 - skipped, failed, retried, blocking, or late optional artifacts;
@@ -176,7 +185,7 @@ A valid run requires:
 8. every invoked optional role exists in a separate thread and stays within its contract;
 9. all three core roles complete readiness-only PREPARE before Proposing TL receives substantive
    material or any optional role is dispatched;
-10. optional failure, lateness, or static quota consumption cannot prevent the prepared core from
+10. optional failure, lateness, or capacity consumption cannot prevent the prepared core from
     completing;
 11. capacity failure produces a non-authorizing continuation packet and no partial-role reuse; and
 12. prompt/thread separation is never reported as proof of cognitive independence.

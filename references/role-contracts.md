@@ -115,13 +115,15 @@ structural contradiction requires reject and redesign, not a cosmetic condition.
 
 The root is not another substantive role. It may gather and normalize evidence, freeze axes and
 routing, run the two-phase core startup barrier, admit bounded specialists only from remaining
-lifetime quota, enforce optional budgets and merge checkpoints, route exact artifacts, request one
-focused correction, validate traceability, emit a non-authorizing continuation packet after startup
-failure, and format the final output.
+observable capacity, enforce optional budgets and merge checkpoints, route exact artifacts, request
+one focused correction, validate traceability, emit a non-authorizing continuation packet after
+startup failure, and format the final output.
 
-During PREPARE it gives every core role readiness-only instructions. It must not activate Proposing
-TL or route substantive material until all three readiness receipts exist. A partial reservation is
-never reused in another run.
+During PREPARE it gives every core role readiness-only instructions. Without atomic all-core
+reservation, it creates **Chief Architect → Peer TL → Proposing TL** serially, waiting for each
+readiness-only turn to finish before creating the next. It must not activate Proposing TL or route
+substantive material until all three readiness receipts exist. A partial reservation is never reused
+in another run.
 
 It must not invent role output, certify cognitive independence, suppress optional failures, soften
 rebuttals, decide the disposition, or turn the workflow into single-agent roleplay.

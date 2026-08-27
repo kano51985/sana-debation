@@ -61,31 +61,34 @@ Before dispatch, freeze a compact routing manifest containing:
 - the merge checkpoint and fallback;
 - optional job count and retry budget.
 
-Preflight both active concurrency and total thread-identity quota. Completed or interrupted threads
-may continue to consume a host's lifetime quota, so available active slots are not sufficient proof
-that later core roles can be created. Reserve three distinct thread identities for Proposing TL,
-Peer TL, and Chief Architect before admitting any optional role.
+Preflight the host's observable active-concurrency capacity and reserve the core budget before
+admitting any optional role. A generic thread-limit rejection proves only that the host did not
+accept that creation attempt; it does not by itself prove a lifetime/static identity quota. Record
+the exact observable error and leave its source `unknown` unless the host exposes a stronger fact.
 
 Use the two-phase `core-two-phase-v1` startup barrier for every run, even when active capacity looks
 sufficient:
 
-1. **PREPARE:** create fresh Proposing TL, Peer TL, and Chief Architect threads with readiness-only
-   instructions. Give each only its role contract, the exact protocol/schema tuple, and a request to
-   acknowledge readiness. Do not provide the decision frame, evidence ledger, P0, candidates,
-   rebuttals, intended verdict, or facilitator preference to any role yet.
+1. **PREPARE:** if atomic all-core reservation is unavailable, create the fresh core threads
+   serially in this scheduling order: **Chief Architect → Peer TL → Proposing TL**. After creating
+   each role, wait for its readiness receipt and for that readiness-only turn to finish before
+   creating the next role. Give each only its role contract, the exact protocol/schema tuple, and a
+   request to acknowledge readiness. Do not provide the decision frame, evidence ledger, P0,
+   candidates, rebuttals, intended verdict, or facilitator preference to any role yet.
 2. **COMMIT:** activate Proposing TL with the substantive frame and ledger only after all three
    readiness receipts exist. Peer TL and Chief remain readiness-only until their normal protocol
    stages. The debate becomes `RUNNING` only at this commit point.
 
-When the host offers an atomic lifetime-identity reservation, acquire all three identities in one
-operation before PREPARE. Otherwise the readiness barrier is the conservative fallback; active-slot
-counts alone are never treated as a reservation.
+When the host offers an atomic all-core reservation, acquire all three identities in one operation
+before PREPARE. Otherwise use the Chief-first serial PREPARE schedule above. Serial scheduling
+reduces simultaneous active-turn demand; it is not proof that future creation must succeed, and the
+three receipts together remain the only COMMIT prerequisite.
 
 If any core identity cannot be created, do not activate Proposing TL. Record
 `WAITING_FOR_CORE_CAPACITY`, state `Debate status: not run — real subagents unavailable`, and emit a
 non-authorizing `DebateContinuationPacketV1` as defined in the debate protocol. Do not reuse a
 partially created role in a later run, and do not retry a thread-limit rejection without an observed
-capacity or quota change. Any accidental substantive exposure before COMMIT changes the state to
+capacity change. Any accidental substantive exposure before COMMIT changes the state to
 `ABORTED_PARTIAL_EXPOSURE`; exposed output is inadmissible and cannot enter a continuation run.
 
 If the core can be reserved but an optional identity cannot, record
@@ -223,8 +226,9 @@ correction is allowed; if still invalid, report `defer pending valid chief-archi
 - Retry a failed or malformed required core response at most once with a focused correction.
 - If a required core role still fails, stop and do not issue approve.
 - Never send substantive material to any core role before all three readiness receipts exist.
-- Treat a thread-limit rejection as a quota fact, not a transient role-response failure. Do not
-  redispatch a core or optional role without an observed quota change.
+- Treat a thread-limit rejection as a host capacity fact for that creation attempt, not as proof of
+  a lifetime quota and not as a transient role-response failure. Do not redispatch a core or
+  optional role without an observed capacity change.
 - A continuation packet carries frozen inputs and failure state only. It grants no role, authority,
   capacity, retry, or permission to resume in the current run.
 - Never replace an unavailable agent with root-authored content.

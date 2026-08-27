@@ -61,7 +61,7 @@ cd C:\Users\Administrator\Documents\Codex\2026-08-25\zh\outputs\sana-v22-evidenc
 python -m unittest discover -s tests -v
 ```
 
-Expected: 146 tests, all passing.
+Expected: 148 tests, all passing.
 
 ## Run the E6 grader harness
 

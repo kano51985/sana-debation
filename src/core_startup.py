@@ -17,6 +17,7 @@ from typing import Any, Mapping
 STARTUP_PROTOCOL = "core-two-phase-v1"
 CONTINUATION_SCHEMA = "sana.debate-continuation.v1"
 CORE_ROLES = ("proposing_tl", "peer_tl", "chief_architect")
+SERIAL_PREPARE_ORDER = ("chief_architect", "peer_tl", "proposing_tl")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
@@ -89,6 +90,12 @@ class CoreStartupTransaction:
             raise StartupViolation("INVALID_THREAD_ID", f"{role} thread_id is required")
         if self.attempts[role].status != "NOT_ATTEMPTED":
             raise StartupViolation("DUPLICATE_CORE_ATTEMPT", role)
+        expected_role = self.next_prepare_role()
+        if role != expected_role:
+            raise StartupViolation(
+                "PREPARE_ORDER_VIOLATION",
+                f"expected {expected_role}, received {role}",
+            )
         self.attempts[role] = CoreRoleAttempt(
             role=role,
             status="READY",
@@ -110,6 +117,12 @@ class CoreStartupTransaction:
             raise StartupViolation("DUPLICATE_CORE_ATTEMPT", role)
         if not error_code:
             raise StartupViolation("INVALID_CAPACITY_ERROR", "error_code is required")
+        expected_role = self.next_prepare_role()
+        if role != expected_role:
+            raise StartupViolation(
+                "PREPARE_ORDER_VIOLATION",
+                f"expected {expected_role}, received {role}",
+            )
         self.attempts[role] = CoreRoleAttempt(
             role=role,
             status="THREAD_LIMIT_REACHED",
@@ -134,6 +147,17 @@ class CoreStartupTransaction:
             )
         self.state = "RUNNING"
         return self.state
+
+    def next_prepare_role(self) -> str | None:
+        """Return the next role in the Chief-first serial PREPARE schedule."""
+
+        if self.state == "PREPARED":
+            return None
+        self._require_preparing("select next PREPARE role")
+        for role in SERIAL_PREPARE_ORDER:
+            if self.attempts[role].status == "NOT_ATTEMPTED":
+                return role
+        return None
 
     def continuation_packet(self) -> dict[str, Any]:
         if self.state not in {"WAITING_FOR_CORE_CAPACITY", "ABORTED_PARTIAL_EXPOSURE"}:

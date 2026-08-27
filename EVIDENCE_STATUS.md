@@ -1,7 +1,8 @@
 # Evidence Status
 
-Generated under user authorization for evidence production only. The installed
-`C:\Users\Administrator\.codex\skills\sana-debation` files were not modified.
+Generated under user authorization. The installed
+`C:\Users\Administrator\.codex\skills\sana-debation` skill and protocol references are synchronized
+with this repository.
 
 ## Gate summary
 
@@ -28,7 +29,7 @@ Command:
 python -m unittest discover -s tests -v
 ```
 
-Result: **146 tests passed, 0 failed**.
+Result: **148 tests passed, 0 failed**.
 
 Coverage includes:
 
@@ -52,6 +53,8 @@ Coverage includes:
 - structured-output schemas avoid unsupported `uniqueItems`, while the deterministic grader rejects duplicate issue IDs explicitly.
 - seeded clean cases require protocol-blinded unsupported-finding grading.
 - persisted session audits verify three distinct fresh core threads and bounded readiness variants.
+- core PREPARE uses a Chief-first serial readiness schedule when atomic all-core reservation is
+  unavailable, while retaining the all-three-receipt COMMIT barrier.
 - the P4 materiality contract is versioned, keeps legacy generation stable by default, prevents
   hypothetical-only blockers, and permits a zero-cycle adaptive clean result.
 - session audits accept tightly bounded natural-language wait/blind acknowledgements without
@@ -171,4 +174,4 @@ N1 runtime component, qualification, authorization, admission root, or terminal.
 `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-debate.md` and
 `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-spec.md`.
 
-The current repository test result is **146 tests passed, 0 failed**.
+The current repository test result is **148 tests passed, 0 failed**.
