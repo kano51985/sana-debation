@@ -1,0 +1,172 @@
+{
+  "authority_effect": "NONE",
+  "bundle_kind": "HERMETIC_DIAGNOSTIC",
+  "bundle_root": "sha256-e14-n1-i1-evidence-v1:85797923307A0B345BC9D0C90D96FB9BD1B7B103EF28B4C9C9BBBA13D4D71741",
+  "created_on": "2026-08-27",
+  "inputs": {
+    "direct_case_corpus": {
+      "path": "fixtures/e14_n1_scanner_dataflow_cases_v1.json",
+      "sha256": "5A1B5A8890B418A700E4D0F51697C036371C399DA0F505810D9FE2235699408C"
+    },
+    "evidence_schema": {
+      "path": "schemas/e14-n1-i1-remediation-evidence-v1.schema.json",
+      "sha256": "71F93AFA83837F2F462F47A0F04D4DB0DECA6B9AD4FA851038D587231CA30C7F"
+    },
+    "evidence_tool": {
+      "path": "tools/e14_n1_i1_evidence.py",
+      "sha256": "5661342E5577C2A06B9432B474EC09F5C732B62BB2ACE0713EECF53716742589"
+    },
+    "failed_i1_review": {
+      "path": "evidence/n1/scanner-dataflow-review-v1.json",
+      "sha256": "9BC16CD18FC0D2672C6D9C12E4EAD21D03246B377F5AC918358B9654E40A9971"
+    },
+    "g1_v1": {
+      "path": "evidence/e14-a2-g1-production-freeze-v1.json",
+      "sha256": "57A9A1225972C65280530C040DFACCB68758D5364788216BC31354A5CF8A6916"
+    },
+    "model_case_corpus": {
+      "path": "fixtures/e14_n1_i1_remediation_cases_v1.json",
+      "sha256": "495D1D68B8F8886D004C0D48A2F42573F59AF8C3D5DBE91205BFE624D5C35C20"
+    },
+    "scanner": {
+      "path": "src/e14_admission.py",
+      "sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7"
+    }
+  },
+  "limitations": [
+    "Node and Acorn were not acquired or executed.",
+    "Synthetic state-machine success does not prove host runtime closure, resource enforcement, or loader behavior."
+  ],
+  "next_stage_authorized": false,
+  "results": {
+    "all_abnormal_paths_no_envelope": true,
+    "dependency_acquisition": "NOT_AUTHORIZED",
+    "proposed_closure": {
+      "callback_classes": [
+        "SCANNER_FIXED_CALLBACK",
+        "OFFLINE_TOOL_CALLBACK",
+        "VENDOR_RUNTIME_CALLBACK"
+      ],
+      "components": [
+        "CPython",
+        "stdlib",
+        "Node",
+        "Acorn",
+        "analyzer",
+        "supervisor"
+      ],
+      "forbidden": [
+        "NODE_OPTIONS",
+        "preload",
+        "custom_loader",
+        "mutable_module_path",
+        "network",
+        "subprocess",
+        "write",
+        "plugin",
+        "unmanifested_module"
+      ]
+    },
+    "real_toolchain_execution": "NOT_RUN",
+    "synthetic_supervisor_model": {
+      "cases": [
+        {
+          "actual": "SUCCESS_ENVELOPE_EMITTED",
+          "case_id": "SUP-OK-01",
+          "expected": "SUCCESS_ENVELOPE_EMITTED",
+          "pass": true,
+          "scenario": "clean_success"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-PRELOAD-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "preload_contamination"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-RESOLVE-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "resolution_drift"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-PARSE-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "parse_failure"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-CALLBACK-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "callback_amplification"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-CAP-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "logical_cap"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-TIMEOUT-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "timeout"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-OOM-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "oom"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-PARTIAL-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "partial_output"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-CRASH-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "child_crash"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-MALFORMED-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "malformed_output"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-STALE-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "stale_session"
+        },
+        {
+          "actual": "ABORTED_NO_ENVELOPE",
+          "case_id": "SUP-ABORT-01",
+          "expected": "ABORTED_NO_ENVELOPE",
+          "pass": true,
+          "scenario": "supervisor_abort"
+        }
+      ],
+      "passed": 13,
+      "total": 13
+    }
+  },
+  "run_id": "E14-N1-I1-REMEDIATION-EVIDENCE-2026-08-27-R1",
+  "schema": "sana.e14.n1-i1-remediation.hermetic-diagnostic.v1",
+  "status": "NOT_RUN"
+}

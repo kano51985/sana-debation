@@ -1,0 +1,56 @@
+{
+  "schema": "sana.e14.n1-i1-remediation-cases.v1",
+  "authority_effect": "NONE",
+  "purpose": "Synthetic fail-closed cases for I1 remediation evidence models; no case grants authority.",
+  "cases": [
+    {"case_id": "SUP-OK-01", "domain": "SUPERVISOR", "scenario": "clean_success", "expected": "SUCCESS_ENVELOPE_EMITTED"},
+    {"case_id": "SUP-PRELOAD-01", "domain": "SUPERVISOR", "scenario": "preload_contamination", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-RESOLVE-01", "domain": "SUPERVISOR", "scenario": "resolution_drift", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-PARSE-01", "domain": "SUPERVISOR", "scenario": "parse_failure", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-CALLBACK-01", "domain": "SUPERVISOR", "scenario": "callback_amplification", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-CAP-01", "domain": "SUPERVISOR", "scenario": "logical_cap", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-TIMEOUT-01", "domain": "SUPERVISOR", "scenario": "timeout", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-OOM-01", "domain": "SUPERVISOR", "scenario": "oom", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-PARTIAL-01", "domain": "SUPERVISOR", "scenario": "partial_output", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-CRASH-01", "domain": "SUPERVISOR", "scenario": "child_crash", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-MALFORMED-01", "domain": "SUPERVISOR", "scenario": "malformed_output", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-STALE-01", "domain": "SUPERVISOR", "scenario": "stale_session", "expected": "ABORTED_NO_ENVELOPE"},
+    {"case_id": "SUP-ABORT-01", "domain": "SUPERVISOR", "scenario": "supervisor_abort", "expected": "ABORTED_NO_ENVELOPE"},
+
+    {"case_id": "LIFE-ACTIVE-01", "domain": "LIFECYCLE", "scenario": "activate_candidate", "expected": "ACTIVE"},
+    {"case_id": "LIFE-REVOKE-01", "domain": "LIFECYCLE", "scenario": "revoke_active", "expected": "REVOKED"},
+    {"case_id": "LIFE-REPLAY-01", "domain": "LIFECYCLE", "scenario": "stale_active_after_revoke", "expected": "N1_G1_STATE_NOT_ACTIVE"},
+    {"case_id": "LIFE-HIST-01", "domain": "LIFECYCLE", "scenario": "historical_v1", "expected": "N1_ROUTE_HISTORICAL_ONLY"},
+    {"case_id": "LIFE-EPOCH-01", "domain": "LIFECYCLE", "scenario": "skipped_epoch", "expected": "N1_LIFECYCLE_EPOCH_MISMATCH"},
+    {"case_id": "LIFE-PRED-01", "domain": "LIFECYCLE", "scenario": "wrong_predecessor", "expected": "N1_LIFECYCLE_PREDECESSOR_MISMATCH"},
+    {"case_id": "LIFE-ROLE-01", "domain": "LIFECYCLE", "scenario": "unauthorized_role", "expected": "N1_LIFECYCLE_ROLE_UNAUTHORIZED"},
+
+    {"case_id": "ROUTE-OK-01", "domain": "ROUTING", "scenario": "valid_v2", "expected": "ROUTE_ACCEPTED_EVIDENCE_ONLY"},
+    {"case_id": "ROUTE-MISSING-01", "domain": "ROUTING", "scenario": "missing_selector", "expected": "N1_ROUTE_KEY_INCOMPLETE"},
+    {"case_id": "ROUTE-V1-01", "domain": "ROUTING", "scenario": "v1_request", "expected": "N1_ROUTE_HISTORICAL_ONLY"},
+    {"case_id": "ROUTE-ROLE-01", "domain": "ROUTING", "scenario": "package_role_swap", "expected": "N1_COMPONENT_ROLE_MISMATCH"},
+    {"case_id": "ROUTE-MIX-01", "domain": "ROUTING", "scenario": "mixed_freeze", "expected": "N1_COMPONENT_SET_MISMATCH"},
+    {"case_id": "ROUTE-DISABLED-01", "domain": "ROUTING", "scenario": "disabled_v2", "expected": "N1_ROUTE_DISABLED"},
+    {"case_id": "ROUTE-REVOKED-01", "domain": "ROUTING", "scenario": "revoked_v2", "expected": "N1_ROUTE_REVOKED"},
+    {"case_id": "ROUTE-DOWNGRADE-01", "domain": "ROUTING", "scenario": "downgrade_attempt", "expected": "N1_CROSS_VERSION_FORBIDDEN"},
+
+    {"case_id": "CONSUMER-RECORD-01", "domain": "CONSUMER", "scenario": "prescan_record", "expected": "RECORD_EVIDENCE"},
+    {"case_id": "CONSUMER-EXEC-01", "domain": "CONSUMER", "scenario": "prescan_execute", "expected": "N1_CLAIM_ACTION_FORBIDDEN"},
+    {"case_id": "CONSUMER-UNKNOWN-01", "domain": "CONSUMER", "scenario": "unknown_consumer", "expected": "N1_CONSUMER_UNLISTED"},
+    {"case_id": "CONSUMER-CLAIM-01", "domain": "CONSUMER", "scenario": "unknown_claim", "expected": "N1_CLAIM_ACTION_FORBIDDEN"},
+
+    {"case_id": "I2-OK-01", "domain": "I2_AUTH", "scenario": "valid_single_use", "expected": "I2_SOURCE_ONLY_AUTHORIZED"},
+    {"case_id": "I2-MISSING-01", "domain": "I2_AUTH", "scenario": "missing", "expected": "N1_I2_AUTH_MISSING"},
+    {"case_id": "I2-BIND-01", "domain": "I2_AUTH", "scenario": "wrong_binding", "expected": "N1_I2_AUTH_BINDING_MISMATCH"},
+    {"case_id": "I2-EXPIRE-01", "domain": "I2_AUTH", "scenario": "expired", "expected": "N1_I2_AUTH_EXPIRED"},
+    {"case_id": "I2-REVOKE-01", "domain": "I2_AUTH", "scenario": "revoked", "expected": "N1_I2_AUTH_REVOKED"},
+    {"case_id": "I2-REPLAY-01", "domain": "I2_AUTH", "scenario": "replay", "expected": "N1_I2_AUTH_REPLAY"},
+
+    {"case_id": "ROLL-CACHE-01", "domain": "ROLLBACK", "scenario": "cache_invalidated", "expected": "CACHE_INVALIDATED"},
+    {"case_id": "ROLL-QUEUE-01", "domain": "ROLLBACK", "scenario": "queued_invalidated", "expected": "QUEUED_AUTH_INVALIDATED"},
+    {"case_id": "ROLL-INFLIGHT-01", "domain": "ROLLBACK", "scenario": "inflight_safe_stop", "expected": "SAFE_STOP_OUTPUT_NONAUTHORITATIVE"},
+    {"case_id": "ROLL-UNCERTAIN-01", "domain": "ROLLBACK", "scenario": "stop_unprovable", "expected": "FINAL_USE_BLOCKED"},
+    {"case_id": "ROLL-V1-01", "domain": "ROLLBACK", "scenario": "v1_fallback", "expected": "N1_FALLBACK_FORBIDDEN"},
+    {"case_id": "ROLL-STALE-01", "domain": "ROLLBACK", "scenario": "stale_event", "expected": "N1_G1_STATE_NOT_ACTIVE"}
+  ]
+}

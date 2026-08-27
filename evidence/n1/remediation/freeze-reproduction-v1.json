@@ -1,0 +1,69 @@
+{
+  "authority_effect": "NONE",
+  "bundle_kind": "FREEZE_REPRODUCTION",
+  "bundle_root": "sha256-e14-n1-i1-evidence-v1:05E526551482BADE0D1DB5E81B84F44E79D46AD37F82A03A72DF047E37EA5B6F",
+  "created_on": "2026-08-27",
+  "inputs": {
+    "direct_case_corpus": {
+      "path": "fixtures/e14_n1_scanner_dataflow_cases_v1.json",
+      "sha256": "5A1B5A8890B418A700E4D0F51697C036371C399DA0F505810D9FE2235699408C"
+    },
+    "evidence_schema": {
+      "path": "schemas/e14-n1-i1-remediation-evidence-v1.schema.json",
+      "sha256": "71F93AFA83837F2F462F47A0F04D4DB0DECA6B9AD4FA851038D587231CA30C7F"
+    },
+    "evidence_tool": {
+      "path": "tools/e14_n1_i1_evidence.py",
+      "sha256": "5661342E5577C2A06B9432B474EC09F5C732B62BB2ACE0713EECF53716742589"
+    },
+    "failed_i1_review": {
+      "path": "evidence/n1/scanner-dataflow-review-v1.json",
+      "sha256": "9BC16CD18FC0D2672C6D9C12E4EAD21D03246B377F5AC918358B9654E40A9971"
+    },
+    "g1_v1": {
+      "path": "evidence/e14-a2-g1-production-freeze-v1.json",
+      "sha256": "57A9A1225972C65280530C040DFACCB68758D5364788216BC31354A5CF8A6916"
+    },
+    "model_case_corpus": {
+      "path": "fixtures/e14_n1_i1_remediation_cases_v1.json",
+      "sha256": "495D1D68B8F8886D004C0D48A2F42573F59AF8C3D5DBE91205BFE624D5C35C20"
+    },
+    "scanner": {
+      "path": "src/e14_admission.py",
+      "sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7"
+    }
+  },
+  "limitations": [
+    "Only synthetic nonauthoritative roots are used; this is not a G1 candidate or issued freeze."
+  ],
+  "next_stage_authorized": false,
+  "results": {
+    "independent_canonical_sha256": "0BF8E608EF92F6D96EF09C1EC5A679DE727496F4331F57C0D94E8548F876294E",
+    "independent_root": "sha256-g1-v2-synthetic:577463777425CB5AA161357AE05E3F619D93FC518ECACD83ADB2A0B1A9F16AB9",
+    "payload": {
+      "authority_effect": "NONE",
+      "candidate_id": "SYNTHETIC-NONAUTH-E14-N1-I1-R1",
+      "consumer_policy_root": "sha256-synthetic:D219C1926A4B895D088B943235C505072DC66CD9C05AC8A9420A011C1F17C234",
+      "diagnostic_envelope_root": "sha256-synthetic:D3CFB9F1D31EA09A0C68FA4EE99B270F7087FD1760B8941677CE1EDEA0ADF988",
+      "evidence_roots": [
+        "sha256-synthetic:DF9A29A9B49E45D59D5336B3CF8B01E1412C09BFA935E6D8217165C280135776",
+        "sha256-synthetic:0903EC6AD6915B8670CC066D7A7007D84C650DF301E09A297D40D04A7504FBBE"
+      ],
+      "lifecycle_policy_root": "sha256-synthetic:88087BFF969375CA3C861617544DA785087013F3702A87E05E18C3D4D31AFFAA",
+      "npm_role_root": "sha256-synthetic:CA809C630A6F48B59F89046F594ABEE3A0D8A35239D59A348C15CA14A2C92FDB",
+      "policy_root": "sha256-synthetic:F7ADFFB52C1C1D9D37A6F5611562883628A95F13116FAC44DD88D9F2437C5880",
+      "predecessor_root": "sha256-synthetic:FB407BBB7C9B2BB76BC00BBE675B350124DCF0679EA1F04A979E9F94AD8333FA",
+      "scanner_root": "sha256-synthetic:95872F6A81DD3F14739A2F5D41028D33454B24C7FDFDC6296B99294065802FFD",
+      "schema": "sana.e14.g1-freeze.v2.synthetic",
+      "scope": "A2",
+      "wheel_role_root": "sha256-synthetic:868A1FAC5348BECFDFC825F4E62680AB5FFAF6BE4F382EAE6E2857998D0719C1"
+    },
+    "primary_canonical_sha256": "0BF8E608EF92F6D96EF09C1EC5A679DE727496F4331F57C0D94E8548F876294E",
+    "primary_root": "sha256-g1-v2-synthetic:577463777425CB5AA161357AE05E3F619D93FC518ECACD83ADB2A0B1A9F16AB9",
+    "roots_equal": true,
+    "synthetic_only": true
+  },
+  "run_id": "E14-N1-I1-REMEDIATION-EVIDENCE-2026-08-27-R1",
+  "schema": "sana.e14.n1-i1-remediation.freeze-reproduction.v1",
+  "status": "PASS"
+}

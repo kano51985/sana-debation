@@ -1,0 +1,123 @@
+{
+  "authority_effect": "NONE",
+  "bundle_kind": "ROUTING_COMPATIBILITY",
+  "bundle_root": "sha256-e14-n1-i1-evidence-v1:038F5BB152A737DA7682A7C72A3AE178C84B5E15FDA028C548BA7BE5697656A0",
+  "created_on": "2026-08-27",
+  "inputs": {
+    "direct_case_corpus": {
+      "path": "fixtures/e14_n1_scanner_dataflow_cases_v1.json",
+      "sha256": "5A1B5A8890B418A700E4D0F51697C036371C399DA0F505810D9FE2235699408C"
+    },
+    "evidence_schema": {
+      "path": "schemas/e14-n1-i1-remediation-evidence-v1.schema.json",
+      "sha256": "71F93AFA83837F2F462F47A0F04D4DB0DECA6B9AD4FA851038D587231CA30C7F"
+    },
+    "evidence_tool": {
+      "path": "tools/e14_n1_i1_evidence.py",
+      "sha256": "5661342E5577C2A06B9432B474EC09F5C732B62BB2ACE0713EECF53716742589"
+    },
+    "failed_i1_review": {
+      "path": "evidence/n1/scanner-dataflow-review-v1.json",
+      "sha256": "9BC16CD18FC0D2672C6D9C12E4EAD21D03246B377F5AC918358B9654E40A9971"
+    },
+    "g1_v1": {
+      "path": "evidence/e14-a2-g1-production-freeze-v1.json",
+      "sha256": "57A9A1225972C65280530C040DFACCB68758D5364788216BC31354A5CF8A6916"
+    },
+    "model_case_corpus": {
+      "path": "fixtures/e14_n1_i1_remediation_cases_v1.json",
+      "sha256": "495D1D68B8F8886D004C0D48A2F42573F59AF8C3D5DBE91205BFE624D5C35C20"
+    },
+    "scanner": {
+      "path": "src/e14_admission.py",
+      "sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7"
+    }
+  },
+  "limitations": [
+    "The route corpus is a pure model and is not wired into a production router."
+  ],
+  "next_stage_authorized": false,
+  "results": {
+    "fallback": "FORBIDDEN",
+    "route_key_fields": [
+      "selector",
+      "media_type",
+      "profile_kind",
+      "request_schema",
+      "scanner_hash",
+      "scanner_policy_root",
+      "npm_archive_hash",
+      "wheel_archive_hash",
+      "diagnostic_envelope_root",
+      "g1_root",
+      "activation_event_root",
+      "activation_epoch"
+    ],
+    "synthetic_cases": {
+      "cases": [
+        {
+          "actual": "ROUTE_ACCEPTED_EVIDENCE_ONLY",
+          "case_id": "ROUTE-OK-01",
+          "expected": "ROUTE_ACCEPTED_EVIDENCE_ONLY",
+          "pass": true,
+          "scenario": "valid_v2"
+        },
+        {
+          "actual": "N1_ROUTE_KEY_INCOMPLETE",
+          "case_id": "ROUTE-MISSING-01",
+          "expected": "N1_ROUTE_KEY_INCOMPLETE",
+          "pass": true,
+          "scenario": "missing_selector"
+        },
+        {
+          "actual": "N1_ROUTE_HISTORICAL_ONLY",
+          "case_id": "ROUTE-V1-01",
+          "expected": "N1_ROUTE_HISTORICAL_ONLY",
+          "pass": true,
+          "scenario": "v1_request"
+        },
+        {
+          "actual": "N1_COMPONENT_ROLE_MISMATCH",
+          "case_id": "ROUTE-ROLE-01",
+          "expected": "N1_COMPONENT_ROLE_MISMATCH",
+          "pass": true,
+          "scenario": "package_role_swap"
+        },
+        {
+          "actual": "N1_COMPONENT_SET_MISMATCH",
+          "case_id": "ROUTE-MIX-01",
+          "expected": "N1_COMPONENT_SET_MISMATCH",
+          "pass": true,
+          "scenario": "mixed_freeze"
+        },
+        {
+          "actual": "N1_ROUTE_DISABLED",
+          "case_id": "ROUTE-DISABLED-01",
+          "expected": "N1_ROUTE_DISABLED",
+          "pass": true,
+          "scenario": "disabled_v2"
+        },
+        {
+          "actual": "N1_ROUTE_REVOKED",
+          "case_id": "ROUTE-REVOKED-01",
+          "expected": "N1_ROUTE_REVOKED",
+          "pass": true,
+          "scenario": "revoked_v2"
+        },
+        {
+          "actual": "N1_CROSS_VERSION_FORBIDDEN",
+          "case_id": "ROUTE-DOWNGRADE-01",
+          "expected": "N1_CROSS_VERSION_FORBIDDEN",
+          "pass": true,
+          "scenario": "downgrade_attempt"
+        }
+      ],
+      "passed": 8,
+      "total": 8
+    },
+    "v1_route_state": "HISTORICAL_ONLY"
+  },
+  "run_id": "E14-N1-I1-REMEDIATION-EVIDENCE-2026-08-27-R1",
+  "schema": "sana.e14.n1-i1-remediation.routing-compatibility.v1",
+  "status": "PASS"
+}

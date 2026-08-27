@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sana.invalid/schemas/e14-n1-i1-remediation-evidence-v1.schema.json",
+  "title": "E14 N1 I1 remediation evidence record v1",
+  "type": "object",
+  "required": [
+    "schema",
+    "bundle_kind",
+    "run_id",
+    "created_on",
+    "status",
+    "authority_effect",
+    "next_stage_authorized",
+    "inputs",
+    "results",
+    "limitations",
+    "bundle_root"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "pattern": "^sana\\.e14\\.n1-i1-remediation\\.[a-z0-9-]+\\.v1$"
+    },
+    "bundle_kind": {
+      "enum": [
+        "OBLIGATION_COVERAGE",
+        "HERMETIC_DIAGNOSTIC",
+        "FREEZE_REPRODUCTION",
+        "LIFECYCLE_AUTHORITY",
+        "ROUTING_COMPATIBILITY",
+        "CONSUMER_CONFORMANCE",
+        "I2_AUTHORIZATION_CONTROL",
+        "ROLLBACK",
+        "DEPENDENCY_APPROVAL"
+      ]
+    },
+    "run_id": {
+      "const": "E14-N1-I1-REMEDIATION-EVIDENCE-2026-08-27-R1"
+    },
+    "created_on": {
+      "const": "2026-08-27"
+    },
+    "status": {
+      "enum": ["PASS", "FAIL", "INCONCLUSIVE", "NOT_RUN"]
+    },
+    "authority_effect": {
+      "const": "NONE"
+    },
+    "next_stage_authorized": {
+      "const": false
+    },
+    "inputs": {
+      "type": "object"
+    },
+    "results": {
+      "type": "object"
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "bundle_root": {
+      "type": "string",
+      "pattern": "^sha256-e14-n1-i1-evidence-v1:[0-9A-F]{64}$"
+    }
+  },
+  "unevaluatedProperties": false
+}

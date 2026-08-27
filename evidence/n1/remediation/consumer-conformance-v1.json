@@ -1,0 +1,110 @@
+{
+  "authority_effect": "NONE",
+  "bundle_kind": "CONSUMER_CONFORMANCE",
+  "bundle_root": "sha256-e14-n1-i1-evidence-v1:AFE60B2837279ED961A1E6E806D680ECBDF4E2D8AB7C6165BB60CDEB25EDEA2D",
+  "created_on": "2026-08-27",
+  "inputs": {
+    "direct_case_corpus": {
+      "path": "fixtures/e14_n1_scanner_dataflow_cases_v1.json",
+      "sha256": "5A1B5A8890B418A700E4D0F51697C036371C399DA0F505810D9FE2235699408C"
+    },
+    "evidence_schema": {
+      "path": "schemas/e14-n1-i1-remediation-evidence-v1.schema.json",
+      "sha256": "71F93AFA83837F2F462F47A0F04D4DB0DECA6B9AD4FA851038D587231CA30C7F"
+    },
+    "evidence_tool": {
+      "path": "tools/e14_n1_i1_evidence.py",
+      "sha256": "5661342E5577C2A06B9432B474EC09F5C732B62BB2ACE0713EECF53716742589"
+    },
+    "failed_i1_review": {
+      "path": "evidence/n1/scanner-dataflow-review-v1.json",
+      "sha256": "9BC16CD18FC0D2672C6D9C12E4EAD21D03246B377F5AC918358B9654E40A9971"
+    },
+    "g1_v1": {
+      "path": "evidence/e14-a2-g1-production-freeze-v1.json",
+      "sha256": "57A9A1225972C65280530C040DFACCB68758D5364788216BC31354A5CF8A6916"
+    },
+    "model_case_corpus": {
+      "path": "fixtures/e14_n1_i1_remediation_cases_v1.json",
+      "sha256": "495D1D68B8F8886D004C0D48A2F42573F59AF8C3D5DBE91205BFE624D5C35C20"
+    },
+    "scanner": {
+      "path": "src/e14_admission.py",
+      "sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7"
+    }
+  },
+  "limitations": [
+    "The closed inventory covers this repository only and cannot prove absence of external consumers.",
+    "No production v2 consumer is registered by this evidence phase."
+  ],
+  "next_stage_authorized": false,
+  "results": {
+    "claim_to_action": {
+      "A2_PRESCAN_PASS_V2": "RECORD_EVIDENCE",
+      "DIAGNOSTIC_TOOL_COMPLETED_V1": "RECORD_EVIDENCE",
+      "EXACT_A2_IDENTITY_MATCH_V2": "RECORD_EVIDENCE",
+      "I1_SCANNER_NONINTERPRETATION_REVIEWED_V2": "RECORD_EVIDENCE"
+    },
+    "inventory": [
+      {
+        "claims": [
+          "A2_PRESCAN_PASS_V2",
+          "DIAGNOSTIC_TOOL_COMPLETED_V1",
+          "EXACT_A2_IDENTITY_MATCH_V2",
+          "I1_SCANNER_NONINTERPRETATION_REVIEWED_V2"
+        ],
+        "classification": "tools",
+        "path": "tools/e14_n1_i1_evidence.py"
+      },
+      {
+        "claims": [
+          "A2_PRESCAN_PASS_V2",
+          "DIAGNOSTIC_TOOL_COMPLETED_V1",
+          "EXACT_A2_IDENTITY_MATCH_V2",
+          "I1_SCANNER_NONINTERPRETATION_REVIEWED_V2"
+        ],
+        "classification": "docs",
+        "path": "docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-n1-i1-remediation-evidence-design.md"
+      }
+    ],
+    "production_consumers": [],
+    "repository_scope_only": true,
+    "synthetic_cases": {
+      "cases": [
+        {
+          "actual": "RECORD_EVIDENCE",
+          "case_id": "CONSUMER-RECORD-01",
+          "expected": "RECORD_EVIDENCE",
+          "pass": true,
+          "scenario": "prescan_record"
+        },
+        {
+          "actual": "N1_CLAIM_ACTION_FORBIDDEN",
+          "case_id": "CONSUMER-EXEC-01",
+          "expected": "N1_CLAIM_ACTION_FORBIDDEN",
+          "pass": true,
+          "scenario": "prescan_execute"
+        },
+        {
+          "actual": "N1_CONSUMER_UNLISTED",
+          "case_id": "CONSUMER-UNKNOWN-01",
+          "expected": "N1_CONSUMER_UNLISTED",
+          "pass": true,
+          "scenario": "unknown_consumer"
+        },
+        {
+          "actual": "N1_CLAIM_ACTION_FORBIDDEN",
+          "case_id": "CONSUMER-CLAIM-01",
+          "expected": "N1_CLAIM_ACTION_FORBIDDEN",
+          "pass": true,
+          "scenario": "unknown_claim"
+        }
+      ],
+      "passed": 4,
+      "total": 4
+    }
+  },
+  "run_id": "E14-N1-I1-REMEDIATION-EVIDENCE-2026-08-27-R1",
+  "schema": "sana.e14.n1-i1-remediation.consumer-conformance.v1",
+  "status": "PASS"
+}

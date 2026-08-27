@@ -1,0 +1,105 @@
+{
+  "authority_effect": "NONE",
+  "bundle_kind": "LIFECYCLE_AUTHORITY",
+  "bundle_root": "sha256-e14-n1-i1-evidence-v1:BBDB9189C7C53D37163741FBF1F62E9B1134F32096B15BF6FD27EE2C71D9155F",
+  "created_on": "2026-08-27",
+  "inputs": {
+    "direct_case_corpus": {
+      "path": "fixtures/e14_n1_scanner_dataflow_cases_v1.json",
+      "sha256": "5A1B5A8890B418A700E4D0F51697C036371C399DA0F505810D9FE2235699408C"
+    },
+    "evidence_schema": {
+      "path": "schemas/e14-n1-i1-remediation-evidence-v1.schema.json",
+      "sha256": "71F93AFA83837F2F462F47A0F04D4DB0DECA6B9AD4FA851038D587231CA30C7F"
+    },
+    "evidence_tool": {
+      "path": "tools/e14_n1_i1_evidence.py",
+      "sha256": "5661342E5577C2A06B9432B474EC09F5C732B62BB2ACE0713EECF53716742589"
+    },
+    "failed_i1_review": {
+      "path": "evidence/n1/scanner-dataflow-review-v1.json",
+      "sha256": "9BC16CD18FC0D2672C6D9C12E4EAD21D03246B377F5AC918358B9654E40A9971"
+    },
+    "g1_v1": {
+      "path": "evidence/e14-a2-g1-production-freeze-v1.json",
+      "sha256": "57A9A1225972C65280530C040DFACCB68758D5364788216BC31354A5CF8A6916"
+    },
+    "model_case_corpus": {
+      "path": "fixtures/e14_n1_i1_remediation_cases_v1.json",
+      "sha256": "495D1D68B8F8886D004C0D48A2F42573F59AF8C3D5DBE91205BFE624D5C35C20"
+    },
+    "scanner": {
+      "path": "src/e14_admission.py",
+      "sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7"
+    }
+  },
+  "limitations": [
+    "Synthetic role IDs cannot establish the real issuer, activator, disabler, or revoker.",
+    "No durable fresh-current-state provider or revocation custody has been evidenced."
+  ],
+  "next_stage_authorized": false,
+  "results": {
+    "append_only_custody": "UNRESOLVED",
+    "durable_current_state": "UNRESOLVED",
+    "model_status": "PASS",
+    "real_role_mapping": "UNRESOLVED",
+    "synthetic_state_model": {
+      "cases": [
+        {
+          "actual": "ACTIVE",
+          "case_id": "LIFE-ACTIVE-01",
+          "expected": "ACTIVE",
+          "pass": true,
+          "scenario": "activate_candidate"
+        },
+        {
+          "actual": "REVOKED",
+          "case_id": "LIFE-REVOKE-01",
+          "expected": "REVOKED",
+          "pass": true,
+          "scenario": "revoke_active"
+        },
+        {
+          "actual": "N1_G1_STATE_NOT_ACTIVE",
+          "case_id": "LIFE-REPLAY-01",
+          "expected": "N1_G1_STATE_NOT_ACTIVE",
+          "pass": true,
+          "scenario": "stale_active_after_revoke"
+        },
+        {
+          "actual": "N1_ROUTE_HISTORICAL_ONLY",
+          "case_id": "LIFE-HIST-01",
+          "expected": "N1_ROUTE_HISTORICAL_ONLY",
+          "pass": true,
+          "scenario": "historical_v1"
+        },
+        {
+          "actual": "N1_LIFECYCLE_EPOCH_MISMATCH",
+          "case_id": "LIFE-EPOCH-01",
+          "expected": "N1_LIFECYCLE_EPOCH_MISMATCH",
+          "pass": true,
+          "scenario": "skipped_epoch"
+        },
+        {
+          "actual": "N1_LIFECYCLE_PREDECESSOR_MISMATCH",
+          "case_id": "LIFE-PRED-01",
+          "expected": "N1_LIFECYCLE_PREDECESSOR_MISMATCH",
+          "pass": true,
+          "scenario": "wrong_predecessor"
+        },
+        {
+          "actual": "N1_LIFECYCLE_ROLE_UNAUTHORIZED",
+          "case_id": "LIFE-ROLE-01",
+          "expected": "N1_LIFECYCLE_ROLE_UNAUTHORIZED",
+          "pass": true,
+          "scenario": "unauthorized_role"
+        }
+      ],
+      "passed": 7,
+      "total": 7
+    }
+  },
+  "run_id": "E14-N1-I1-REMEDIATION-EVIDENCE-2026-08-27-R1",
+  "schema": "sana.e14.n1-i1-remediation.lifecycle-authority.v1",
+  "status": "INCONCLUSIVE"
+}
