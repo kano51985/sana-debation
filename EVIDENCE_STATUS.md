@@ -28,7 +28,7 @@ Command:
 python -m unittest discover -s tests -v
 ```
 
-Result: **126 tests passed, 0 failed**.
+Result: **146 tests passed, 0 failed**.
 
 Coverage includes:
 
@@ -171,4 +171,4 @@ N1 runtime component, qualification, authorization, admission root, or terminal.
 `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-debate.md` and
 `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-p3-n1-control-closure-spec.md`.
 
-The current repository test result is **92 tests passed, 0 failed**.
+The current repository test result is **146 tests passed, 0 failed**.
