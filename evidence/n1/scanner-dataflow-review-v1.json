@@ -1,0 +1,260 @@
+{
+  "authority_effect": "NONE",
+  "case_corpus": {
+    "case_count": 14,
+    "path": "fixtures/e14_n1_scanner_dataflow_cases_v1.json",
+    "sha256": "5A1B5A8890B418A700E4D0F51697C036371C399DA0F505810D9FE2235699408C"
+  },
+  "decision": "I1_FAIL_STOP",
+  "limitation": "This review tests exact source and named adversarial families; it does not prove semantic completeness or cognitive independence.",
+  "negative_cases": [
+    {
+      "actual_decision": "ACCEPT",
+      "case_id": "N1-DF-NODE-ALIAS-01",
+      "category": "ALIAS",
+      "error_code": null,
+      "language": "NODE",
+      "pass": false,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "ACCEPT",
+      "case_id": "N1-DF-NODE-REFLECTION-01",
+      "category": "REFLECTION",
+      "error_code": null,
+      "language": "NODE",
+      "pass": false,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "REJECT",
+      "case_id": "N1-DF-NODE-DYNAMIC-01",
+      "category": "DYNAMIC_CODE",
+      "error_code": "RUNTIME_DYNAMIC_LOAD_PROHIBITED",
+      "language": "NODE",
+      "pass": true,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "ACCEPT",
+      "case_id": "N1-DF-NODE-DESERIALIZER-01",
+      "category": "DESERIALIZER_CALLBACK",
+      "error_code": null,
+      "language": "NODE",
+      "pass": false,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "ACCEPT",
+      "case_id": "N1-DF-NODE-NATIVE-01",
+      "category": "NATIVE_LOAD",
+      "error_code": null,
+      "language": "NODE",
+      "pass": false,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "ACCEPT",
+      "case_id": "N1-DF-NODE-SUBPROCESS-01",
+      "category": "SUBPROCESS",
+      "error_code": null,
+      "language": "NODE",
+      "pass": false,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "ACCEPT",
+      "case_id": "N1-DF-NODE-OUTPUT-01",
+      "category": "OUTPUT_REENTRY",
+      "error_code": null,
+      "language": "NODE",
+      "pass": false,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "ACCEPT",
+      "case_id": "N1-DF-PYTHON-ALIAS-01",
+      "category": "ALIAS",
+      "error_code": null,
+      "language": "PYTHON",
+      "pass": false,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "ACCEPT",
+      "case_id": "N1-DF-PYTHON-REFLECTION-01",
+      "category": "REFLECTION",
+      "error_code": null,
+      "language": "PYTHON",
+      "pass": false,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "REJECT",
+      "case_id": "N1-DF-PYTHON-DYNAMIC-01",
+      "category": "DYNAMIC_CODE",
+      "error_code": "RUNTIME_DYNAMIC_LOAD_PROHIBITED",
+      "language": "PYTHON",
+      "pass": true,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "REJECT",
+      "case_id": "N1-DF-PYTHON-DESERIALIZER-01",
+      "category": "DESERIALIZER_CALLBACK",
+      "error_code": "VENDOR_DEPENDENCY_UNEXPECTED",
+      "language": "PYTHON",
+      "pass": true,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "REJECT",
+      "case_id": "N1-DF-PYTHON-NATIVE-01",
+      "category": "NATIVE_LOAD",
+      "error_code": "VENDOR_DEPENDENCY_UNEXPECTED",
+      "language": "PYTHON",
+      "pass": true,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "REJECT",
+      "case_id": "N1-DF-PYTHON-SUBPROCESS-01",
+      "category": "SUBPROCESS",
+      "error_code": "VENDOR_DEPENDENCY_UNEXPECTED",
+      "language": "PYTHON",
+      "pass": true,
+      "required_decision": "REJECT"
+    },
+    {
+      "actual_decision": "ACCEPT",
+      "case_id": "N1-DF-PYTHON-OUTPUT-01",
+      "category": "OUTPUT_REENTRY",
+      "error_code": null,
+      "language": "PYTHON",
+      "pass": false,
+      "required_decision": "REJECT"
+    }
+  ],
+  "next_stage_authorized": false,
+  "scanner": {
+    "expected_g1_sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7",
+    "matches_g1_freeze": true,
+    "path": "src/e14_admission.py",
+    "sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7"
+  },
+  "scanner_modified_by_stage": false,
+  "schema": "sana.e14.n1-scanner-dataflow-review.v1",
+  "source_audit": {
+    "bytes_parser_constructor_lines": [
+      805,
+      824
+    ],
+    "claim": "No scanner-source execution, network, process, deserializer, native-load, or write sink was found by the frozen AST policy.",
+    "dangerous_calls": [],
+    "dangerous_imports": [],
+    "filesystem_mutation_calls": [],
+    "fixed_callback_sites": [
+      {
+        "callback": "pairs_hook",
+        "keyword": "object_pairs_hook",
+        "line": 113,
+        "parser": "json.loads"
+      }
+    ],
+    "fixed_text_decode_lines": [
+      113,
+      142,
+      352,
+      400,
+      703,
+      722,
+      739,
+      750
+    ],
+    "imports": [
+      {
+        "line": 7,
+        "module": "__future__"
+      },
+      {
+        "line": 9,
+        "module": "ast"
+      },
+      {
+        "line": 10,
+        "module": "base64"
+      },
+      {
+        "line": 11,
+        "module": "binascii"
+      },
+      {
+        "line": 12,
+        "module": "csv"
+      },
+      {
+        "line": 13,
+        "module": "dataclasses"
+      },
+      {
+        "line": 14,
+        "module": "email"
+      },
+      {
+        "line": 15,
+        "module": "email.parser"
+      },
+      {
+        "line": 16,
+        "module": "hashlib"
+      },
+      {
+        "line": 17,
+        "module": "io"
+      },
+      {
+        "line": 18,
+        "module": "json"
+      },
+      {
+        "line": 19,
+        "module": "pathlib"
+      },
+      {
+        "line": 20,
+        "module": "posixpath"
+      },
+      {
+        "line": 21,
+        "module": "re"
+      },
+      {
+        "line": 22,
+        "module": "stat"
+      },
+      {
+        "line": 23,
+        "module": "struct"
+      },
+      {
+        "line": 24,
+        "module": "typing"
+      },
+      {
+        "line": 25,
+        "module": "zlib"
+      }
+    ],
+    "limitation": "Source inventory is exact for the frozen bytes but does not prove a benign Python runtime or standard library.",
+    "status": "PASS",
+    "vendor_selected_callback_sites": []
+  },
+  "status": "FAIL",
+  "stop_reason": "The frozen analyzer accepted one or more required-negative source patterns or the audit contract failed.",
+  "summary": {
+    "actual_rejects": 5,
+    "audit_errors": 0,
+    "required_rejects": 14,
+    "unexpected_accepts": 9
+  }
+}

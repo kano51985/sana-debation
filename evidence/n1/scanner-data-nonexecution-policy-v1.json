@@ -1,0 +1,25 @@
+{
+  "authority_effect": "NONE",
+  "case_corpus_sha256": "5A1B5A8890B418A700E4D0F51697C036371C399DA0F505810D9FE2235699408C",
+  "invariants": [
+    "Vendor archive and metadata bytes are parser or AST/text data only.",
+    "Vendor bytes never select a Python callback, import target, callable, codec, output sink, process, network endpoint, or filesystem mutation.",
+    "Scanner reports never re-enter a dynamic dispatcher or parser-selected callable.",
+    "The scanner performs read-only input access and creates no admission or lifecycle authority."
+  ],
+  "pass_scope": "A PASS would establish only the named frozen source/dataflow contract, not a malicious-TCB claim or operational authorization.",
+  "required_decision": "Every negative case must be REJECT.",
+  "required_negative_families": [
+    "ALIAS",
+    "REFLECTION",
+    "DYNAMIC_CODE",
+    "DESERIALIZER_CALLBACK",
+    "NATIVE_LOAD",
+    "SUBPROCESS",
+    "OUTPUT_REENTRY"
+  ],
+  "scanner_sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7",
+  "schema": "sana.e14.n1-scanner-data-nonexecution-policy.v1",
+  "scope": "Exact frozen E14 scanner source and its Node/Python source-closure analyzers",
+  "stop_rule": "Any unexpected acceptance or scanner-source dangerous sink produces I1_FAIL_STOP; the evidence run must not repair the scanner."
+}

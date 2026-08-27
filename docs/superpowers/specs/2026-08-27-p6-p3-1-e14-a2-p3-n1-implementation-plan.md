@@ -60,7 +60,13 @@ equivalence, unknown fields, wrong schema/profile/kind/media, duplicate keys, in
 surrogates, forbidden number forms and arrays, every cap boundary, deterministic failures, removed
 fixture fields, mutual v1 rejection, validity/revocation inputs, purity traps, and no fallback.
 
-## Future stage I1 — scanner dataflow qualification
+## Stage I1 — scanner dataflow qualification
+
+Status: **I1_FAIL_STOP**. The exact G1-frozen scanner remains unmodified and contains no scanner-
+source execution, network, process, deserializer, native-load, or write sink. Its source-closure
+analyzers nevertheless accepted 9 of 14 required-negative alias/reflection/callback/native/process/
+output-reentry cases. I2 is not authorized. Remediation requires a separately reviewed analyzer
+version, a new scanner hash, and replacement freeze evidence; it is not part of this evidence run.
 
 Proposed evidence artifacts:
 
@@ -69,6 +75,8 @@ evidence/n1/scanner-data-nonexecution-policy-v1.json
 evidence/n1/scanner-dataflow-review-v1.json
 evidence/n1/trusted-callback-manifest-v1.json
 fixtures/e14_n1_scanner_dataflow_cases_v1.json
+tools/e14_n1_dataflow_audit.py
+tests/test_e14_n1_scanner_dataflow.py
 ```
 
 Review the exact production scanner hash. Enumerate every parser callback and every path by which

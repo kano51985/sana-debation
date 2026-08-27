@@ -1,0 +1,62 @@
+{
+  "authority_effect": "NONE",
+  "callbacks": [
+    {
+      "callback_id": "JSON_OBJECT_PAIRS_HOOK",
+      "implementation": "local pairs_hook rejects duplicate keys",
+      "selected_by": "scanner source",
+      "sites": [
+        {
+          "callback": "pairs_hook",
+          "keyword": "object_pairs_hook",
+          "line": 113,
+          "parser": "json.loads"
+        }
+      ],
+      "trust_boundary": "frozen scanner bytes",
+      "vendor_selectable": false
+    },
+    {
+      "callback_id": "EMAIL_POLICY_HEADER_FACTORY",
+      "implementation": "CPython email package header factory",
+      "selected_by": "email_policy.default in scanner source",
+      "sites": [
+        805,
+        824
+      ],
+      "trust_boundary": "qualified CPython standard library",
+      "vendor_selectable": false
+    },
+    {
+      "callback_id": "FIXED_TEXT_CODEC_REGISTRY",
+      "implementation": "CPython codec registry",
+      "selected_by": "literal ascii or utf-8 codec names",
+      "sites": [
+        113,
+        142,
+        352,
+        400,
+        703,
+        722,
+        739,
+        750
+      ],
+      "trust_boundary": "qualified interpreter and preinitialized standard codecs",
+      "vendor_selectable": false
+    },
+    {
+      "callback_id": "AMBIENT_INTERPRETER_HOOKS",
+      "implementation": "audit, trace, profile, warning, and import hooks",
+      "selected_by": "host process before scanner entry",
+      "sites": [
+        "whole scanner process"
+      ],
+      "trust_boundary": "qualified host process; scanner cannot prove this boundary alone",
+      "vendor_selectable": false
+    }
+  ],
+  "conclusion": "No parser callback is selected by vendor bytes; ambient interpreter hooks remain an explicit TCB dependency.",
+  "scanner_sha256": "D8D51375723E8B705736CD9492825FCE03BC65CDACCE0DD6BE7791E3E51259C7",
+  "schema": "sana.e14.n1-trusted-callback-manifest.v1",
+  "status": "PASS_WITH_TCB_BOUNDARY"
+}

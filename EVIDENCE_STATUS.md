@@ -18,6 +18,7 @@ Generated under user authorization for evidence production only. The installed
 | P5 fresh evidence re-adjudication | **DEFER PENDING NAMED EVIDENCE** | Behavioral/reference gates pass, but real authority-route inventory, runtime enforcement, legacy round-trip, actual receipts/replay, live lineage canary, and end-to-end cost remain incomplete. |
 | E14 P3-N1 design and D0 fixtures | **DESIGN APPROVED; D0 PASS; V1 DRAFT RETIRED** | Chief approved the additive A2-only dedicated-image control-closure design. A fresh correction review replaced the unissued under-bound v1 envelope with v2; 35 nonauthoritative static cases pass locally. |
 | E14 P3-N1 I0 pure verifier | **PASS (SOURCE ONLY)** | Lifecycle-v2 binds schema/kind/profile/payload. The bounded byte parser, restricted canonical encoder, nominal verifier, and explicit use evaluation pass 27 focused tests. Schema-derived maxima retain at least 2x headroom. No live N1 root or authority exists. |
+| E14 P3-N1 I1 scanner dataflow | **FAIL — I1_FAIL_STOP** | Scanner hash still matches G1 and scanner source has no execution/network/process/write sink, but the existing analyzers accepted 9/14 required-negative alias, reflection, callback, native/process, and output-reentry cases. Scanner was not modified; I2 is not authorized. |
 
 ## Automated result
 
@@ -27,7 +28,7 @@ Command:
 python -m unittest discover -s tests -v
 ```
 
-Result: **119 tests passed, 0 failed**.
+Result: **126 tests passed, 0 failed**.
 
 Coverage includes:
 
@@ -74,6 +75,11 @@ Coverage includes:
   Unicode scalar/UTF-8 limits, duplicate decoded keys, invalid UTF-8/surrogates, forbidden arrays
   and number forms, deterministic offsets/pointers, immutable verified payloads, and ambient-I/O
   traps.
+- I1 reproduces the exact G1 scanner hash, inventories fixed parser/codec/email and ambient runtime
+  callback boundaries, and proves the scanner source itself has no execution, network, subprocess,
+  native-deserializer, or filesystem-write sink;
+- I1 also preserves a fail-closed negative result: only 5/14 source-closure attacks were rejected,
+  so analyzer completeness is not established and the evidence cannot advance to I2.
 
 ## E6 harness result
 

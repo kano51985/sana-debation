@@ -1,0 +1,105 @@
+{
+  "schema": "sana.e14.n1-scanner-dataflow-cases.v1",
+  "authority_effect": "NONE",
+  "purpose": "Adversarial source-as-data cases for the exact frozen E14 scanner analyzers.",
+  "cases": [
+    {
+      "case_id": "N1-DF-NODE-ALIAS-01",
+      "language": "NODE",
+      "category": "ALIAS",
+      "source": "const runner = eval; runner('2 + 2');\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-NODE-REFLECTION-01",
+      "language": "NODE",
+      "category": "REFLECTION",
+      "source": "globalThis['Function']('return 1')();\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-NODE-DYNAMIC-01",
+      "language": "NODE",
+      "category": "DYNAMIC_CODE",
+      "source": "import('./late.js');\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-NODE-DESERIALIZER-01",
+      "language": "NODE",
+      "category": "DESERIALIZER_CALLBACK",
+      "source": "JSON.parse(inputBytes, reviveFromInput);\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-NODE-NATIVE-01",
+      "language": "NODE",
+      "category": "NATIVE_LOAD",
+      "source": "process['dlopen'](module, inputPath);\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-NODE-SUBPROCESS-01",
+      "language": "NODE",
+      "category": "SUBPROCESS",
+      "source": "const cp = globalThis['process'].mainModule['require']('child_process'); cp.exec(inputBytes);\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-NODE-OUTPUT-01",
+      "language": "NODE",
+      "category": "OUTPUT_REENTRY",
+      "source": "const entry = JSON.parse(scannerOutput).entry; globalThis[entry]();\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-PYTHON-ALIAS-01",
+      "language": "PYTHON",
+      "category": "ALIAS",
+      "source": "runner = eval\nrunner('2 + 2')\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-PYTHON-REFLECTION-01",
+      "language": "PYTHON",
+      "category": "REFLECTION",
+      "source": "runner = getattr(__builtins__, 'exec')\nrunner('result = 1')\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-PYTHON-DYNAMIC-01",
+      "language": "PYTHON",
+      "category": "DYNAMIC_CODE",
+      "source": "compile('1 + 1', '<input>', 'eval')\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-PYTHON-DESERIALIZER-01",
+      "language": "PYTHON",
+      "category": "DESERIALIZER_CALLBACK",
+      "source": "import pickle\npickle.loads(input_bytes)\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-PYTHON-NATIVE-01",
+      "language": "PYTHON",
+      "category": "NATIVE_LOAD",
+      "source": "import ctypes\nctypes.CDLL(input_path)\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-PYTHON-SUBPROCESS-01",
+      "language": "PYTHON",
+      "category": "SUBPROCESS",
+      "source": "import subprocess\nsubprocess.run(input_command)\n",
+      "required_decision": "REJECT"
+    },
+    {
+      "case_id": "N1-DF-PYTHON-OUTPUT-01",
+      "language": "PYTHON",
+      "category": "OUTPUT_REENTRY",
+      "source": "handler = globals()[scanner_output['handler']]\nhandler()\n",
+      "required_decision": "REJECT"
+    }
+  ]
+}

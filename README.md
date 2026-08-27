@@ -44,6 +44,10 @@ fixed-three versus adaptive routed cycles. It is deliberately separate from the 
 - `src/e14_n1_artifacts.py` — pure nominal route, bounded raw-byte parser, restricted canonical encoder, root verifier, and explicit use evaluation.
 - `tests/test_e14_n1_artifacts.py` — independent root/canonical oracle, schema-parity, boundary, failure, anti-forgery, revocation, and purity tests.
 - `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-n1-i0-implementation-report.md` — I0 evidence and remaining authority boundary.
+- `tools/e14_n1_dataflow_audit.py` and `fixtures/e14_n1_scanner_dataflow_cases_v1.json` — read-only I1 source/callback audit and 14 adversarial cases.
+- `evidence/n1/` — I1 nonexecution policy, trusted-callback manifest, and reproducible `I1_FAIL_STOP` review.
+- `tests/test_e14_n1_scanner_dataflow.py` — scanner-hash, callback, attack-family, purity, and evidence-reproduction tests.
+- `docs/superpowers/specs/2026-08-27-p6-p3-1-e14-a2-n1-i1-scanner-dataflow-report.md` — I1 result and remediation boundary.
 - `fixtures/e14_n1_static_cases_v1.json` — 35 nonauthoritative routing, closure, replay, output, finalization, and rollback scenarios.
 - `tests/test_e14_n1_static_fixtures.py` — test-only schema and static-fixture conformance oracle; not an N1 runtime component.
 - `fixtures/e6_synthetic_results.jsonl` — intentionally synthetic failing data used only to test the grader.
@@ -57,7 +61,7 @@ cd C:\Users\Administrator\Documents\Codex\2026-08-25\zh\outputs\sana-v22-evidenc
 python -m unittest discover -s tests -v
 ```
 
-Expected: 119 tests, all passing.
+Expected: 126 tests, all passing.
 
 ## Run the E6 grader harness
 
