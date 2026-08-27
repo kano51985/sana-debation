@@ -66,16 +66,31 @@ may continue to consume a host's lifetime quota, so available active slots are n
 that later core roles can be created. Reserve three distinct thread identities for Proposing TL,
 Peer TL, and Chief Architect before admitting any optional role.
 
-When the host exposes no reliable lifetime-quota reservation, conservatively pre-create all three
-core threads with fresh contexts before optional dispatch. Start Proposing TL immediately. Peer TL
-and Chief Architect receive only their role contract and a readiness instruction; do not send them
-candidate, rebuttal, verdict, or preference artifacts before their protocol stage. A pre-created
-Chief remains eligible as fresh only while that boundary is preserved.
+Use the two-phase `core-two-phase-v1` startup barrier for every run, even when active capacity looks
+sufficient:
 
-If three core identities cannot be reserved, fail before substantive debate. If the core can be
-reserved but an optional identity cannot, record `OPTIONAL_THREAD_BUDGET_UNAVAILABLE`, downgrade to
-the unaffected core, and state which requested comparison or specialist was not run. Do not retry a
-thread-limit rejection unless the host reports a genuine quota increase.
+1. **PREPARE:** create fresh Proposing TL, Peer TL, and Chief Architect threads with readiness-only
+   instructions. Give each only its role contract, the exact protocol/schema tuple, and a request to
+   acknowledge readiness. Do not provide the decision frame, evidence ledger, P0, candidates,
+   rebuttals, intended verdict, or facilitator preference to any role yet.
+2. **COMMIT:** activate Proposing TL with the substantive frame and ledger only after all three
+   readiness receipts exist. Peer TL and Chief remain readiness-only until their normal protocol
+   stages. The debate becomes `RUNNING` only at this commit point.
+
+When the host offers an atomic lifetime-identity reservation, acquire all three identities in one
+operation before PREPARE. Otherwise the readiness barrier is the conservative fallback; active-slot
+counts alone are never treated as a reservation.
+
+If any core identity cannot be created, do not activate Proposing TL. Record
+`WAITING_FOR_CORE_CAPACITY`, state `Debate status: not run — real subagents unavailable`, and emit a
+non-authorizing `DebateContinuationPacketV1` as defined in the debate protocol. Do not reuse a
+partially created role in a later run, and do not retry a thread-limit rejection without an observed
+capacity or quota change. Any accidental substantive exposure before COMMIT changes the state to
+`ABORTED_PARTIAL_EXPOSURE`; exposed output is inadmissible and cannot enter a continuation run.
+
+If the core can be reserved but an optional identity cannot, record
+`OPTIONAL_THREAD_BUDGET_UNAVAILABLE`, downgrade to the unaffected core, and state which requested
+comparison or specialist was not run.
 
 Optional work must not occupy capacity or thread identities reserved for required roles. Optional
 roles receive no automatic retry; malformed or failed optional work normally falls back to the
@@ -126,9 +141,10 @@ adversarial generality. Freeze all three before the first rebuttal.
 
 ## Start candidates and specialists
 
-Start **Proposing TL** with its role contract, the frozen frame, ledger, and relevant artifacts. Ask
-for proposal P0 in implementable terms, including contracts, typed failures, migration, rollback,
-observability, resource effects, and unresolved assumptions.
+After the core startup COMMIT, activate the already prepared **Proposing TL** with its role contract,
+the frozen frame, ledger, and relevant artifacts. Ask for proposal P0 in implementable terms,
+including contracts, typed failures, migration, rollback, observability, resource effects, and
+unresolved assumptions.
 
 In `comparative` mode, start **Alternative Architect** concurrently when capacity permits. Give it
 the same neutral requirements and validated evidence, but do not provide P0 or the facilitator's
@@ -206,8 +222,11 @@ correction is allowed; if still invalid, report `defer pending valid chief-archi
 
 - Retry a failed or malformed required core response at most once with a focused correction.
 - If a required core role still fails, stop and do not issue approve.
+- Never send substantive material to any core role before all three readiness receipts exist.
 - Treat a thread-limit rejection as a quota fact, not a transient role-response failure. Do not
-  repeatedly dispatch the same optional role without an observed quota change.
+  redispatch a core or optional role without an observed quota change.
+- A continuation packet carries frozen inputs and failure state only. It grants no role, authority,
+  capacity, retry, or permission to resume in the current run.
 - Never replace an unavailable agent with root-authored content.
 - Preserve unresolved disagreements, optional failures, late artifacts, and missing evidence.
 - Debate agents remain read-only unless implementation is separately authorized.
@@ -227,9 +246,10 @@ Use this order unless the user requests another format:
 8. Chief Architect decision
 9. Required changes and next action
 
-The audit states `real-subagents`, every required and optional thread status/identifier exposed by
-the host, prompt/context isolation labels, skipped or late optional work, retries, and protocol
-failures. If it cannot truthfully do so, report that the debate did not run.
+The audit states `real-subagents`, startup protocol and state, every required and optional thread
+status/identifier exposed by the host, all readiness receipts, the COMMIT point or capacity failure,
+prompt/context isolation labels, skipped or late optional work, retries, continuation-packet status,
+and protocol failures. If it cannot truthfully do so, report that the debate did not run.
 
 Consolidate instead of dumping raw transcripts. Never omit evidence traceability, proposal changes,
 candidate uncertainty, unresolved risks, or the execution audit to save space.

@@ -11,6 +11,7 @@ from typing import Any
 
 
 CORE_PATHS = ("/root/proposing_tl", "/root/peer_tl", "/root/chief_architect")
+CORE_TASK_NAMES = tuple(path.rsplit("/", 1)[-1] for path in CORE_PATHS)
 
 
 def _text_content(payload: dict[str, Any]) -> str:
@@ -77,11 +78,13 @@ def audit_records(records: list[dict[str, Any]]) -> dict[str, Any]:
     spawns: list[dict[str, Any]] = []
     started: dict[str, str] = {}
     messages: dict[str, list[str]] = defaultdict(list)
+    readiness_positions: dict[str, int] = {}
+    proposer_activation_positions: list[int] = []
     timestamps: list[datetime] = []
     session_id = None
     cli_version = None
 
-    for record in records:
+    for position, record in enumerate(records):
         if isinstance(record.get("timestamp"), str):
             timestamps.append(datetime.fromisoformat(record["timestamp"].replace("Z", "+00:00")))
         payload = record.get("payload", {})
@@ -91,24 +94,42 @@ def audit_records(records: list[dict[str, Any]]) -> dict[str, Any]:
         if record.get("type") == "response_item" and payload.get("type") == "function_call":
             name = payload.get("name")
             calls[name] += 1
+            arguments = json.loads(payload.get("arguments", "{}"))
             if name == "spawn_agent":
-                arguments = json.loads(payload.get("arguments", "{}"))
                 spawns.append(
                     {
                         "task_name": arguments.get("task_name"),
                         "fork_turns": arguments.get("fork_turns"),
                     }
                 )
+            if name == "followup_task" and arguments.get("target") in {
+                "proposing_tl",
+                "/root/proposing_tl",
+            }:
+                proposer_activation_positions.append(position)
         if record.get("type") == "event_msg" and payload.get("type") == "item_completed":
             item = payload.get("item", {})
             if item.get("type") == "SubAgentActivity" and item.get("kind") == "started":
                 started[item.get("agent_path")] = item.get("agent_thread_id")
         if record.get("type") == "response_item" and payload.get("type") == "agent_message":
-            messages[payload.get("author")].append(_text_content(payload))
+            author = payload.get("author")
+            text = _text_content(payload)
+            messages[author].append(text)
+            if author in CORE_PATHS and author not in readiness_positions:
+                if _is_readiness_message(text, author):
+                    readiness_positions[author] = position
 
     first_messages = {
         path: (messages[path][0] if messages[path] else None) for path in CORE_PATHS
     }
+    core_started = {path: thread_id for path, thread_id in started.items() if path in CORE_PATHS}
+    core_spawns = [item for item in spawns if item.get("task_name") in CORE_TASK_NAMES]
+    all_core_readiness_only = set(readiness_positions) == set(CORE_PATHS)
+    commit_after_readiness = (
+        all_core_readiness_only
+        and bool(proposer_activation_positions)
+        and min(proposer_activation_positions) > max(readiness_positions.values())
+    )
     return {
         "parent_session_id": session_id,
         "cli_version": cli_version,
@@ -125,22 +146,29 @@ def audit_records(records: list[dict[str, Any]]) -> dict[str, Any]:
             "wait_agent": calls["wait_agent"],
         },
         "spawn_requests": spawns,
-        "core_threads": started,
+        "core_threads": core_started,
         "three_distinct_core_threads": (
-            set(started) == set(CORE_PATHS)
-            and len(set(started.values())) == 3
-            and all(started.values())
+            set(core_started) == set(CORE_PATHS)
+            and len(set(core_started.values())) == 3
+            and all(core_started.values())
         ),
         "all_core_threads_fork_turns_none": (
-            len(spawns) == 3 and all(item.get("fork_turns") == "none" for item in spawns)
+            len(core_spawns) == 3
+            and {item.get("task_name") for item in core_spawns} == set(CORE_TASK_NAMES)
+            and all(item.get("fork_turns") == "none" for item in core_spawns)
         ),
         "first_role_messages": first_messages,
+        "proposer_readiness_preceded_substantive_exposure": _is_readiness_message(
+            first_messages["/root/proposing_tl"], "/root/proposing_tl"
+        ),
         "peer_readiness_preceded_candidate_exposure": _is_readiness_message(
             first_messages["/root/peer_tl"], "/root/peer_tl"
         ),
         "chief_readiness_preceded_terminal_exposure": _is_readiness_message(
             first_messages["/root/chief_architect"], "/root/chief_architect"
         ),
+        "all_core_readiness_only": all_core_readiness_only,
+        "proposer_activation_after_all_core_readiness": commit_after_readiness,
     }
 
 

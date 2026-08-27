@@ -1,0 +1,5 @@
+interface:
+  display_name: "Sana Manager-Specialist Debate"
+  short_description: "Three-agent core with optional specialists"
+  default_prompt: "Use $sana-debation to run an auditable three-agent architecture debate and add bounded alternative or domain specialists only when they can change the decision."
+

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sana.local/schemas/debate-continuation-v1.schema.json",
+  "title": "Sana debate continuation packet v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "startup_protocol",
+    "run_id",
+    "state",
+    "frozen_inputs",
+    "core_roles",
+    "substantive_exposure_roles",
+    "substantive_artifacts_admissible",
+    "resume_requirements",
+    "packet_hash"
+  ],
+  "properties": {
+    "schema": {"const": "sana.debate-continuation.v1"},
+    "startup_protocol": {"const": "core-two-phase-v1"},
+    "run_id": {"type": "string", "minLength": 1},
+    "state": {
+      "enum": ["WAITING_FOR_CORE_CAPACITY", "ABORTED_PARTIAL_EXPOSURE"]
+    },
+    "frozen_inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["frame_sha256", "evidence_ledger_sha256", "routing_manifest_sha256"],
+      "properties": {
+        "frame_sha256": {"$ref": "#/$defs/sha256"},
+        "evidence_ledger_sha256": {"$ref": "#/$defs/sha256"},
+        "routing_manifest_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "core_roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["proposing_tl", "peer_tl", "chief_architect"],
+      "properties": {
+        "proposing_tl": {"$ref": "#/$defs/roleAttempt"},
+        "peer_tl": {"$ref": "#/$defs/roleAttempt"},
+        "chief_architect": {"$ref": "#/$defs/roleAttempt"}
+      }
+    },
+    "substantive_exposure_roles": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"enum": ["proposing_tl", "peer_tl", "chief_architect"]}
+    },
+    "substantive_artifacts_admissible": {"const": false},
+    "resume_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "parent_run_id",
+        "new_run_required",
+        "fresh_core_threads_required",
+        "revalidate_frozen_hashes",
+        "reuse_partial_threads",
+        "observed_capacity_change_required"
+      ],
+      "properties": {
+        "parent_run_id": {"type": "string", "minLength": 1},
+        "new_run_required": {"const": true},
+        "fresh_core_threads_required": {"const": true},
+        "revalidate_frozen_hashes": {"const": true},
+        "reuse_partial_threads": {"const": false},
+        "observed_capacity_change_required": {"const": true}
+      }
+    },
+    "packet_hash": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "roleAttempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "status", "thread_id", "error_code"],
+      "properties": {
+        "role": {"enum": ["proposing_tl", "peer_tl", "chief_architect"]},
+        "status": {"enum": ["NOT_ATTEMPTED", "READY", "THREAD_LIMIT_REACHED"]},
+        "thread_id": {"type": ["string", "null"]},
+        "error_code": {"type": ["string", "null"]}
+      }
+    }
+  }
+}
+

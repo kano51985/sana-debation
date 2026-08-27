@@ -51,7 +51,7 @@ class SessionAuditTests(unittest.TestCase):
                     },
                 ]
             )
-        for role in ("peer_tl", "chief_architect"):
+        for role in ("proposing_tl", "peer_tl", "chief_architect"):
             records.append(
                 {
                     "timestamp": "2026-08-25T00:00:20Z",
@@ -71,12 +71,163 @@ class SessionAuditTests(unittest.TestCase):
                     },
                 }
             )
+        records.append(
+            {
+                "timestamp": "2026-08-25T00:00:21Z",
+                "type": "response_item",
+                "payload": {
+                    "type": "function_call",
+                    "name": "followup_task",
+                    "arguments": json.dumps(
+                        {"target": "/root/proposing_tl", "message": "produce P0"}
+                    ),
+                },
+            }
+        )
 
         result = audit_records(records)
         self.assertTrue(result["three_distinct_core_threads"])
         self.assertTrue(result["all_core_threads_fork_turns_none"])
+        self.assertTrue(result["proposer_readiness_preceded_substantive_exposure"])
         self.assertTrue(result["peer_readiness_preceded_candidate_exposure"])
         self.assertTrue(result["chief_readiness_preceded_terminal_exposure"])
+        self.assertTrue(result["all_core_readiness_only"])
+        self.assertTrue(result["proposer_activation_after_all_core_readiness"])
+
+    def test_optional_agent_does_not_invalidate_prepared_core(self) -> None:
+        records = []
+        for index, role in enumerate(("proposing_tl", "peer_tl", "chief_architect"), 1):
+            path = f"/root/{role}"
+            records.extend(
+                [
+                    {
+                        "type": "response_item",
+                        "payload": {
+                            "type": "function_call",
+                            "name": "spawn_agent",
+                            "arguments": json.dumps(
+                                {"task_name": role, "fork_turns": "none", "message": "ready"}
+                            ),
+                        },
+                    },
+                    {
+                        "type": "event_msg",
+                        "payload": {
+                            "type": "item_completed",
+                            "item": {
+                                "type": "SubAgentActivity",
+                                "kind": "started",
+                                "agent_path": path,
+                                "agent_thread_id": f"thread-{index}",
+                            },
+                        },
+                    },
+                    {
+                        "type": "response_item",
+                        "payload": {
+                            "type": "agent_message",
+                            "author": path,
+                            "content": [
+                                {
+                                    "type": "input_text",
+                                    "text": (
+                                        "Message Type: FINAL_ANSWER\nTask name: /root\n"
+                                        f"Sender: {path}\nPayload:\nREADY"
+                                    ),
+                                }
+                            ],
+                        },
+                    },
+                ]
+            )
+        records.extend(
+            [
+                {
+                    "type": "response_item",
+                    "payload": {
+                        "type": "function_call",
+                        "name": "spawn_agent",
+                        "arguments": json.dumps(
+                            {
+                                "task_name": "evidence_scout",
+                                "fork_turns": "none",
+                                "message": "bounded evidence",
+                            }
+                        ),
+                    },
+                },
+                {
+                    "type": "event_msg",
+                    "payload": {
+                        "type": "item_completed",
+                        "item": {
+                            "type": "SubAgentActivity",
+                            "kind": "started",
+                            "agent_path": "/root/evidence_scout",
+                            "agent_thread_id": "thread-optional",
+                        },
+                    },
+                },
+            ]
+        )
+        result = audit_records(records)
+        self.assertTrue(result["three_distinct_core_threads"])
+        self.assertTrue(result["all_core_threads_fork_turns_none"])
+        self.assertNotIn("/root/evidence_scout", result["core_threads"])
+
+    def test_rejects_old_partial_start_where_proposer_runs_before_core_ready(self) -> None:
+        records = [
+            {
+                "timestamp": "2026-08-25T00:00:00Z",
+                "type": "response_item",
+                "payload": {
+                    "type": "function_call",
+                    "name": "spawn_agent",
+                    "arguments": json.dumps(
+                        {
+                            "task_name": "proposing_tl",
+                            "fork_turns": "none",
+                            "message": "produce P0 now",
+                        }
+                    ),
+                },
+            },
+            {
+                "timestamp": "2026-08-25T00:00:01Z",
+                "type": "event_msg",
+                "payload": {
+                    "type": "item_completed",
+                    "item": {
+                        "type": "SubAgentActivity",
+                        "kind": "started",
+                        "agent_path": "/root/proposing_tl",
+                        "agent_thread_id": "thread-proposer",
+                    },
+                },
+            },
+            {
+                "timestamp": "2026-08-25T00:00:02Z",
+                "type": "response_item",
+                "payload": {
+                    "type": "agent_message",
+                    "author": "/root/proposing_tl",
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": (
+                                "Message Type: FINAL_ANSWER\nTask name: /root\n"
+                                "Sender: /root/proposing_tl\nPayload:\nP0 proposes a design"
+                            ),
+                        }
+                    ],
+                },
+            },
+        ]
+        result = audit_records(records)
+        self.assertFalse(result["three_distinct_core_threads"])
+        self.assertFalse(result["proposer_readiness_preceded_substantive_exposure"])
+        self.assertFalse(result["all_core_readiness_only"])
+        self.assertFalse(result["proposer_activation_after_all_core_readiness"])
 
     def test_accepts_bounded_readiness_variant_but_not_substantive_payload(self) -> None:
         base = (
